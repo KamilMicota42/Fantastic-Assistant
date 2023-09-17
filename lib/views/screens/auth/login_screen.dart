@@ -14,6 +14,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +33,26 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const Text(
               'Login screen',
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: TextField(
+                controller: emailController,
+                decoration: const InputDecoration(hintText: 'Email'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(hintText: 'Password'),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text(
+                'Log in',
+              ),
             ),
             ElevatedButton(
               onPressed: () {
