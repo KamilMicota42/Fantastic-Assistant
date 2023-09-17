@@ -9,15 +9,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:default_project_architecture/views/screens/auth/login_or_register_screen.dart'
+import 'package:fantastic_assistant/views/screens/auth/login_or_register_screen.dart'
     as _i2;
-import 'package:default_project_architecture/views/screens/auth/login_screen.dart'
+import 'package:fantastic_assistant/views/screens/auth/login_screen.dart'
     as _i3;
-import 'package:default_project_architecture/views/screens/auth/register_screen.dart'
+import 'package:fantastic_assistant/views/screens/auth/register_screen.dart'
     as _i4;
-import 'package:default_project_architecture/views/screens/auth/resend_the_verification_screen.dart'
+import 'package:fantastic_assistant/views/screens/auth/resend_the_verification_screen.dart'
     as _i5;
-import 'package:default_project_architecture/views/screens/homepage/homepage_screen.dart'
+import 'package:fantastic_assistant/views/screens/homepage/homepage_screen.dart'
     as _i1;
 
 abstract class $AppRouter extends _i6.RootStackRouter {

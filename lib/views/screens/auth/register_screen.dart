@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:default_project_architecture/services/firebase/firebase_auth_methods.dart';
-import 'package:default_project_architecture/utils/methods/show_snack_bar.dart';
+import 'package:fantastic_assistant/services/firebase/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

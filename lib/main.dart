@@ -1,5 +1,5 @@
-import 'package:default_project_architecture/firebase_options.dart';
-import 'package:default_project_architecture/settings/injection.dart';
+import 'package:fantastic_assistant/firebase_options.dart';
+import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
