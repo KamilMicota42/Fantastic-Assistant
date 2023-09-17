@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "931578638944",
+    "project_id": "fantastic-assistant-c7488",
+    "storage_bucket": "fantastic-assistant-c7488.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931578638944:android:65ca903bc67bd7846c8905",
+        "android_client_info": {
+          "package_name": "com.example.fantastic_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTXPznenD4OeLWk0r7yfb5b-vR0KWQ6Mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
