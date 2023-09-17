@@ -2,6 +2,7 @@ import 'package:default_project_architecture/firebase_options.dart';
 import 'package:default_project_architecture/settings/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'settings/routes/app_router.dart';
 
@@ -11,6 +12,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies(Environment.dev);
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
