@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:default_project_architecture/services/firebase/firebase_auth_methods.dart';
+import 'package:default_project_architecture/utils/methods/show_snack_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
@@ -24,6 +27,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     passwordController.dispose();
     repeatPasswordController.dispose();
     super.dispose();
+  }
+
+  void signUpUser() async {
+    FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
   }
 
   @override
@@ -58,7 +69,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (passwordController.text == repeatPasswordController.text) {
+                  signUpUser();
+                } else {
+                  showSnackBar(context, 'Passwords do not match');
+                }
+              },
               child: const Text(
                 'Register',
               ),

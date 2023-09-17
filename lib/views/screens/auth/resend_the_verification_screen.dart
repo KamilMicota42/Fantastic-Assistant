@@ -1,37 +1,34 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:default_project_architecture/services/firebase/firebase_auth_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../services/firebase/firebase_auth_methods.dart';
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
 
 @RoutePage()
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ResendTheVerificationScreen extends StatefulWidget {
+  const ResendTheVerificationScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ResendTheVerificationScreen> createState() =>
+      _ResendTheVerificationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ResendTheVerificationScreenState
+    extends State<ResendTheVerificationScreen> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
-  void loginUser() {
-    FirebaseAuthMethods(FirebaseAuth.instance).loginWEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-      context: context,
-    );
+  void resendTheVerificationMessage() async {
+    FirebaseAuthMethods(FirebaseAuth.instance)
+        .sendEmailVerification(context, emailController.text);
   }
 
   @override
@@ -42,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Login screen',
+              'Resend the email verification',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -51,17 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(hintText: 'Email'),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(hintText: 'Password'),
-              ),
-            ),
             ElevatedButton(
-              onPressed: loginUser,
+              onPressed: resendTheVerificationMessage,
               child: const Text(
-                'Log in',
+                'Resend the verification',
               ),
             ),
             ElevatedButton(
