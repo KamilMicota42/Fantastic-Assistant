@@ -8,7 +8,7 @@ class FirebaseAuthCurrentUser extends Cubit<User?> {
     emit(newUser);
   }
 
-  void deleteCurrentUser() {
+  void removeCurrUser() {
     emit(null);
   }
 }
