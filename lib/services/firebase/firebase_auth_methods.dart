@@ -68,4 +68,21 @@ class FirebaseAuthMethods {
       }
     }
   }
+
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: email,
+      );
+      if (!context.mounted) return;
+      showSnackBar(context, 'Reset password message sent to: $email');
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.message);
+      if (!context.mounted) return;
+      showSnackBar(context, e.message!);
+    }
+  }
 }

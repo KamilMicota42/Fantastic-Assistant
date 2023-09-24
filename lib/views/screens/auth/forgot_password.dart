@@ -8,28 +8,25 @@ import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
 
 @RoutePage()
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreen();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
   void loginUser() {
-    FirebaseAuthMethods(FirebaseAuth.instance).loginWEmailAndPassword(
+    FirebaseAuthMethods(FirebaseAuth.instance).resetPassword(
       email: emailController.text,
-      password: passwordController.text,
       context: context,
     );
   }
@@ -42,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Login screen',
+              'Forgot password screen',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -51,33 +48,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(hintText: 'Email'),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(hintText: 'Password'),
-              ),
-            ),
             ElevatedButton(
               onPressed: loginUser,
               child: const Text(
-                'Log in',
+                'Send an email with reminder',
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                getIt<AppRouter>().navigate(const ForgotPasswordRoute());
+                getIt<AppRouter>().navigate(const LoginRoute());
               },
               child: const Text(
-                'go to forgot password screen',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getIt<AppRouter>().navigate(const LoginOrRegisterRoute());
-              },
-              child: const Text(
-                'go to login or rergister',
+                'go to login screen',
               ),
             ),
           ],
