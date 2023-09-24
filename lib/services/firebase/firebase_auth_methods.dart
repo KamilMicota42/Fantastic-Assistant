@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/cubits/firebase_auth_current_user.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/cubits/firebase_auth_current_user.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
