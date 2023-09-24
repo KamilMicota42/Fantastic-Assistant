@@ -1,3 +1,4 @@
+import 'package:fantastic_assistant/services/cubits/firebase_auth_current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -54,6 +55,7 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
+        getIt<FirebaseAuthCurrentUser>().setNewUser(_auth.currentUser);
         getIt<AppRouter>().navigate(const HomepageRoute());
       }
     } on FirebaseAuthException catch (e) {
@@ -69,6 +71,7 @@ class FirebaseAuthMethods {
     }
   }
 
+  // FORGOT PASSWORD FUNCTION
   Future<void> resetPassword({
     required String email,
     required BuildContext context,
