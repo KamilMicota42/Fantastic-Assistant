@@ -10,7 +10,7 @@ class FirebaseAuthCurrentUserUid extends Cubit<String?> {
   }
 
   void removeCurrUserUid() {
-    removeStringToSP('user_uid');
+    removeValueToSP('user_uid');
     emit(null);
   }
 }
