@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,6 +9,6 @@ GetIt getIt = GetIt.instance;
 @InjectableInit()
 Future<void> configureDependencies(String env) async {
   getIt.init(environment: env);
-  getIt.registerLazySingleton<FirebaseAuthCurrentUser>(
-      () => FirebaseAuthCurrentUser());
+  getIt.registerLazySingleton<FirebaseAuthCurrentUserUid>(
+      () => FirebaseAuthCurrentUserUid());
 }

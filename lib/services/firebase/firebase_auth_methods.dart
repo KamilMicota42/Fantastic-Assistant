@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -55,7 +55,8 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        getIt<FirebaseAuthCurrentUser>().setNewUser(_auth.currentUser);
+        getIt<FirebaseAuthCurrentUserUid>()
+            .setNewUserUid(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const HomepageRoute());
       }
     } on FirebaseAuthException catch (e) {
@@ -96,7 +97,7 @@ class FirebaseAuthMethods {
     try {
       await _auth.signOut();
       if (!context.mounted) return;
-      getIt<FirebaseAuthCurrentUser>().removeCurrUser();
+      getIt<FirebaseAuthCurrentUserUid>().removeCurrUserUid();
       getIt<AppRouter>().navigate(const LoginOrRegisterRoute());
       showSnackBar(context, 'Successfully sign out.');
     } on FirebaseAuthException catch (e) {
