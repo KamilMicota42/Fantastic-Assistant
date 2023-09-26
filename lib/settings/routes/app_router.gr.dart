@@ -19,7 +19,7 @@ import 'package:fantastic_assistant/views/screens/auth/register_screen.dart'
     as _i6;
 import 'package:fantastic_assistant/views/screens/auth/resend_the_verification_screen.dart'
     as _i7;
-import 'package:fantastic_assistant/views/screens/homepage/homepage_screen.dart'
+import 'package:fantastic_assistant/views/screens/main/homepage_screen.dart'
     as _i2;
 import 'package:fantastic_assistant/views/screens/inital_loading/initial_loading_screen.dart'
     as _i3;

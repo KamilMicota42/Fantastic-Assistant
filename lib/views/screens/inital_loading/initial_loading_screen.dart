@@ -30,7 +30,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
 
     if (userUid != null) {
       Timer(
-        const Duration(seconds: 2),
+        const Duration(seconds: 1),
         () {
           getIt<FirebaseAuthCurrentUserUid>()
               .setNewUserUid(sp.getString('user_uid'));
@@ -39,7 +39,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
       );
     } else {
       Timer(
-        const Duration(seconds: 2),
+        const Duration(seconds: 1),
         () {
           getIt<AppRouter>().replace(const LoginOrRegisterRoute());
         },
