@@ -57,7 +57,7 @@ class FirebaseAuthMethods {
       } else if (_auth.currentUser!.emailVerified) {
         getIt<FirebaseAuthCurrentUserUid>()
             .setNewUserUid(_auth.currentUser!.uid);
-        getIt<AppRouter>().replace(const HomepageRoute());
+        getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
@@ -98,7 +98,7 @@ class FirebaseAuthMethods {
       await _auth.signOut();
       if (!context.mounted) return;
       getIt<FirebaseAuthCurrentUserUid>().removeCurrUserUid();
-      getIt<AppRouter>().navigate(const LoginOrRegisterRoute());
+      getIt<AppRouter>().replace(const LoginOrRegisterRoute());
       showSnackBar(context, 'Successfully sign out.');
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);

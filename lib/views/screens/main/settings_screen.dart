@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../../services/firebase/firebase_auth_methods.dart';
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
@@ -10,15 +13,29 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  void logUserOut() {
+    FirebaseAuthMethods(FirebaseAuth.instance).signOut(
+      context: context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Settings screen',
+            ),
+            ElevatedButton(
+              onPressed: () {
+                logUserOut();
+              },
+              child: const Text(
+                'Sign out',
+              ),
             ),
           ],
         ),

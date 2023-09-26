@@ -34,7 +34,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
         () {
           getIt<FirebaseAuthCurrentUserUid>()
               .setNewUserUid(sp.getString('user_uid'));
-          getIt<AppRouter>().replace(const HomepageRoute());
+          getIt<AppRouter>().replace(const MainRoute());
         },
       );
     } else {

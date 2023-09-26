@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../../services/firebase/firebase_auth_methods.dart';
 
 @RoutePage()
 class HomepageScreen extends StatefulWidget {
@@ -13,29 +10,15 @@ class HomepageScreen extends StatefulWidget {
 }
 
 class _HomepageScreenState extends State<HomepageScreen> {
-  void logUserOut() {
-    FirebaseAuthMethods(FirebaseAuth.instance).signOut(
-      context: context,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Homepage screen',
-            ),
-            ElevatedButton(
-              onPressed: () {
-                logUserOut();
-              },
-              child: const Text(
-                'Sign out',
-              ),
             ),
           ],
         ),
