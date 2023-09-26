@@ -29,15 +29,21 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
     String? userUid = sp.getString('user_uid');
 
     if (userUid != null) {
-      Timer(const Duration(seconds: 2), () {
-        getIt<FirebaseAuthCurrentUserUid>()
-            .setNewUserUid(sp.getString('user_uid'));
-        getIt<AppRouter>().replace(const HomepageRoute());
-      });
+      Timer(
+        const Duration(seconds: 2),
+        () {
+          getIt<FirebaseAuthCurrentUserUid>()
+              .setNewUserUid(sp.getString('user_uid'));
+          getIt<AppRouter>().replace(const HomepageRoute());
+        },
+      );
     } else {
-      Timer(const Duration(seconds: 2), () {
-        getIt<AppRouter>().replace(const LoginOrRegisterRoute());
-      });
+      Timer(
+        const Duration(seconds: 2),
+        () {
+          getIt<AppRouter>().replace(const LoginOrRegisterRoute());
+        },
+      );
     }
   }
 
