@@ -16,8 +16,9 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  final CollectionReference _characters =
-      FirebaseFirestore.instance.collection('characters');
+  final _characters = FirebaseFirestore.instance.collection('characters').where(
+      'account_id',
+      isEqualTo: getIt<FirebaseAuthCurrentUserUid>().state);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
