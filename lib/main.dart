@@ -1,16 +1,15 @@
 import 'package:fantastic_assistant/firebase_options.dart';
-import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+
+import 'settings/injection.dart';
 import 'settings/routes/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configureDependencies(Environment.dev);
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
