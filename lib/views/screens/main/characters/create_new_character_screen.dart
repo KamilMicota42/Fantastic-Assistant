@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../services/api/characters/create_character.dart';
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../settings/routes/app_router.gr.dart';
+import '../../../../utils/methods/data_validation.dart';
 
 @RoutePage()
 class CreateNewCharacterScreen extends StatefulWidget {
@@ -19,8 +20,6 @@ class _CreateNewCharacterScreen extends State<CreateNewCharacterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _maxHpController = TextEditingController();
   final TextEditingController _currHpController = TextEditingController();
-  final CollectionReference _characters =
-      FirebaseFirestore.instance.collection('characters');
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +46,31 @@ class _CreateNewCharacterScreen extends State<CreateNewCharacterScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: TextField(
-                controller: _maxHpController,
-                decoration: const InputDecoration(hintText: 'Max hp'),
-              ),
+                  controller: _maxHpController,
+                  decoration: const InputDecoration(hintText: 'Max hp'),
+                  keyboardType: TextInputType.number),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: TextField(
-                controller: _currHpController,
-                decoration: const InputDecoration(hintText: 'Curr hp'),
-              ),
+                  controller: _currHpController,
+                  decoration: const InputDecoration(hintText: 'Curr hp'),
+                  keyboardType: TextInputType.number),
             ),
             ElevatedButton(
               onPressed: () {
-                _characters.add({
-                  'account_id': getIt<FirebaseAuthCurrentUserUid>().state,
-                  'character_name': _nameController.text,
-                  'character_max_hp': _maxHpController.text,
-                  'character_curr_hp': _currHpController.text,
-                });
+                if (_nameController.text.isNotEmpty &&
+                    isIntable(_maxHpController.text) &&
+                    isIntable(_currHpController.text)) {
+                  createNewCharacter(
+                    context,
+                    _nameController.text,
+                    _maxHpController.text,
+                    _currHpController.text,
+                  );
+                } else {
+                  showSnackBar(context, 'Values are not correct');
+                }
               },
               child: const Text(
                 'Create',

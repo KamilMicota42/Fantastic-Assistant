@@ -24,7 +24,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Padding(
               padding: EdgeInsets.only(top: 50),
@@ -32,13 +32,13 @@ class _CharactersScreenState extends State<CharactersScreen> {
                 'Characters screen',
               ),
             ),
-            Expanded(
-              child: StreamBuilder(
-                  stream: _characters.snapshots(),
-                  builder:
-                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    if (streamSnapshot.hasData) {
-                      return ListView.builder(
+            StreamBuilder(
+                stream: _characters.snapshots(),
+                builder:
+                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    return Expanded(
+                      child: ListView.builder(
                         itemCount: streamSnapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           final DocumentSnapshot documentSnapshot =
@@ -62,11 +62,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
                           }
                           return const SizedBox();
                         },
-                      );
-                    }
-                    return const CircularProgressIndicator();
-                  }),
-            ),
+                      ),
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                }),
             ElevatedButton(
               onPressed: () {
                 getIt<AppRouter>().navigate(const CreateNewCharacterRoute());
