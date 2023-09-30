@@ -53,7 +53,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                     documentSnapshot['character_name'],
                                   ),
                                   subtitle: Text(
-                                    documentSnapshot['account_id'],
+                                    documentSnapshot.id,
                                   ),
                                 ),
                               ),
