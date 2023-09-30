@@ -12,13 +12,19 @@ class CharactersScreen extends StatefulWidget {
 class _CharactersScreenState extends State<CharactersScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Characters screen',
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text(
+                'Create a new character',
+              ),
             ),
           ],
         ),
