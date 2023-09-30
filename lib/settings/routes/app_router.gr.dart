@@ -42,10 +42,10 @@ abstract class $AppRouter extends _i12.RootStackRouter {
         child: const _i1.CharactersScreen(),
       );
     },
-    CreateNewCharacterRoute.name: (routeData) {
+    CreateCharacterRoute.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.CreateNewCharacterScreen(),
+        child: const _i2.CreateCharacterScreen(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
@@ -120,15 +120,15 @@ class CharactersRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.CreateNewCharacterScreen]
-class CreateNewCharacterRoute extends _i12.PageRouteInfo<void> {
-  const CreateNewCharacterRoute({List<_i12.PageRouteInfo>? children})
+/// [_i2.CreateCharacterScreen]
+class CreateCharacterRoute extends _i12.PageRouteInfo<void> {
+  const CreateCharacterRoute({List<_i12.PageRouteInfo>? children})
       : super(
-          CreateNewCharacterRoute.name,
+          CreateCharacterRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CreateNewCharacterRoute';
+  static const String name = 'CreateCharacterRoute';
 
   static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }

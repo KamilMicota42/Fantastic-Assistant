@@ -69,7 +69,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                 }),
             ElevatedButton(
               onPressed: () {
-                getIt<AppRouter>().navigate(const CreateNewCharacterRoute());
+                getIt<AppRouter>().navigate(const CreateCharacterRoute());
               },
               child: const Text(
                 'Create a new character',

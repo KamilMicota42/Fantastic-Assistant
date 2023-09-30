@@ -10,7 +10,7 @@ import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 final CollectionReference _characters =
     FirebaseFirestore.instance.collection('characters');
 
-Future<void> createNewCharacter(
+Future<void> createCharacter(
     BuildContext context, String name, String maxHp, String currHp) async {
   try {
     _characters.add({

@@ -9,14 +9,14 @@ import '../../../../settings/routes/app_router.gr.dart';
 import '../../../../utils/methods/data_validation.dart';
 
 @RoutePage()
-class CreateNewCharacterScreen extends StatefulWidget {
-  const CreateNewCharacterScreen({super.key});
+class CreateCharacterScreen extends StatefulWidget {
+  const CreateCharacterScreen({super.key});
 
   @override
-  State<CreateNewCharacterScreen> createState() => _CreateNewCharacterScreen();
+  State<CreateCharacterScreen> createState() => _CreateCharacterScreen();
 }
 
-class _CreateNewCharacterScreen extends State<CreateNewCharacterScreen> {
+class _CreateCharacterScreen extends State<CreateCharacterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _maxHpController = TextEditingController();
   final TextEditingController _currHpController = TextEditingController();
@@ -62,7 +62,7 @@ class _CreateNewCharacterScreen extends State<CreateNewCharacterScreen> {
                 if (_nameController.text.isNotEmpty &&
                     isIntable(_maxHpController.text) &&
                     isIntable(_currHpController.text)) {
-                  createNewCharacter(
+                  createCharacter(
                     context,
                     _nameController.text,
                     _maxHpController.text,
