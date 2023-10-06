@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/models/characters/character.dart';
 import 'package:fantastic_assistant/services/cubits/characters_related_cubits/current_character_id.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:flutter/material.dart';
@@ -58,8 +59,18 @@ class _CharactersScreenState extends State<CharactersScreen> {
                               ),
                             ),
                             onTap: () {
-                              getIt<CurrentCharacterId>()
-                                  .setId(documentSnapshot.id);
+                              getIt<CurrentCharacter>().set(
+                                Character(
+                                  accountId: documentSnapshot.get('account_id'),
+                                  characterId: documentSnapshot.id,
+                                  characterCurrHp:
+                                      documentSnapshot.get('character_curr_hp'),
+                                  characterMaxHp:
+                                      documentSnapshot.get('character_max_hp'),
+                                  characterName:
+                                      documentSnapshot.get('character_name'),
+                                ),
+                              );
                               getIt<AppRouter>()
                                   .navigate(const CharacterDetailsRoute());
                             },

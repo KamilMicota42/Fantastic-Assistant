@@ -1,13 +1,14 @@
+import 'package:fantastic_assistant/models/characters/character.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CurrentCharacterId extends Cubit<String?> {
-  CurrentCharacterId() : super(null);
+class CurrentCharacter extends Cubit<Character?> {
+  CurrentCharacter() : super(null);
 
-  void setId(String? currCharacterId) {
-    emit(currCharacterId);
+  void set(Character? character) {
+    emit(character);
   }
 
-  void deleteId() {
+  void delete() {
     emit(null);
   }
 }

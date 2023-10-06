@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../../services/api/characters/create_character.dart';
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
-import '../../../../settings/routes/app_router.gr.dart';
 import '../../../../utils/methods/data_validation.dart';
 
 @RoutePage()
@@ -13,10 +12,10 @@ class CreateCharacterScreen extends StatefulWidget {
   const CreateCharacterScreen({super.key});
 
   @override
-  State<CreateCharacterScreen> createState() => _CreateCharacterScreen();
+  State<CreateCharacterScreen> createState() => _CreateCharacterScreenState();
 }
 
-class _CreateCharacterScreen extends State<CreateCharacterScreen> {
+class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _maxHpController = TextEditingController();
   final TextEditingController _currHpController = TextEditingController();
@@ -30,7 +29,7 @@ class _CreateCharacterScreen extends State<CreateCharacterScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
-                getIt<AppRouter>().navigate(const CharactersRoute());
+                getIt<AppRouter>().pop();
               },
               child: const Text(
                 'Go back',

@@ -25,5 +25,6 @@ class AppRouter extends $AppRouter {
         // characters flow
         AutoRoute(page: CreateCharacterRoute.page),
         AutoRoute(page: CharacterDetailsRoute.page),
+        AutoRoute(page: EditCharacterRoute.page),
       ];
 }
