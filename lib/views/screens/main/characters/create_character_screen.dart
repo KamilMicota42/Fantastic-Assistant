@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../services/api/characters/create_character.dart';
+import '../../../../services/api/characters/characters_api.dart';
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../utils/methods/data_validation.dart';

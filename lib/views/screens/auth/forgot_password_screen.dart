@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/firebase/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

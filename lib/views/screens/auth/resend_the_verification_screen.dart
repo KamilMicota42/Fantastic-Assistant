@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../services/firebase/firebase_auth_methods.dart';
+import '../../../services/api/auth/firebase_auth_methods.dart';
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';

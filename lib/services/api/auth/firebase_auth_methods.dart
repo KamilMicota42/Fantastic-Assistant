@@ -2,10 +2,10 @@ import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../settings/injection.dart';
-import '../../settings/routes/app_router.dart';
-import '../../settings/routes/app_router.gr.dart';
-import '../../utils/methods/show_snack_bar.dart';
+import '../../../settings/injection.dart';
+import '../../../settings/routes/app_router.dart';
+import '../../../settings/routes/app_router.gr.dart';
+import '../../../utils/methods/show_snack_bar.dart';
 
 class FirebaseAuthMethods {
   final FirebaseAuth _auth;

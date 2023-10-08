@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -80,13 +81,28 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                 if (_nameController.text.isNotEmpty &&
                     isIntable(_maxHpController.text) &&
                     isIntable(_currHpController.text)) {
-                  showSnackBar(context, 'Gonna edit');
-                  // createCharacter(
-                  //   context,
-                  //   _nameController.text,
-                  //   _maxHpController.text,
-                  //   _currHpController.text,
-                  // );
+                  if (_nameController.text ==
+                          getIt<CurrentCharacter>().state?.characterName &&
+                      _maxHpController.text ==
+                          getIt<CurrentCharacter>()
+                              .state
+                              ?.characterMaxHp
+                              .toString() &&
+                      _currHpController.text ==
+                          getIt<CurrentCharacter>()
+                              .state
+                              ?.characterCurrHp
+                              .toString()) {
+                    showSnackBar(
+                        context, 'Values must be diffrient from originals');
+                  } else {
+                    editCharacter(
+                      context,
+                      _nameController.text,
+                      _maxHpController.text,
+                      _currHpController.text,
+                    );
+                  }
                 } else {
                   showSnackBar(context, 'Values are not correct');
                 }

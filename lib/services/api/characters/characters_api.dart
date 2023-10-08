@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/services/cubits/characters_related_cubits/current_character_id.dart';
 import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
@@ -15,6 +16,21 @@ Future<void> createCharacter(
   try {
     _characters.add({
       'account_id': getIt<FirebaseAuthCurrentUserUid>().state,
+      'character_name': name,
+      'character_max_hp': int.parse(maxHp),
+      'character_curr_hp': int.parse(currHp),
+    });
+    getIt<AppRouter>().navigate(const CharactersRoute());
+  } catch (e) {
+    debugPrint(e.toString());
+    showSnackBar(context, e.toString());
+  }
+}
+
+Future<void> editCharacter(
+    BuildContext context, String name, String maxHp, String currHp) async {
+  try {
+    _characters.doc(getIt<CurrentCharacter>().state!.characterId).update({
       'character_name': name,
       'character_max_hp': int.parse(maxHp),
       'character_curr_hp': int.parse(currHp),
