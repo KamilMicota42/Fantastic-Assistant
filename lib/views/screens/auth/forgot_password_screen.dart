@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
+import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
+import 'widgets/text_and_clickable_text_row.dart';
 
 @RoutePage()
 class ForgotPasswordScreen extends StatefulWidget {
@@ -34,35 +38,59 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Forgot password screen',
-            ),
-            Padding(
+      body: SingleChildScrollView(
+        child: AuthBackgroundContainer(
+          child: Center(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: emailController,
-                decoration: const InputDecoration(hintText: 'Email'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      Image.asset(
+                        'assets/images/logo.png',
+                        width: 200,
+                        height: 200,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      DefaultTextFieldWLabel(
+                        textController: emailController,
+                        labelText: 'Email',
+                      ),
+                      const SizedBox(height: 25),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: DefaultButton(
+                          text: 'Send an email - reset password',
+                          height: 50,
+                          function: loginUser,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      TextAndClickableTextRow(
+                        contentText: "You remember password?",
+                        clickableContentText: 'Log in',
+                        function: () {
+                          getIt<AppRouter>().navigate(
+                            const LoginRoute(),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                ],
               ),
             ),
-            ElevatedButton(
-              onPressed: loginUser,
-              child: const Text(
-                'Send an email with reminder',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getIt<AppRouter>().navigate(const LoginRoute());
-              },
-              child: const Text(
-                'go to login screen',
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

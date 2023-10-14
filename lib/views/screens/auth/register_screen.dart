@@ -1,12 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
+import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
+import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
+import '../../../widgets/input/default_obscure_text_field_w_label.dart';
+import 'widgets/text_and_clickable_text_row.dart';
 
 @RoutePage()
 class RegisterScreen extends StatefulWidget {
@@ -20,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController repeatPasswordController = TextEditingController();
+  bool passwordObscure = true;
 
   @override
   void dispose() {
@@ -30,65 +36,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void signUpUser() async {
-    FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-      email: emailController.text,
-      password: passwordController.text,
-      context: context,
-    );
+    if (passwordController.text != repeatPasswordController.text) {
+      showSnackBar(context, 'Passwords do not match');
+    } else {
+      FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Register screen',
+      body: AuthBackgroundContainer(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 50),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 200,
+                      height: 200,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    DefaultTextFieldWLabel(
+                      textController: emailController,
+                      labelText: 'Email',
+                    ),
+                    DefaultObscureTextFieldWLabel(
+                      textController: passwordController,
+                      labelText: 'Password',
+                      textObscure: passwordObscure,
+                      onPressedFunction: () {
+                        passwordObscure = !passwordObscure;
+                        setState(() {});
+                      },
+                    ),
+                    DefaultObscureTextFieldWLabel(
+                      textController: repeatPasswordController,
+                      labelText: 'Repeat password',
+                      textObscure: passwordObscure,
+                      onPressedFunction: () {
+                        passwordObscure = !passwordObscure;
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(height: 25),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: DefaultButton(
+                        text: 'Register',
+                        height: 50,
+                        function: () {
+                          signUpUser();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    TextAndClickableTextRow(
+                      contentText: 'Have an account?',
+                      clickableContentText: 'Log in',
+                      function: () {
+                        getIt<AppRouter>().navigate(const LoginRoute());
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                  ],
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: emailController,
-                decoration: const InputDecoration(hintText: 'Email'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(hintText: 'Password'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: repeatPasswordController,
-                decoration: const InputDecoration(hintText: 'Repeat password'),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (passwordController.text == repeatPasswordController.text) {
-                  signUpUser();
-                } else {
-                  showSnackBar(context, 'Passwords do not match');
-                }
-              },
-              child: const Text(
-                'Register',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getIt<AppRouter>().navigate(const LoginOrRegisterRoute());
-              },
-              child: const Text(
-                'go to login or rergister',
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

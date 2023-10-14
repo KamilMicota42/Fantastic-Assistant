@@ -1,5 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/views/screens/auth/widgets/text_and_clickable_text_row.dart';
+import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
+import 'package:fantastic_assistant/widgets/input/default_obscure_text_field_w_label.dart';
+import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +23,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool passwordObscure = true;
 
   @override
   void dispose() {
@@ -37,50 +43,82 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Login screen',
-            ),
-            Padding(
+      body: SingleChildScrollView(
+        child: AuthBackgroundContainer(
+          child: Center(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: emailController,
-                decoration: const InputDecoration(hintText: 'Email'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      Image.asset(
+                        'assets/images/logo.png',
+                        width: 200,
+                        height: 200,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      DefaultTextFieldWLabel(
+                        textController: emailController,
+                        labelText: 'Email',
+                      ),
+                      DefaultObscureTextFieldWLabel(
+                        textController: passwordController,
+                        labelText: 'Password',
+                        textObscure: passwordObscure,
+                        onPressedFunction: () {
+                          passwordObscure = !passwordObscure;
+                          setState(() {});
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextAndClickableTextRow(
+                            contentText: '',
+                            clickableContentText: 'Forgot password',
+                            function: () {
+                              getIt<AppRouter>().navigate(
+                                const ForgotPasswordRoute(),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 25),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: DefaultButton(
+                          text: 'Log in',
+                          height: 50,
+                          function: loginUser,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      TextAndClickableTextRow(
+                        contentText: "Don't have account?",
+                        clickableContentText: 'Register now',
+                        function: () {
+                          getIt<AppRouter>().navigate(
+                            const RegisterRoute(),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(hintText: 'Password'),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: loginUser,
-              child: const Text(
-                'Log in',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getIt<AppRouter>().navigate(const ForgotPasswordRoute());
-              },
-              child: const Text(
-                'go to forgot password screen',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getIt<AppRouter>().navigate(const LoginOrRegisterRoute());
-              },
-              child: const Text(
-                'go to login or rergister',
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
