@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
+import '../../../widgets/buttons/go_back_icon_button.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -54,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     children: [
                       const SizedBox(height: 50),
+                      const GoBackIconButton(),
                       Image.asset(
                         'assets/images/logo.png',
                         width: 200,

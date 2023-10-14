@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
+import '../../../widgets/buttons/go_back_icon_button.dart';
 import '../../../widgets/input/default_obscure_text_field_w_label.dart';
 import 'widgets/text_and_clickable_text_row.dart';
 
@@ -60,6 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Column(
                   children: [
                     const SizedBox(height: 50),
+                    const GoBackIconButton(),
                     Image.asset(
                       'assets/images/logo.png',
                       width: 200,
