@@ -39,48 +39,46 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: AuthBackgroundContainer(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const LogoUpColumn(),
-                  Column(
-                    children: [
-                      DefaultTextFieldWLabel(
-                        textController: emailController,
-                        labelText: 'Email',
+      body: AuthBackgroundContainer(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const LogoUpColumn(),
+                Column(
+                  children: [
+                    DefaultTextFieldWLabel(
+                      textController: emailController,
+                      labelText: 'Email',
+                    ),
+                    const SizedBox(height: 25),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: DefaultButton(
+                        text: 'Send an email - reset password',
+                        height: 50,
+                        function: loginUser,
                       ),
-                      const SizedBox(height: 25),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: DefaultButton(
-                          text: 'Send an email - reset password',
-                          height: 50,
-                          function: loginUser,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      TextAndClickableTextRow(
-                        contentText: "You remember password?",
-                        clickableContentText: 'Log in',
-                        function: () {
-                          getIt<AppRouter>().navigate(
-                            const LoginRoute(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    TextAndClickableTextRow(
+                      contentText: "You remember password?",
+                      clickableContentText: 'Log in',
+                      function: () {
+                        getIt<AppRouter>().navigate(
+                          const LoginRoute(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

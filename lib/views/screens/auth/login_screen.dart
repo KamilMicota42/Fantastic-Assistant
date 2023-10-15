@@ -44,71 +44,69 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: AuthBackgroundContainer(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const LogoUpColumn(),
-                  Column(
-                    children: [
-                      DefaultTextFieldWLabel(
-                        textController: emailController,
-                        labelText: 'Email',
-                      ),
-                      DefaultObscureTextFieldWLabel(
-                        textController: passwordController,
-                        labelText: 'Password',
-                        textObscure: passwordObscure,
-                        onPressedFunction: () {
-                          passwordObscure = !passwordObscure;
-                          setState(() {});
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextAndClickableTextRow(
-                            contentText: '',
-                            clickableContentText: 'Forgot password',
-                            function: () {
-                              getIt<AppRouter>().navigate(
-                                const ForgotPasswordRoute(),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 25),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: DefaultButton(
-                          text: 'Log in',
-                          height: 50,
-                          function: loginUser,
+      body: AuthBackgroundContainer(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const LogoUpColumn(),
+                Column(
+                  children: [
+                    DefaultTextFieldWLabel(
+                      textController: emailController,
+                      labelText: 'Email',
+                    ),
+                    DefaultObscureTextFieldWLabel(
+                      textController: passwordController,
+                      labelText: 'Password',
+                      textObscure: passwordObscure,
+                      onPressedFunction: () {
+                        passwordObscure = !passwordObscure;
+                        setState(() {});
+                      },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextAndClickableTextRow(
+                          contentText: '',
+                          clickableContentText: 'Forgot password',
+                          function: () {
+                            getIt<AppRouter>().navigate(
+                              const ForgotPasswordRoute(),
+                            );
+                          },
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: DefaultButton(
+                        text: 'Log in',
+                        height: 50,
+                        function: loginUser,
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      TextAndClickableTextRow(
-                        contentText: "Don't have account?",
-                        clickableContentText: 'Register now',
-                        function: () {
-                          getIt<AppRouter>().navigate(
-                            const RegisterRoute(),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    TextAndClickableTextRow(
+                      contentText: "Don't have account?",
+                      clickableContentText: 'Register now',
+                      function: () {
+                        getIt<AppRouter>().navigate(
+                          const RegisterRoute(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

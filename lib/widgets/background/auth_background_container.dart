@@ -13,20 +13,28 @@ class AuthBackgroundContainer extends StatefulWidget {
 class _AuthBackgroundContainerState extends State<AuthBackgroundContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            AppColors.white,
-            AppColors.lighterGrey,
-          ],
+    return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.white,
+                AppColors.lighterGrey,
+              ],
+            ),
+          ),
+          child: widget.child,
         ),
       ),
-      child: widget.child,
     );
   }
 }

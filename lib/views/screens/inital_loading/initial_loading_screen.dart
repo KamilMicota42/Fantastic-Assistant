@@ -4,7 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
+import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../settings/routes/app_router.dart';
@@ -49,16 +52,24 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Fantastic Assistant',
-            ),
-            CircularProgressIndicator(),
-          ],
+    return Scaffold(
+      body: AuthBackgroundContainer(
+        child: Center(
+          child: Stack(
+            children: [
+              SpinKitSpinningLines(
+                color: AppColors.lighterIris,
+                size: MediaQuery.of(context).size.width - 50,
+              ),
+              Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 200,
+                  height: 200,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
