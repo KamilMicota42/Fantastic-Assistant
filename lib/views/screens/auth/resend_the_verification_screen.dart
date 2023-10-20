@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,11 @@ class _ResendTheVerificationScreenState
                 const LogoUpColumn(),
                 Column(
                   children: [
+                    Text(
+                      'We have already sent a verification message, if You want a new one, please enter Your email',
+                      style: DefaultTextTheme.titilliumWebRegular16(context),
+                      textAlign: TextAlign.center,
+                    ),
                     DefaultTextFieldWLabel(
                       textController: emailController,
                       labelText: 'Email',

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -24,6 +25,11 @@ class _MainScreenState extends State<MainScreen> {
         return Scaffold(
           body: child,
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: AppColors.lighterGrey,
+            fixedColor: AppColors.iris,
+            unselectedItemColor: AppColors.darkerGrey,
+            unselectedFontSize: 13,
+            selectedFontSize: 16,
             currentIndex: tabsRouter.activeIndex,
             onTap: (value) {
               tabsRouter.setActiveIndex(value);
