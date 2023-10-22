@@ -17,7 +17,6 @@ Future<void> createUserAdditionalData(
 ) async {
   try {
     _userAdditionalData.doc(userId).set({
-      'account_id': userId,
       'account_email': email,
       'account_display_name': displayName,
     });
@@ -35,7 +34,7 @@ Future<void> getUserAdditionalDataToGetIt(userUid) async {
 
   getIt<CurrentUserAdditionalData>().set(
     UserAdditionalData(
-      accountId: userAdditionalData.data()?['account_id'],
+      accountId: userUid,
       accountEmail: userAdditionalData.data()?['account_email'],
       accountDisplayName: userAdditionalData.data()?['account_display_name'],
     ),
