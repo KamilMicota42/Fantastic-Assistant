@@ -15,7 +15,7 @@ Future<void> createCharacter(
     BuildContext context, String name, String maxHp, String currHp) async {
   try {
     _characters.add({
-      'account_id': getIt<FirebaseAuthCurrentUserUid>().state,
+      'account_id': getIt<CurrentUserAdditionalData>().state!.accountId,
       'character_name': name,
       'character_max_hp': int.parse(maxHp),
       'character_curr_hp': int.parse(currHp),

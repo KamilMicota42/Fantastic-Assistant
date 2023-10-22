@@ -66,8 +66,7 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        getIt<FirebaseAuthCurrentUserUid>()
-            .setNewUserUid(_auth.currentUser!.uid);
+        getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {
@@ -108,7 +107,7 @@ class FirebaseAuthMethods {
     try {
       await _auth.signOut();
       if (!context.mounted) return;
-      getIt<FirebaseAuthCurrentUserUid>().removeCurrUserUid();
+      getIt<CurrentUserAdditionalData>().remove();
       getIt<AppRouter>().replace(const LoginOrRegisterRoute());
       showSnackBar(context, 'Successfully sign out.');
     } on FirebaseAuthException catch (e) {

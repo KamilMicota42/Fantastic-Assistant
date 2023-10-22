@@ -21,7 +21,7 @@ class CharactersScreen extends StatefulWidget {
 class _CharactersScreenState extends State<CharactersScreen> {
   final _characters = FirebaseFirestore.instance.collection('characters').where(
         'account_id',
-        isEqualTo: getIt<FirebaseAuthCurrentUserUid>().state,
+        isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId,
       );
 
   @override
@@ -50,7 +50,9 @@ class _CharactersScreenState extends State<CharactersScreen> {
                           final DocumentSnapshot documentSnapshot =
                               streamSnapshot.data!.docs[index];
                           if (documentSnapshot['account_id'] ==
-                              getIt<FirebaseAuthCurrentUserUid>().state) {
+                              getIt<CurrentUserAdditionalData>()
+                                  .state
+                                  ?.accountId) {
                             return InkWell(
                               child: Card(
                                 margin: const EdgeInsets.all(10),

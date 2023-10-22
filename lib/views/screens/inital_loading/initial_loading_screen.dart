@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
@@ -37,9 +36,6 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
       Timer(
         const Duration(seconds: 1),
         () async {
-          getIt<FirebaseAuthCurrentUserUid>()
-              .setNewUserUid(sp.getString('user_uid'));
-
           try {
             getUserAdditionalDataToGetIt(userUid);
           } catch (e) {

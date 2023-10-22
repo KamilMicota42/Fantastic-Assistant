@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -41,6 +43,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'Settings',
                   style: DefaultTextTheme.titilliumWebBold22(context)!
                       .copyWith(color: AppColors.black),
+                ),
+                Text(
+                  getIt<CurrentUserAdditionalData>()
+                      .state!
+                      .accountId
+                      .toString(),
+                ),
+                Text(
+                  getIt<CurrentUserAdditionalData>()
+                      .state!
+                      .accountDisplayName
+                      .toString(),
+                ),
+                Text(
+                  getIt<CurrentUserAdditionalData>()
+                      .state!
+                      .accountEmail
+                      .toString(),
                 ),
                 ElevatedButton(
                   onPressed: () {
