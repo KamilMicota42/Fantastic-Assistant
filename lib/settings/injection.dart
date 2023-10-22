@@ -12,5 +12,7 @@ Future<void> configureDependencies(String env) async {
   getIt.init(environment: env);
   getIt.registerLazySingleton<FirebaseAuthCurrentUserUid>(
       () => FirebaseAuthCurrentUserUid());
+  getIt.registerLazySingleton<CurrentUserAdditionalData>(
+      () => CurrentUserAdditionalData());
   getIt.registerLazySingleton<CurrentCharacter>(() => CurrentCharacter());
 }

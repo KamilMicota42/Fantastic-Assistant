@@ -1,3 +1,4 @@
+import 'package:fantastic_assistant/services/api/auth/firebase_database_user_data.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ class FirebaseAuthMethods {
   // EMAIL SIGN UP FUNCTION
   Future<void> signUpWithEmail({
     required String email,
+    required String displayName,
     required String password,
     required BuildContext context,
   }) async {
@@ -23,6 +25,15 @@ class FirebaseAuthMethods {
         password: password,
       );
       context.mounted ? await sendEmailVerification(context, email) : null;
+      _auth.currentUser?.updateDisplayName(displayName);
+      if (context.mounted) {
+        createUserAdditionalData(
+          context,
+          _auth.currentUser!.uid,
+          email,
+          displayName,
+        );
+      }
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
       if (!context.mounted) return;

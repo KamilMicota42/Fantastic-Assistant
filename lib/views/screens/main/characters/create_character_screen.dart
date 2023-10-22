@@ -338,51 +338,51 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
 }
 
 // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     Expanded(
-                //       child: TextField(
-                //         controller: _copperController,
-                //         decoration: const InputDecoration(hintText: 'Copper'),
-                //         keyboardType: TextInputType.number,
-                //       ),
-                //     ),
-                //     Expanded(
-                //       child: TextField(
-                //         controller: _silverController,
-                //         decoration: const InputDecoration(hintText: 'Silver'),
-                //         keyboardType: TextInputType.number,
-                //       ),
-                //     ),
-                //     Expanded(
-                //       child: TextField(
-                //         controller: _electrumController,
-                //         decoration: const InputDecoration(hintText: 'Electrum'),
-                //         keyboardType: TextInputType.number,
-                //       ),
-                //     ),
-                //     Expanded(
-                //       child: TextField(
-                //         controller: _goldController,
-                //         decoration: const InputDecoration(hintText: 'Gold'),
-                //         keyboardType: TextInputType.number,
-                //       ),
-                //     ),
-                //     Expanded(
-                //       child: TextField(
-                //         controller: _platinumController,
-                //         decoration: const InputDecoration(hintText: 'Platinum'),
-                //         keyboardType: TextInputType.number,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+//   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//   children: [
+//     Expanded(
+//       child: TextField(
+//         controller: _copperController,
+//         decoration: const InputDecoration(hintText: 'Copper'),
+//         keyboardType: TextInputType.number,
+//       ),
+//     ),
+//     Expanded(
+//       child: TextField(
+//         controller: _silverController,
+//         decoration: const InputDecoration(hintText: 'Silver'),
+//         keyboardType: TextInputType.number,
+//       ),
+//     ),
+//     Expanded(
+//       child: TextField(
+//         controller: _electrumController,
+//         decoration: const InputDecoration(hintText: 'Electrum'),
+//         keyboardType: TextInputType.number,
+//       ),
+//     ),
+//     Expanded(
+//       child: TextField(
+//         controller: _goldController,
+//         decoration: const InputDecoration(hintText: 'Gold'),
+//         keyboardType: TextInputType.number,
+//       ),
+//     ),
+//     Expanded(
+//       child: TextField(
+//         controller: _platinumController,
+//         decoration: const InputDecoration(hintText: 'Platinum'),
+//         keyboardType: TextInputType.number,
+//       ),
+//     ),
+//   ],
+// ),
 
-                    // final Map<String, int?> _currenciesController = {
-                    //   'Copper': int.parse(_copperController.text),
-                    //   'Silver': int.parse(_silverController.text),
-                    //   'Electrum': int.parse(_electrumController.text),
-                    //   'Gold': int.parse(_goldController.text),
-                    //   'Platinum': int.parse(_platinumController.text)
-                    // };
-                    // print(_currenciesController);
+// final Map<String, int?> _currenciesController = {
+//   'Copper': int.parse(_copperController.text),
+//   'Silver': int.parse(_silverController.text),
+//   'Electrum': int.parse(_electrumController.text),
+//   'Gold': int.parse(_goldController.text),
+//   'Platinum': int.parse(_platinumController.text)
+// };
+// print(_currenciesController);
