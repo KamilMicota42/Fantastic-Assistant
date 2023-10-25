@@ -94,9 +94,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
                         _imageUrl =
                             await referenceImageToUpload.getDownloadURL();
                       } catch (e) {
-                        context.mounted
-                            ? showSnackBar(context, e.toString())
-                            : null;
+                        context.mounted ? showSnackBar(e.toString()) : null;
                       }
                     },
                   ),

@@ -39,7 +39,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
           try {
             getUserAdditionalDataToGetIt(userUid);
           } catch (e) {
-            context.mounted ? showSnackBar(context, e.toString()) : null;
+            context.mounted ? showSnackBar(e.toString()) : null;
           }
 
           getIt<AppRouter>().replace(const MainRoute());

@@ -1,13 +1,19 @@
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
-import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
+import 'package:fantastic_assistant/utils/global_var/font_families.dart';
 import 'package:flutter/material.dart';
 
-void showSnackBar(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
+
+void showSnackBar(String text) {
+  snackbarKey.currentState?.showSnackBar(
     SnackBar(
       content: Text(
         text,
-        style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
+        style: TextStyle(
+          fontFamily: FontFamilies.titilliumWeb,
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
           color: AppColors.white,
         ),
       ),

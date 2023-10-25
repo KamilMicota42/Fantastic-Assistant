@@ -37,7 +37,7 @@ class FirebaseAuthMethods {
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
       if (!context.mounted) return;
-      showSnackBar(context, e.message!);
+      showSnackBar(e.message!);
     }
   }
 
@@ -45,10 +45,10 @@ class FirebaseAuthMethods {
   Future<void> sendEmailVerification(BuildContext context, String email) async {
     try {
       _auth.currentUser!.sendEmailVerification();
-      showSnackBar(context, 'Verification message sent to: $email');
+      showSnackBar('Verification message sent to: $email');
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
-      showSnackBar(context, e.message!);
+      showSnackBar(e.message!);
     }
   }
 
@@ -73,11 +73,11 @@ class FirebaseAuthMethods {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
         debugPrint(e.message);
         if (!context.mounted) return;
-        showSnackBar(context, 'Invalid login credentials');
+        showSnackBar('Invalid login credentials');
       } else {
         debugPrint(e.message);
         if (!context.mounted) return;
-        showSnackBar(context, e.message!);
+        showSnackBar(e.message!);
       }
     }
   }
@@ -92,11 +92,11 @@ class FirebaseAuthMethods {
         email: email,
       );
       if (!context.mounted) return;
-      showSnackBar(context, 'Reset password message sent to: $email');
+      showSnackBar('Reset password message sent to: $email');
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
       if (!context.mounted) return;
-      showSnackBar(context, e.message!);
+      showSnackBar(e.message!);
     }
   }
 
@@ -109,11 +109,11 @@ class FirebaseAuthMethods {
       if (!context.mounted) return;
       getIt<CurrentUserAdditionalData>().remove();
       getIt<AppRouter>().replace(const LoginOrRegisterRoute());
-      showSnackBar(context, 'Successfully sign out.');
+      showSnackBar('Successfully sign out.');
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
       if (!context.mounted) return;
-      showSnackBar(context, e.message!);
+      showSnackBar(e.message!);
     }
   }
 }

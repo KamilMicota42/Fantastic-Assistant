@@ -23,7 +23,7 @@ Future<void> createCharacter(
     getIt<AppRouter>().navigate(const CharactersRoute());
   } catch (e) {
     debugPrint(e.toString());
-    showSnackBar(context, e.toString());
+    showSnackBar(e.toString());
   }
 }
 
@@ -38,6 +38,6 @@ Future<void> editCharacter(
     getIt<AppRouter>().navigate(const CharactersRoute());
   } catch (e) {
     debugPrint(e.toString());
-    showSnackBar(context, e.toString());
+    showSnackBar(e.toString());
   }
 }

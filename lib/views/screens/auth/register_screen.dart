@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void signUpUser() async {
     if (passwordController.text != repeatPasswordController.text &&
         displayNameController.text != '') {
-      showSnackBar(context, 'Passwords do not match');
+      showSnackBar('Passwords do not match');
     } else {
       FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
         email: emailController.text,

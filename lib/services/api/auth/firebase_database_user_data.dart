@@ -22,7 +22,7 @@ Future<void> createUserAdditionalData(
     });
   } catch (e) {
     debugPrint(e.toString());
-    showSnackBar(context, e.toString());
+    showSnackBar(e.toString());
   }
 }
 

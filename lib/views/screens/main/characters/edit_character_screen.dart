@@ -93,8 +93,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               .state
                               ?.characterCurrHp
                               .toString()) {
-                    showSnackBar(
-                        context, 'Values must be diffrient from originals');
+                    showSnackBar('Values must be diffrient from originals');
                   } else {
                     editCharacter(
                       context,
@@ -104,7 +103,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                     );
                   }
                 } else {
-                  showSnackBar(context, 'Values are not correct');
+                  showSnackBar('Values are not correct');
                 }
               },
               child: const Text(

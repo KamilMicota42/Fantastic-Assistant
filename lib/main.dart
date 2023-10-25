@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'settings/injection.dart';
 import 'settings/routes/app_router.dart';
 import 'utils/global_var/default_theme.dart';
+import 'utils/methods/show_snack_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
+      scaffoldMessengerKey: snackbarKey,
     );
   }
 }
