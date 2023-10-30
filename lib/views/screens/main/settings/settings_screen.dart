@@ -4,10 +4,16 @@ import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../services/api/auth/firebase_auth_methods.dart';
+import 'logic/delete_account_email_request.dart';
+import 'logic/send_support_email_request.dart';
+import 'logic/show_support_information.dart';
+import '../../../../widgets/others/default_divider.dart';
+import 'widgets/setting_row.dart';
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
@@ -31,43 +37,89 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.only(
-              bottom: 100,
-              top: 50,
               left: 25,
               right: 25,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Settings',
-                  style: DefaultTextTheme.titilliumWebBold22(context)!
-                      .copyWith(color: AppColors.black),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Text(
+                    'Settings',
+                    style: DefaultTextTheme.titilliumWebBold22(context)!
+                        .copyWith(color: AppColors.black),
+                  ),
+                ),
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 200,
+                  height: 200,
                 ),
                 Text(
                   getIt<CurrentUserAdditionalData>()
                       .state!
-                      .accountId
+                      .accountDisplayName!
                       .toString(),
+                  style: DefaultTextTheme.titilliumWebBold20(context)!
+                      .copyWith(color: AppColors.darkerGrey),
                 ),
-                Text(
-                  getIt<CurrentUserAdditionalData>()
-                      .state!
-                      .accountDisplayName
-                      .toString(),
+                const SizedBox(height: 10),
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Change Display Name',
+                  onTap: () {},
                 ),
-                Text(
-                  getIt<CurrentUserAdditionalData>()
-                      .state!
-                      .accountEmail
-                      .toString(),
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Support',
+                  onTap: () {
+                    sendSupportEmailRequest();
+                  },
                 ),
-                ElevatedButton(
-                  onPressed: () {
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Support Information',
+                  onTap: () {
+                    showSupportInformation(context);
+                  },
+                ),
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Privacy Policy',
+                  onTap: () {},
+                ),
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Terms of Use',
+                  onTap: () {},
+                ),
+                const DefaultDivider(),
+                const SizedBox(height: 50),
+                DefaultButton(
+                  text: 'Sign Out',
+                  function: () {
                     logUserOut();
                   },
-                  child: const Text(
-                    'Sign out',
+                  height: 50,
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(
+                        AppColors.red,
+                      ),
+                      textStyle: MaterialStatePropertyAll(
+                        TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      deleteAccountEmailRequest();
+                    },
+                    child: const Text('Delete Account'),
                   ),
                 ),
               ],
