@@ -91,7 +91,7 @@ Widget _supportInformationPopUp(
           await Clipboard.setData(
             ClipboardData(
               text:
-                  'System Name: $systemName\n System Version: $systemVersion\n Device Model: $deviceModel\n Device Name: $deviceName\n User Id: ${getIt<CurrentUserAdditionalData>().state!.accountId}',
+                  'System Name: $systemName\nSystem Version: $systemVersion\nDevice Model: $deviceModel\nDevice Name: $deviceName\nUser Id: ${getIt<CurrentUserAdditionalData>().state!.accountId}',
             ),
           );
           showSnackBar('Copied to clipboard');

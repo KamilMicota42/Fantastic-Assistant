@@ -9,7 +9,7 @@ void deleteAccountEmailRequest() async {
       scheme: 'mailto',
       path: 'fantastic.assistant.support@gmail.com',
       query:
-          'subject=Delete Account Request&body=I kindly ask the Fantastic Assistant support group to delete my account. I am aware of the fact that all the information about my account will be forever removed from any type of databases. Infomarion about the account: \nAccount Display Name: ${getIt<CurrentUserAdditionalData>().state!.accountDisplayName}\nAccount Email: ${getIt<CurrentUserAdditionalData>().state!.accountEmail}\nAccount Id: ${getIt<CurrentUserAdditionalData>().state!.accountId}\nKind regards',
+          'subject=Delete Account Request&body=I kindly ask the Fantastic Assistant support group to delete my account. I am aware of the fact that all the information about my account will be forever removed from any type of databases. Information about the account: \nAccount Display Name: ${getIt<CurrentUserAdditionalData>().state!.accountDisplayName}\nAccount Email: ${getIt<CurrentUserAdditionalData>().state!.accountEmail}\nAccount Id: ${getIt<CurrentUserAdditionalData>().state!.accountId}\nKind regards',
     );
     await launchUrl(params);
   } catch (e) {

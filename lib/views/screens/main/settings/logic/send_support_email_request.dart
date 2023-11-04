@@ -6,7 +6,7 @@ void sendSupportEmailRequest() async {
     final Uri params = Uri(
       scheme: 'mailto',
       path: 'fantastic.assistant.support@gmail.com',
-      query: 'subject=Delete Account Request&body=',
+      query: 'subject=Support Request&body=',
     );
     await launchUrl(params);
   } catch (e) {
