@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/api/auth/firebase_database_user_data.dart';
+import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +8,7 @@ import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
 import '../../../utils/methods/show_snack_bar.dart';
 
+// METHODS RELATED TO FIREBASE AUTH FUNCTIONALITY
 class FirebaseAuthMethods {
   final FirebaseAuth _auth;
   FirebaseAuthMethods(this._auth);
@@ -35,8 +36,6 @@ class FirebaseAuthMethods {
         );
       }
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.toString());
-      if (!context.mounted) return;
       showSnackBar(e.message!);
     }
   }
@@ -47,7 +46,6 @@ class FirebaseAuthMethods {
       _auth.currentUser!.sendEmailVerification();
       showSnackBar('Verification message sent to: $email');
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.toString());
       showSnackBar(e.message!);
     }
   }
@@ -71,12 +69,8 @@ class FirebaseAuthMethods {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-        debugPrint(e.message);
-        if (!context.mounted) return;
         showSnackBar('Invalid login credentials');
       } else {
-        debugPrint(e.message);
-        if (!context.mounted) return;
         showSnackBar(e.message!);
       }
     }
@@ -91,11 +85,8 @@ class FirebaseAuthMethods {
       await _auth.sendPasswordResetEmail(
         email: email,
       );
-      if (!context.mounted) return;
       showSnackBar('Reset password message sent to: $email');
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.message);
-      if (!context.mounted) return;
       showSnackBar(e.message!);
     }
   }
@@ -105,14 +96,25 @@ class FirebaseAuthMethods {
     required BuildContext context,
   }) async {
     try {
+      getIt<AppRouter>().replace(const LoginOrRegisterRoute());
       await _auth.signOut();
       if (!context.mounted) return;
       getIt<CurrentUserAdditionalData>().remove();
-      getIt<AppRouter>().replace(const LoginOrRegisterRoute());
       showSnackBar('Successfully sign out.');
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.message);
       if (!context.mounted) return;
+      showSnackBar(e.message!);
+    }
+  }
+
+  // CHANGE AUTH DISPLAY NAME
+  Future<void> changeAuthDisplayName({
+    required String newDisplayName,
+  }) async {
+    try {
+      await _auth.currentUser!.updateDisplayName(newDisplayName);
+      debugPrint('Successfully changed the auth.displayName');
+    } on FirebaseAuthException catch (e) {
       showSnackBar(e.message!);
     }
   }

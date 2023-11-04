@@ -3,11 +3,14 @@ import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
+import 'package:fantastic_assistant/views/screens/main/settings/logic/show_change_name.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../models/user/user_additional_data.dart';
 import '../../../../services/api/auth/firebase_auth_methods.dart';
 import 'logic/delete_account_email_request.dart';
 import 'logic/send_support_email_request.dart';
@@ -55,19 +58,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 200,
                   height: 200,
                 ),
-                Text(
-                  getIt<CurrentUserAdditionalData>()
-                      .state!
-                      .accountDisplayName!
-                      .toString(),
-                  style: DefaultTextTheme.titilliumWebBold20(context)!
-                      .copyWith(color: AppColors.darkerGrey),
+                BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                  bloc: getIt<CurrentUserAdditionalData>(),
+                  builder: (context, state) {
+                    return Text(
+                      '${state?.accountDisplayName}',
+                      style: DefaultTextTheme.titilliumWebBold20(context)!
+                          .copyWith(color: AppColors.darkerGrey),
+                    );
+                  },
+                ),
+                BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                  bloc: getIt<CurrentUserAdditionalData>(),
+                  builder: (context, state) {
+                    return Text(
+                      '${state?.accountEmail}',
+                      style: DefaultTextTheme.titilliumWebBold20(context)!
+                          .copyWith(color: AppColors.darkerGrey),
+                    );
+                  },
                 ),
                 const SizedBox(height: 10),
                 const DefaultDivider(),
                 SettingRow(
                   text: 'Change Display Name',
-                  onTap: () {},
+                  onTap: () {
+                    showChangeName(context);
+                  },
                 ),
                 const DefaultDivider(),
                 SettingRow(

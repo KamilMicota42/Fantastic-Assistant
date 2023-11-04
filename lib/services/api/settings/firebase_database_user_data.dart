@@ -21,7 +21,6 @@ Future<void> createUserAdditionalData(
       'account_display_name': displayName,
     });
   } catch (e) {
-    debugPrint(e.toString());
     showSnackBar(e.toString());
   }
 }
@@ -39,4 +38,19 @@ Future<void> getUserAdditionalDataToGetIt(userUid) async {
       accountDisplayName: userAdditionalData.data()?['account_display_name'],
     ),
   );
+}
+
+Future<void> changeUserDisplayName(
+  String userUid,
+  String newDisplayName,
+) async {
+  try {
+    await _userAdditionalData
+        .doc(userUid)
+        .update({"account_display_name": newDisplayName});
+    await getUserAdditionalDataToGetIt(userUid);
+    showSnackBar('Changed display name successfully');
+  } catch (e) {
+    showSnackBar(e.toString());
+  }
 }

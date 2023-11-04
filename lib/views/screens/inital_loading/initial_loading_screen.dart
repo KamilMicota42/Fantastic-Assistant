@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../services/api/auth/firebase_database_user_data.dart';
+import '../../../services/api/settings/firebase_database_user_data.dart';
 import '../../../settings/routes/app_router.dart';
 
 @RoutePage()
