@@ -7,12 +7,15 @@ class DefaultButton extends StatefulWidget {
   final VoidCallback function;
   final double? width;
   final double? height;
-  const DefaultButton(
-      {super.key,
-      required this.text,
-      required this.function,
-      this.width,
-      this.height});
+  final TextStyle? textStyle;
+  const DefaultButton({
+    super.key,
+    required this.text,
+    required this.function,
+    this.width,
+    this.height,
+    this.textStyle,
+  });
 
   @override
   State<DefaultButton> createState() => _DefaultButtonState();
@@ -48,7 +51,8 @@ class _DefaultButtonState extends State<DefaultButton> {
         child: Center(
           child: Text(
             widget.text,
-            style: DefaultTextTheme.titilliumWebBold16(context),
+            style: widget.textStyle ??
+                DefaultTextTheme.titilliumWebBold16(context),
           ),
         ),
       ),

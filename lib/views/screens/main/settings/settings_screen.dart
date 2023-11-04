@@ -4,6 +4,7 @@ import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/views/screens/main/settings/logic/show_change_name.dart';
+import 'package:fantastic_assistant/views/screens/main/settings/logic/show_delete_account.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../models/user/user_additional_data.dart';
 import '../../../../services/api/auth/firebase_auth_methods.dart';
-import 'logic/delete_account_email_request.dart';
 import 'logic/send_support_email_request.dart';
 import 'logic/show_support_information.dart';
 import '../../../../widgets/others/default_divider.dart';
@@ -134,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onPressed: () {
-                      deleteAccountEmailRequest();
+                      showDeleteAccount(context);
                     },
                     child: const Text('Delete Account'),
                   ),
