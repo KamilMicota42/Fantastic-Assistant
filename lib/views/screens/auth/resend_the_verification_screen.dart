@@ -49,7 +49,9 @@ class _ResendTheVerificationScreenState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const LogoUpColumn(),
+                const LogoUpColumn(
+                  screenTitle: 'Resend Email',
+                ),
                 Column(
                   children: [
                     Text(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/buttons/go_back_icon_button.dart';
+import '../../../../widgets/buttons/go_back_title_row.dart';
 
 class LogoUpColumn extends StatelessWidget {
+  final String? screenTitle;
   const LogoUpColumn({
+    this.screenTitle,
     super.key,
   });
 
@@ -12,7 +14,9 @@ class LogoUpColumn extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 50),
-        const GoBackIconButton(),
+        GoBackTitleRow(
+          screenTitle: screenTitle,
+        ),
         Image.asset(
           'assets/images/logo.png',
           width: 200,

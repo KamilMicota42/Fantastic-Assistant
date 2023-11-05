@@ -68,7 +68,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const LogoUpColumn(),
+                const LogoUpColumn(
+                  screenTitle: 'Create Account',
+                ),
                 Column(
                   children: [
                     DefaultTextFieldWLabel(

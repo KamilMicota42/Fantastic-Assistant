@@ -46,7 +46,9 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const LogoUpColumn(),
+                const LogoUpColumn(
+                  screenTitle: 'Forgot Password',
+                ),
                 Column(
                   children: [
                     DefaultTextFieldWLabel(

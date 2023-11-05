@@ -51,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const LogoUpColumn(),
+                const LogoUpColumn(
+                  screenTitle: 'Login',
+                ),
                 Column(
                   children: [
                     DefaultTextFieldWLabel(

@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
+import 'package:fantastic_assistant/settings/routes/app_router.dart';
+import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
-import 'package:fantastic_assistant/views/screens/main/settings/logic/show_change_name.dart';
 import 'package:fantastic_assistant/views/screens/main/settings/logic/show_delete_account.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -13,9 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../models/user/user_additional_data.dart';
 import '../../../../services/api/auth/firebase_auth_methods.dart';
+import '../../../../widgets/others/default_divider.dart';
 import 'logic/send_support_email_request.dart';
 import 'logic/show_support_information.dart';
-import '../../../../widgets/others/default_divider.dart';
 import 'widgets/setting_row.dart';
 
 @RoutePage()
@@ -83,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingRow(
                   text: 'Change Display Name',
                   onTap: () {
-                    showChangeName(context);
+                    getIt<AppRouter>().navigate(const ChangeDisplayNameRoute());
                   },
                 ),
                 const DefaultDivider(),
