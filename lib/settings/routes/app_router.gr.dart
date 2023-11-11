@@ -25,7 +25,7 @@ import 'package:fantastic_assistant/views/screens/main/characters/character_deta
     as _i2;
 import 'package:fantastic_assistant/views/screens/main/characters/characters_screen.dart'
     as _i3;
-import 'package:fantastic_assistant/views/screens/main/characters/create_character_screen.dart'
+import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_first_screen.dart'
     as _i4;
 import 'package:fantastic_assistant/views/screens/main/characters/edit_character_screen.dart'
     as _i5;
@@ -61,10 +61,10 @@ abstract class $AppRouter extends _i15.RootStackRouter {
         child: const _i3.CharactersScreen(),
       );
     },
-    CreateCharacterRoute.name: (routeData) {
+    CreateCharacterFirstRoute.name: (routeData) {
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.CreateCharacterScreen(),
+        child: const _i4.CreateCharacterFirstScreen(),
       );
     },
     EditCharacterRoute.name: (routeData) {
@@ -173,15 +173,15 @@ class CharactersRoute extends _i15.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.CreateCharacterScreen]
-class CreateCharacterRoute extends _i15.PageRouteInfo<void> {
-  const CreateCharacterRoute({List<_i15.PageRouteInfo>? children})
+/// [_i4.CreateCharacterFirstScreen]
+class CreateCharacterFirstRoute extends _i15.PageRouteInfo<void> {
+  const CreateCharacterFirstRoute({List<_i15.PageRouteInfo>? children})
       : super(
-          CreateCharacterRoute.name,
+          CreateCharacterFirstRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CreateCharacterRoute';
+  static const String name = 'CreateCharacterFirstRoute';
 
   static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
 }

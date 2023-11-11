@@ -8,6 +8,7 @@ class DefaultButton extends StatefulWidget {
   final double? width;
   final double? height;
   final TextStyle? textStyle;
+  final IconData? icon;
   const DefaultButton({
     super.key,
     required this.text,
@@ -15,6 +16,7 @@ class DefaultButton extends StatefulWidget {
     this.width,
     this.height,
     this.textStyle,
+    this.icon,
   });
 
   @override
@@ -48,12 +50,22 @@ class _DefaultButtonState extends State<DefaultButton> {
         onPressed: () {
           widget.function();
         },
-        child: Center(
-          child: Text(
-            widget.text,
-            style: widget.textStyle ??
-                DefaultTextTheme.titilliumWebBold16(context),
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.text,
+              style: widget.textStyle ??
+                  DefaultTextTheme.titilliumWebBold16(context),
+            ),
+            widget.icon != null
+                ? Icon(
+                    widget.icon,
+                    color: AppColors.darkerGrey,
+                    size: 16,
+                  )
+                : const SizedBox(),
+          ],
         ),
       ),
     );

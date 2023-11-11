@@ -97,7 +97,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                   text: 'Create a new character',
                   height: 50,
                   function: () {
-                    getIt<AppRouter>().navigate(const CreateCharacterRoute());
+                    getIt<AppRouter>()
+                        .navigate(const CreateCharacterFirstRoute());
                   },
                 ),
                 const SizedBox(height: 125)
