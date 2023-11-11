@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_class_list.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_races_list.dart';
@@ -26,7 +28,10 @@ class _CreateCharacterFirstScreenState
   final TextEditingController _characterNameController =
       TextEditingController();
 
-  String? levelValue;
+  String _levelValue = characterLevelsList.first;
+  String _classValue = characterClassesList.first;
+  String _raceValue = characterRacesList.first;
+  File? _pictureValue;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,13 @@ class _CreateCharacterFirstScreenState
                         child: DefaultButton(
                           text: 'Next',
                           height: 50,
-                          function: () {},
+                          function: () {
+                            debugPrint(_pictureValue.toString());
+                            debugPrint(_characterNameController.text);
+                            debugPrint(_levelValue);
+                            debugPrint(_classValue);
+                            debugPrint(_raceValue);
+                          },
                           icon: Icons.arrow_forward_ios_rounded,
                         ),
                       ),
@@ -64,7 +75,9 @@ class _CreateCharacterFirstScreenState
                         children: [
                           const SizedBox(height: 120),
                           AddPhotoIconButton(
-                            onTapFunction: () {},
+                            onTapFunction: (var value) {
+                              _pictureValue = value;
+                            },
                           ),
                           DefaultTextFieldWLabel(
                             textController: _characterNameController,
@@ -78,7 +91,7 @@ class _CreateCharacterFirstScreenState
                           CustomDropdownMenu(
                             listItem: characterLevelsList,
                             onChanged: (value) {
-                              levelValue = value;
+                              _levelValue = value;
                             },
                             initialValue: characterLevelsList.first,
                           ),
@@ -90,7 +103,7 @@ class _CreateCharacterFirstScreenState
                           CustomDropdownMenu(
                             listItem: characterClassesList,
                             onChanged: (value) {
-                              levelValue = value;
+                              _classValue = value;
                             },
                             initialValue: characterClassesList.first,
                           ),
@@ -102,7 +115,7 @@ class _CreateCharacterFirstScreenState
                           CustomDropdownMenu(
                             listItem: characterRacesList,
                             onChanged: (value) {
-                              levelValue = value;
+                              _raceValue = value;
                             },
                             initialValue: characterRacesList.first,
                           ),
