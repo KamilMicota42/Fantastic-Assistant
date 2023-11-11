@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../models/user/user_additional_data.dart';
 import '../../../../services/api/auth/firebase_auth_methods.dart';
+import '../../../../widgets/buttons/title_row.dart';
 import '../../../../widgets/others/default_divider.dart';
 import 'logic/send_support_email_request.dart';
 import 'logic/show_support_information.dart';
@@ -45,14 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Text(
-                    'Settings',
-                    style: DefaultTextTheme.titilliumWebBold22(context)!
-                        .copyWith(color: AppColors.black),
-                  ),
-                ),
+                const TitleRow(screenTitle: 'Create Character'),
                 Image.asset(
                   'assets/images/logo.png',
                   width: 200,

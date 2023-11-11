@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../settings/injection.dart';
-import '../../settings/routes/app_router.dart';
 import '../../utils/const/app_colors.dart';
 import '../../utils/global_var/default_text_theme.dart';
 
-class GoBackTitleRow extends StatelessWidget {
+class TitleRow extends StatelessWidget {
   final String? screenTitle;
-  const GoBackTitleRow({
+  const TitleRow({
     this.screenTitle,
     super.key,
   });
@@ -19,18 +17,9 @@ class GoBackTitleRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 30,
             height: 50,
-            child: IconButton(
-              onPressed: () {
-                getIt<AppRouter>().pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: AppColors.darkerGrey,
-              ),
-            ),
           ),
           screenTitle != null
               ? Text(

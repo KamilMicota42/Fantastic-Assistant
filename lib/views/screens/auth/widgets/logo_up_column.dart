@@ -13,7 +13,6 @@ class LogoUpColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 50),
         GoBackTitleRow(
           screenTitle: screenTitle,
         ),

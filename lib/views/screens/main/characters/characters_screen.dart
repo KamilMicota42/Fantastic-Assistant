@@ -5,13 +5,12 @@ import 'package:fantastic_assistant/services/cubits/characters_related_cubits/cu
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
+import 'package:fantastic_assistant/widgets/buttons/title_row.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../settings/routes/app_router.gr.dart';
-import '../../../../utils/const/app_colors.dart';
-import '../../../../utils/global_var/default_text_theme.dart';
 
 @RoutePage()
 class CharactersScreen extends StatefulWidget {
@@ -39,14 +38,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Text(
-                    'Characters',
-                    style: DefaultTextTheme.titilliumWebBold22(context)!
-                        .copyWith(color: AppColors.black),
-                  ),
-                ),
+                const TitleRow(screenTitle: 'Create Character'),
                 StreamBuilder(
                   stream: _characters.snapshots(),
                   builder:
