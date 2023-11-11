@@ -4,11 +4,14 @@ import 'package:fantastic_assistant/models/characters/character.dart';
 import 'package:fantastic_assistant/services/cubits/characters_related_cubits/current_character_id.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../settings/routes/app_router.gr.dart';
+import '../../../../utils/const/app_colors.dart';
+import '../../../../utils/global_var/default_text_theme.dart';
 
 @RoutePage()
 class CharactersScreen extends StatefulWidget {
@@ -29,79 +32,85 @@ class _CharactersScreenState extends State<CharactersScreen> {
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 50),
-                child: Text(
-                  'Characters screen',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Text(
+                    'Characters',
+                    style: DefaultTextTheme.titilliumWebBold22(context)!
+                        .copyWith(color: AppColors.black),
+                  ),
                 ),
-              ),
-              StreamBuilder(
-                stream: _characters.snapshots(),
-                builder:
-                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                  if (streamSnapshot.hasData) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: streamSnapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          final DocumentSnapshot documentSnapshot =
-                              streamSnapshot.data!.docs[index];
-                          if (documentSnapshot['account_id'] ==
-                              getIt<CurrentUserAdditionalData>()
-                                  .state
-                                  ?.accountId) {
-                            return InkWell(
-                              child: Card(
-                                margin: const EdgeInsets.all(10),
-                                child: ListTile(
-                                  title: Text(
-                                    documentSnapshot['character_name'],
-                                  ),
-                                  subtitle: Text(
-                                    documentSnapshot.id,
+                StreamBuilder(
+                  stream: _characters.snapshots(),
+                  builder:
+                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    if (streamSnapshot.hasData) {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: streamSnapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final DocumentSnapshot documentSnapshot =
+                                streamSnapshot.data!.docs[index];
+                            if (documentSnapshot['account_id'] ==
+                                getIt<CurrentUserAdditionalData>()
+                                    .state
+                                    ?.accountId) {
+                              return InkWell(
+                                child: Card(
+                                  margin: const EdgeInsets.all(10),
+                                  child: ListTile(
+                                    title: Text(
+                                      documentSnapshot['character_name'],
+                                    ),
+                                    subtitle: Text(
+                                      documentSnapshot.id,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              onTap: () {
-                                getIt<CurrentCharacter>().set(
-                                  Character(
-                                    accountId:
-                                        documentSnapshot.get('account_id'),
-                                    characterId: documentSnapshot.id,
-                                    characterCurrHp: documentSnapshot
-                                        .get('character_curr_hp'),
-                                    characterMaxHp: documentSnapshot
-                                        .get('character_max_hp'),
-                                    characterName:
-                                        documentSnapshot.get('character_name'),
-                                  ),
-                                );
-                                getIt<AppRouter>()
-                                    .navigate(const CharacterDetailsRoute());
-                              },
-                            );
-                          }
-                          return const SizedBox();
-                        },
-                      ),
-                    );
-                  }
-                  return const CircularProgressIndicator();
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  getIt<AppRouter>().navigate(const CreateCharacterRoute());
-                },
-                child: const Text(
-                  'Create a new character',
+                                onTap: () {
+                                  getIt<CurrentCharacter>().set(
+                                    Character(
+                                      accountId:
+                                          documentSnapshot.get('account_id'),
+                                      characterId: documentSnapshot.id,
+                                      characterCurrHp: documentSnapshot
+                                          .get('character_curr_hp'),
+                                      characterMaxHp: documentSnapshot
+                                          .get('character_max_hp'),
+                                      characterName: documentSnapshot
+                                          .get('character_name'),
+                                    ),
+                                  );
+                                  getIt<AppRouter>()
+                                      .navigate(const CharacterDetailsRoute());
+                                },
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
+                      );
+                    }
+                    return const CircularProgressIndicator();
+                  },
                 ),
-              ),
-              const SizedBox(height: 100)
-            ],
+                DefaultButton(
+                  text: 'Create a new character',
+                  height: 50,
+                  function: () {
+                    getIt<AppRouter>().navigate(const CreateCharacterRoute());
+                  },
+                ),
+                const SizedBox(height: 125)
+              ],
+            ),
           ),
         ),
       ),

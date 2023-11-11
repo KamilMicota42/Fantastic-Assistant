@@ -40,9 +40,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: AuthBackgroundContainer(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 25,
-              right: 25,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
             ),
             child: Column(
               children: [
