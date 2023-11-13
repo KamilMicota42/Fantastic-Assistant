@@ -95,8 +95,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               .toString()) {
                     showSnackBar('Values must be diffrient from originals');
                   } else {
-                    editCharacter(
-                      context,
+                    getIt<CharactersApi>().editCharacter(
                       _nameController.text,
                       _maxHpController.text,
                       _currHpController.text,

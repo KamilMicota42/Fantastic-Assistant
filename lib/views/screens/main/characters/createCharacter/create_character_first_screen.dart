@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_class_list.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_races_list.dart';
+import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/custom_dropdown_menu.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -10,6 +12,7 @@ import 'package:fantastic_assistant/widgets/buttons/go_back_title_row.dart';
 import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../settings/injection.dart';
 import '../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/texts/describer_of_textfield.dart';
@@ -53,12 +56,18 @@ class _CreateCharacterFirstScreenState
                         child: DefaultButton(
                           text: 'Next',
                           height: 50,
-                          function: () {
-                            debugPrint(_pictureValue.toString());
-                            debugPrint(_characterNameController.text);
-                            debugPrint(_levelValue);
-                            debugPrint(_classValue);
-                            debugPrint(_raceValue);
+                          function: () async {
+                            if (_characterNameController.text.isEmpty) {
+                              showSnackBar('Character name can not be empty');
+                            } else {
+                              await getIt<CharactersApi>().createCharacter(
+                                _pictureValue,
+                                _characterNameController.text,
+                                _levelValue,
+                                _classValue,
+                                _raceValue,
+                              );
+                            }
                           },
                           icon: Icons.arrow_forward_ios_rounded,
                         ),
