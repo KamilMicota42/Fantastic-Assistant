@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/models/characters/character.dart';
 import 'package:fantastic_assistant/services/cubits/characters_related_cubits/current_character_id.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
+import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/buttons/title_row.dart';
@@ -32,13 +34,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
       body: AuthBackgroundContainer(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 25,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const TitleRow(screenTitle: 'Create Character'),
+                const TitleRow(screenTitle: 'Characters'),
                 StreamBuilder(
                   stream: _characters.snapshots(),
                   builder:
@@ -46,6 +46,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                     if (streamSnapshot.hasData) {
                       return Expanded(
                         child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: streamSnapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documentSnapshot =
@@ -55,14 +56,94 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                     .state
                                     ?.accountId) {
                               return InkWell(
-                                child: Card(
-                                  margin: const EdgeInsets.all(10),
-                                  child: ListTile(
-                                    title: Text(
-                                      documentSnapshot['character_name'],
-                                    ),
-                                    subtitle: Text(
-                                      documentSnapshot.id,
+                                child: SizedBox(
+                                  height: 100,
+                                  child: Card(
+                                    color: AppColors.lighterGrey,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6),
+                                            child: SizedBox(
+                                              height: 100,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(6),
+                                                ),
+                                                child: documentSnapshot[
+                                                            'character_path_to_picture'] !=
+                                                        null
+                                                    ? Image.network(
+                                                        documentSnapshot[
+                                                            'character_path_to_picture'],
+                                                        fit: BoxFit.fill,
+                                                      )
+                                                    : Container(
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          color: AppColors
+                                                              .lighterGrey,
+                                                        ),
+                                                        child: const FittedBox(
+                                                          fit: BoxFit.fill,
+                                                          child: Icon(
+                                                            Icons.person_sharp,
+                                                            color: AppColors
+                                                                .darkerGrey,
+                                                          ),
+                                                        ),
+                                                      ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Text(
+                                            documentSnapshot['character_name'],
+                                            textAlign: TextAlign.center,
+                                            style: DefaultTextTheme
+                                                    .titilliumWebBold20(
+                                                        context)!
+                                                .copyWith(
+                                              color: AppColors.darkerGrey,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                documentSnapshot[
+                                                    'character_level'],
+                                                style: DefaultTextTheme
+                                                    .titilliumWebRegular13(
+                                                        context),
+                                              ),
+                                              Text(
+                                                documentSnapshot[
+                                                    'character_class'],
+                                                style: DefaultTextTheme
+                                                    .titilliumWebRegular13(
+                                                        context),
+                                              ),
+                                              Text(
+                                                documentSnapshot[
+                                                    'character_race'],
+                                                style: DefaultTextTheme
+                                                    .titilliumWebRegular13(
+                                                        context),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -93,13 +174,16 @@ class _CharactersScreenState extends State<CharactersScreen> {
                     return const CircularProgressIndicator();
                   },
                 ),
-                DefaultButton(
-                  text: 'Create a new character',
-                  height: 50,
-                  function: () {
-                    getIt<AppRouter>()
-                        .navigate(const CreateCharacterFirstRoute());
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: DefaultButton(
+                    text: 'Create a new character',
+                    height: 50,
+                    function: () {
+                      getIt<AppRouter>()
+                          .navigate(const CreateCharacterFirstRoute());
+                    },
+                  ),
                 ),
                 const SizedBox(height: 125)
               ],
