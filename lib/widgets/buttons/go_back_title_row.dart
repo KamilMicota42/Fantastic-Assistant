@@ -7,8 +7,10 @@ import '../../utils/global_var/default_text_theme.dart';
 
 class GoBackTitleRow extends StatelessWidget {
   final String? screenTitle;
+  final Function? popFunction;
   const GoBackTitleRow({
     this.screenTitle,
+    this.popFunction,
     super.key,
   });
 
@@ -24,7 +26,11 @@ class GoBackTitleRow extends StatelessWidget {
             height: 50,
             child: IconButton(
               onPressed: () {
-                getIt<AppRouter>().pop();
+                if (popFunction == null) {
+                  getIt<AppRouter>().pop();
+                } else {
+                  popFunction!();
+                }
               },
               icon: const Icon(
                 Icons.arrow_back_ios,

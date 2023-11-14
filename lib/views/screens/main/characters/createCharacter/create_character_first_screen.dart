@@ -60,10 +60,12 @@ class _CreateCharacterFirstScreenState
                             if (_characterNameController.text.isEmpty) {
                               showSnackBar('Character name can not be empty');
                             } else {
+                              int? levelIntValue =
+                                  levelReturnIntFromString(_levelValue);
                               await getIt<CharactersApi>().createCharacter(
                                 _pictureValue,
                                 _characterNameController.text,
-                                _levelValue,
+                                levelIntValue,
                                 _classValue,
                                 _raceValue,
                               );

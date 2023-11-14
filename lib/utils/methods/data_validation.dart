@@ -5,3 +5,15 @@ bool isIntable(String s) {
   }
   return int.tryParse(s) != null;
 }
+
+bool isAttributeValid(String i) {
+  if (isIntable(i)) {
+    if (int.tryParse(i)! <= 30 && int.tryParse(i)! >= -30) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}

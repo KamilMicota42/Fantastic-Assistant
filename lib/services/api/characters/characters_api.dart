@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/services/api/characters/firebase_storage_api.dart';
-import 'package:fantastic_assistant/services/cubits/characters_related_cubits/current_character_id.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
@@ -18,7 +18,7 @@ class CharactersApi {
   Future<void> createCharacter(
     File? characterPicture,
     String characterName,
-    String characterLevel,
+    int characterLevel,
     String characterClass,
     String characterRace,
   ) async {
@@ -39,6 +39,8 @@ class CharactersApi {
           characterPicture,
         );
       }
+      getIt<CurrentCharacterId>().set(newCharacterId.id);
+      getIt<AppRouter>().navigate(const CreateCharacterSecondRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
@@ -59,18 +61,26 @@ class CharactersApi {
     }
   }
 
-  Future<void> editCharacter(
-    String name,
-    String maxHp,
-    String currHp,
+  Future<void> setCharacterAttributes(
+    String characterId,
+    int strength,
+    int dexterity,
+    int constitution,
+    int intelligence,
+    int wisdom,
+    int charisma,
   ) async {
     try {
-      _characters.doc(getIt<CurrentCharacter>().state!.characterId).update({
-        'character_name': name,
-        'character_max_hp': int.parse(maxHp),
-        'character_curr_hp': int.parse(currHp),
+      _characters.doc(characterId).update({
+        'character_attributes': {
+          'character_strength': strength,
+          'character_dexterity': dexterity,
+          'character_constitution': constitution,
+          'character_intelligence': intelligence,
+          'character_wisdom': wisdom,
+          'character_charisma': charisma,
+        },
       });
-      getIt<AppRouter>().navigate(const CharactersRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
