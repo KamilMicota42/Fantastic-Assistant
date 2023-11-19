@@ -83,8 +83,7 @@ class CharactersApi {
           },
         },
       );
-      //TODO zmienić na third route
-      getIt<AppRouter>().navigate(const CreateCharacterFourthRoute());
+      getIt<AppRouter>().navigate(const CreateCharacterThirdRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
@@ -111,8 +110,7 @@ class CharactersApi {
           'maxHp': maxHp,
         },
       );
-      //TODO zmienić na third route
-      //getIt<AppRouter>().navigate(const CreateCharacterFourthRoute());
+      getIt<AppRouter>().navigate(const CreateCharacterThirdRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
