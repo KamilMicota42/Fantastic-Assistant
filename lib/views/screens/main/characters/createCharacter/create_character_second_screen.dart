@@ -61,6 +61,7 @@ class _CreateCharacterSecondScreenState
                         popFunction: () {
                           getIt<AppRouter>().navigate(const CharactersRoute());
                         },
+                        isX: true,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 50),
@@ -77,7 +78,7 @@ class _CreateCharacterSecondScreenState
                                 !isAttributeValid(_wisdomController.text) ||
                                 !isAttributeValid(_charismaController.text)) {
                               showSnackBar(
-                                'The attributes value might be incorrect',
+                                'The values might be incorrect, please check them.',
                               );
                             } else {
                               getIt<CharactersApi>().setCharacterAttributes(

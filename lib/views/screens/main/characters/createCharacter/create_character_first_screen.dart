@@ -13,6 +13,8 @@ import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dar
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/injection.dart';
+import '../../../../../settings/routes/app_router.dart';
+import '../../../../../settings/routes/app_router.gr.dart';
 import '../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/texts/describer_of_textfield.dart';
@@ -50,7 +52,13 @@ class _CreateCharacterFirstScreenState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const GoBackTitleRow(screenTitle: 'Create Character'),
+                      GoBackTitleRow(
+                        screenTitle: 'Create Character',
+                        popFunction: () {
+                          getIt<AppRouter>().navigate(const CharactersRoute());
+                        },
+                        isX: true,
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 50),
                         child: DefaultButton(

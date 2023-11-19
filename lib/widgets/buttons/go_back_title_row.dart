@@ -8,9 +8,11 @@ import '../../utils/global_var/default_text_theme.dart';
 class GoBackTitleRow extends StatelessWidget {
   final String? screenTitle;
   final Function? popFunction;
+  final bool? isX;
   const GoBackTitleRow({
     this.screenTitle,
     this.popFunction,
+    this.isX,
     super.key,
   });
 
@@ -32,8 +34,8 @@ class GoBackTitleRow extends StatelessWidget {
                   popFunction!();
                 }
               },
-              icon: const Icon(
-                Icons.arrow_back_ios,
+              icon: Icon(
+                isX == true ? Icons.close_sharp : Icons.arrow_back_ios,
                 color: AppColors.darkerGrey,
               ),
             ),

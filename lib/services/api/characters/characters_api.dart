@@ -71,16 +71,46 @@ class CharactersApi {
     int charisma,
   ) async {
     try {
-      _characters.doc(characterId).update({
-        'character_attributes': {
-          'character_strength': strength,
-          'character_dexterity': dexterity,
-          'character_constitution': constitution,
-          'character_intelligence': intelligence,
-          'character_wisdom': wisdom,
-          'character_charisma': charisma,
+      _characters.doc(characterId).update(
+        {
+          'character_attributes': {
+            'character_strength': strength,
+            'character_dexterity': dexterity,
+            'character_constitution': constitution,
+            'character_intelligence': intelligence,
+            'character_wisdom': wisdom,
+            'character_charisma': charisma,
+          },
         },
-      });
+      );
+      getIt<AppRouter>().navigate(const CreateCharacterThirdRoute());
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> setCharacterBasicInfo(
+    String characterId,
+    int proficiency,
+    int armorClass,
+    int initiative,
+    int speed,
+    int currentHp,
+    int maxHp,
+  ) async {
+    try {
+      _characters.doc(characterId).update(
+        {
+          'proficiency': proficiency,
+          'armorClass': armorClass,
+          'initiative': initiative,
+          'speed': speed,
+          'currentHp': currentHp,
+          'maxHp': maxHp,
+        },
+      );
+      getIt<AppRouter>().navigate(const CreateCharacterThirdRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
