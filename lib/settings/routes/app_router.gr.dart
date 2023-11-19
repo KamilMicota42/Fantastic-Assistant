@@ -25,9 +25,9 @@ import 'package:fantastic_assistant/views/screens/main/characters/characters_scr
     as _i2;
 import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_first_screen.dart'
     as _i3;
-import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_second_screen.dart'
+import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_fourth_screen.dart'
     as _i4;
-import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_third_screen.dart'
+import 'package:fantastic_assistant/views/screens/main/characters/createCharacter/create_character_second_screen.dart'
     as _i5;
 import 'package:fantastic_assistant/views/screens/main/homepage/homepage_screen.dart'
     as _i7;
@@ -61,16 +61,16 @@ abstract class $AppRouter extends _i15.RootStackRouter {
         child: const _i3.CreateCharacterFirstScreen(),
       );
     },
+    CreateCharacterFourthRoute.name: (routeData) {
+      return _i15.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.CreateCharacterFourthScreen(),
+      );
+    },
     CreateCharacterSecondRoute.name: (routeData) {
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.CreateCharacterSecondScreen(),
-      );
-    },
-    CreateCharacterThirdRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i5.CreateCharacterThirdScreen(),
+        child: const _i5.CreateCharacterSecondScreen(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
@@ -173,7 +173,21 @@ class CreateCharacterFirstRoute extends _i15.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.CreateCharacterSecondScreen]
+/// [_i4.CreateCharacterFourthScreen]
+class CreateCharacterFourthRoute extends _i15.PageRouteInfo<void> {
+  const CreateCharacterFourthRoute({List<_i15.PageRouteInfo>? children})
+      : super(
+          CreateCharacterFourthRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateCharacterFourthRoute';
+
+  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.CreateCharacterSecondScreen]
 class CreateCharacterSecondRoute extends _i15.PageRouteInfo<void> {
   const CreateCharacterSecondRoute({List<_i15.PageRouteInfo>? children})
       : super(
@@ -182,20 +196,6 @@ class CreateCharacterSecondRoute extends _i15.PageRouteInfo<void> {
         );
 
   static const String name = 'CreateCharacterSecondRoute';
-
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.CreateCharacterThirdScreen]
-class CreateCharacterThirdRoute extends _i15.PageRouteInfo<void> {
-  const CreateCharacterThirdRoute({List<_i15.PageRouteInfo>? children})
-      : super(
-          CreateCharacterThirdRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CreateCharacterThirdRoute';
 
   static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
 }
