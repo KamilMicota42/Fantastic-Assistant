@@ -9,10 +9,12 @@ class GoBackTitleRow extends StatelessWidget {
   final String? screenTitle;
   final Function? popFunction;
   final bool? isX;
+  final Widget? rightSideWidget;
   const GoBackTitleRow({
     this.screenTitle,
     this.popFunction,
     this.isX,
+    this.rightSideWidget,
     super.key,
   });
 
@@ -36,7 +38,7 @@ class GoBackTitleRow extends StatelessWidget {
               },
               icon: Icon(
                 isX == true ? Icons.close_sharp : Icons.arrow_back_ios,
-                color: AppColors.darkerGrey,
+                color: AppColors.black,
               ),
             ),
           ),
@@ -47,9 +49,10 @@ class GoBackTitleRow extends StatelessWidget {
                       .copyWith(color: AppColors.black),
                 )
               : const SizedBox(),
-          const SizedBox(
+          SizedBox(
             width: 30,
             height: 50,
+            child: rightSideWidget ?? const SizedBox(),
           )
         ],
       ),
