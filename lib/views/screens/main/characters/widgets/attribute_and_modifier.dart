@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../utils/methods/data_validation.dart';
-import '../../../../../utils/methods/dnd_rules.dart';
+import '../../../../../utils/dnd_rules/attribute_to_modifier.dart';
 import '../../../../../widgets/input/default_text_field_w_label.dart';
 
 class AttributeAndModifier extends StatefulWidget {
