@@ -74,12 +74,12 @@ class CharactersApi {
       _characters.doc(characterId).update(
         {
           'character_attributes': {
-            'character_strength': strength,
-            'character_dexterity': dexterity,
-            'character_constitution': constitution,
-            'character_intelligence': intelligence,
-            'character_wisdom': wisdom,
-            'character_charisma': charisma,
+            'strength': strength,
+            'dexterity': dexterity,
+            'constitution': constitution,
+            'intelligence': intelligence,
+            'wisdom': wisdom,
+            'charisma': charisma,
           },
         },
       );
@@ -111,6 +111,24 @@ class CharactersApi {
         },
       );
       getIt<AppRouter>().navigate(const CreateCharacterFourthRoute());
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> setCharacterSkillsAndSaveChecksProficiency(
+    String characterId,
+    Map<String, bool> mapOfSkills,
+    Map<String, bool> mapOfSaveChecks,
+  ) async {
+    try {
+      _characters.doc(characterId).update(
+        {
+          'character_prof_skills': mapOfSkills,
+          'character_prof_save_checks': mapOfSaveChecks,
+        },
+      );
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
