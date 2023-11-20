@@ -22,7 +22,6 @@ class ValueField extends StatefulWidget {
 }
 
 class _ValueFieldState extends State<ValueField> {
-  String valueModifier = "0";
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,7 +37,7 @@ class _ValueFieldState extends State<ValueField> {
                 height: 100,
                 child: Center(
                   child: Text(
-                    valueModifier,
+                    widget.valueController.text,
                     style: DefaultTextTheme.titilliumWebBold16(context),
                   ),
                 ),
@@ -54,9 +53,10 @@ class _ValueFieldState extends State<ValueField> {
                   setState(
                     () {
                       if (isIntable(value)) {
-                        valueModifier = int.parse(value).toString();
+                        widget.valueController.text =
+                            int.parse(value).toString();
                       } else {
-                        valueModifier = "0";
+                        widget.valueController.text = "0";
                       }
                     },
                   );

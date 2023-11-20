@@ -34,7 +34,7 @@ class _AttributeAndModifierState extends State<AttributeAndModifier> {
             height: 100,
             child: Center(
               child: Text(
-                valueModifier,
+                widget.valueController.text,
                 style: DefaultTextTheme.titilliumWebBold16(context),
               ),
             ),

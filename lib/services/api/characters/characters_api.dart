@@ -102,12 +102,14 @@ class CharactersApi {
     try {
       _characters.doc(characterId).update(
         {
-          'proficiency': proficiency,
-          'armorClass': armorClass,
-          'initiative': initiative,
-          'speed': speed,
-          'currentHp': currentHp,
-          'maxHp': maxHp,
+          "character_basic_info": {
+            'proficiency': proficiency,
+            'armor_class': armorClass,
+            'initiative': initiative,
+            'speed': speed,
+            'current_hp': currentHp,
+            'max_hp': maxHp,
+          }
         },
       );
       getIt<AppRouter>().navigate(const CreateCharacterFourthRoute());
@@ -129,6 +131,7 @@ class CharactersApi {
           'character_prof_save_checks': mapOfSaveChecks,
         },
       );
+      getIt<AppRouter>().navigate(const CharactersRoute());
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
