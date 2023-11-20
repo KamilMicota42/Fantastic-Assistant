@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
+import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -61,13 +62,40 @@ class _CreateCharacterFourthScreenState
 
   @override
   void initState() {
-    //todo dodanie pobierania tych wszystkich modów z poprzedniego widoku tworzenia postaci
+    strengthMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .strength!);
+    dexterityMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .dexterity!);
+    constitutionMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .constitution!);
+    intelligenceMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .intelligence!);
+    wisdomMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .wisdom!);
+    charismaMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterAttributes!
+        .charisma!);
+
+    profMod = getIt<CurrentCreateCharacterCubit>()
+        .state!
+        .characterBasicInfo!
+        .proficiency!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(

@@ -18,7 +18,6 @@ import '../../../../../settings/routes/app_router.gr.dart';
 import '../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/texts/describer_of_textfield.dart';
-import '../cubits/current_character.dart';
 
 @RoutePage()
 class CreateCharacterFirstScreen extends StatefulWidget {
@@ -41,7 +40,6 @@ class _CreateCharacterFirstScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(

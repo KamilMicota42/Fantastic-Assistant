@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/dnd_rules/dnd_hints.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
-import '../cubits/current_character.dart';
 import '../logic/show_hint.dart';
 import '../widgets/attribute_and_modifier.dart';
 
@@ -48,7 +47,6 @@ class _CreateCharacterSecondScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(

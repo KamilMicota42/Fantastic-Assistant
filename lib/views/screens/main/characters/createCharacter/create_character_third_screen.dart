@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/dnd_hints.dart';
+import 'package:fantastic_assistant/utils/dnd_rules/level_and_proficiency_map.dart';
 import 'package:fantastic_assistant/utils/methods/data_validation.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/value_field.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -38,8 +40,13 @@ class _CreateCharacterThirdScreenState
   @override
   void initState() {
     _proficiencyController.text = '2';
-    _armorClassController.text = '10';
-    _initiativeClassController.text = '0';
+    _proficiencyController.text = levelAndProficiencyMap[
+            getIt<CurrentCreateCharacterCubit>().state!.characterLevel]
+        .toString();
+    _armorClassController.text =
+        '${10 + attributeToModifier(getIt<CurrentCreateCharacterCubit>().state!.characterAttributes!.dexterity!)}';
+    _initiativeClassController.text =
+        '${attributeToModifier(getIt<CurrentCreateCharacterCubit>().state!.characterAttributes!.dexterity!)}';
     _speedController.text = '30';
     _currentHpController.text = '0';
     _maxHpController.text = '0';
@@ -48,7 +55,6 @@ class _CreateCharacterThirdScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
