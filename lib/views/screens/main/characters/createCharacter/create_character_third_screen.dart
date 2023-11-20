@@ -7,11 +7,12 @@ import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/buttons/go_back_title_row.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../services/api/characters/characters_api.dart';
+import '../../../../../services/api/characters/create_characters_api.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../settings/routes/app_router.dart';
 import '../../../../../settings/routes/app_router.gr.dart';
 import '../../../../../utils/methods/show_snack_bar.dart';
+import '../cubits/current_character.dart';
 import '../cubits/current_character_id.dart';
 import '../widgets/curr_hp_max_hp_text_field.dart';
 
@@ -47,6 +48,7 @@ class _CreateCharacterThirdScreenState
 
   @override
   Widget build(BuildContext context) {
+    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
@@ -82,7 +84,8 @@ class _CreateCharacterThirdScreenState
                                 'The values might be incorrect, please check them.',
                               );
                             } else {
-                              getIt<CharactersApi>().setCharacterBasicInfo(
+                              getIt<CreateCharactersApi>()
+                                  .setCharacterBasicInfo(
                                 getIt<CurrentCharacterId>().state!,
                                 int.parse(_proficiencyController.text),
                                 int.parse(_armorClassController.text),

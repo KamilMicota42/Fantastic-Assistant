@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../settings/routes/app_router.dart';
 import '../../../../../settings/routes/app_router.gr.dart';
+import '../cubits/current_character.dart';
 import '../widgets/left_mid_right_title_row.dart';
 import '../widgets/prof_controller_row.dart';
 
@@ -66,6 +67,7 @@ class _CreateCharacterFourthScreenState
 
   @override
   Widget build(BuildContext context) {
+    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
@@ -352,7 +354,7 @@ class _CreateCharacterFourthScreenState
                         text: 'Next',
                         height: 50,
                         function: () async {
-                          getIt<CharactersApi>()
+                          getIt<CreateCharactersApi>()
                               .setCharacterSkillsAndSaveChecksProficiency(
                             getIt<CurrentCharacterId>().state!,
                             {

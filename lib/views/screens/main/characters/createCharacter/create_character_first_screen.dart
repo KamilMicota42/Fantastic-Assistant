@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_class_list.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_races_list.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
@@ -18,6 +18,7 @@ import '../../../../../settings/routes/app_router.gr.dart';
 import '../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/texts/describer_of_textfield.dart';
+import '../cubits/current_character.dart';
 
 @RoutePage()
 class CreateCharacterFirstScreen extends StatefulWidget {
@@ -40,6 +41,7 @@ class _CreateCharacterFirstScreenState
 
   @override
   Widget build(BuildContext context) {
+    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
@@ -70,7 +72,8 @@ class _CreateCharacterFirstScreenState
                             } else {
                               int? levelIntValue =
                                   levelReturnIntFromString(_levelValue);
-                              await getIt<CharactersApi>().createCharacter(
+                              await getIt<CreateCharactersApi>()
+                                  .createCharacter(
                                 _pictureValue,
                                 _characterNameController.text,
                                 levelIntValue,

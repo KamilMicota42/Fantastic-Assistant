@@ -1,7 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/models/characters/character_model/character_attributes.dart';
+import 'package:fantastic_assistant/models/characters/character_model/character_basic_info.dart';
+import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
 import 'package:fantastic_assistant/services/api/characters/firebase_storage_api.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +15,7 @@ import '../../../settings/routes/app_router.gr.dart';
 import '../../../utils/methods/show_snack_bar.dart';
 import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 
-class CharactersApi {
+class CreateCharactersApi {
   final CollectionReference _characters =
       FirebaseFirestore.instance.collection('characters');
 
@@ -40,6 +44,11 @@ class CharactersApi {
         );
       }
       getIt<CurrentCharacterId>().set(newCharacterId.id);
+      getIt<CurrentCreateCharacterCubit>().set(CharacterModel(
+        characterLevel: characterLevel,
+        characterClass: characterClass,
+        characterRace: characterRace,
+      ));
       getIt<AppRouter>().navigate(const CreateCharacterSecondRoute());
     } catch (e) {
       debugPrint(e.toString());
@@ -83,6 +92,22 @@ class CharactersApi {
           },
         },
       );
+      getIt<CurrentCreateCharacterCubit>().set(CharacterModel(
+        characterLevel:
+            getIt<CurrentCreateCharacterCubit>().state?.characterLevel,
+        characterClass:
+            getIt<CurrentCreateCharacterCubit>().state?.characterClass,
+        characterRace:
+            getIt<CurrentCreateCharacterCubit>().state?.characterRace,
+        characterAttributes: CharacterAttributes(
+          strength: strength,
+          dexterity: dexterity,
+          constitution: constitution,
+          intelligence: intelligence,
+          wisdom: wisdom,
+          charisma: charisma,
+        ),
+      ));
       getIt<AppRouter>().navigate(const CreateCharacterThirdRoute());
     } catch (e) {
       debugPrint(e.toString());
@@ -111,6 +136,50 @@ class CharactersApi {
             'max_hp': maxHp,
           }
         },
+      );
+      getIt<CurrentCreateCharacterCubit>().set(
+        CharacterModel(
+          characterLevel:
+              getIt<CurrentCreateCharacterCubit>().state?.characterLevel,
+          characterClass:
+              getIt<CurrentCreateCharacterCubit>().state?.characterClass,
+          characterRace:
+              getIt<CurrentCreateCharacterCubit>().state?.characterRace,
+          characterAttributes: CharacterAttributes(
+            strength: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .strength,
+            dexterity: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .dexterity,
+            constitution: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .constitution,
+            intelligence: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .intelligence,
+            wisdom: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .wisdom,
+            charisma: getIt<CurrentCreateCharacterCubit>()
+                .state
+                ?.characterAttributes!
+                .charisma,
+          ),
+          characterBasicInfo: CharacterBasicInfo(
+            proficiency: proficiency,
+            armorClass: armorClass,
+            initiative: initiative,
+            speed: speed,
+            currentHp: currentHp,
+            maxHp: maxHp,
+          ),
+        ),
       );
       getIt<AppRouter>().navigate(const CreateCharacterFourthRoute());
     } catch (e) {

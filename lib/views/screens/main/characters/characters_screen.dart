@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/buttons/title_row.dart';
@@ -181,6 +182,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                       text: 'Create a new character',
                       height: 50,
                       function: () {
+                        getIt<CurrentCreateCharacterCubit>().delete();
                         getIt<AppRouter>()
                             .navigate(const CreateCharacterFirstRoute());
                       },

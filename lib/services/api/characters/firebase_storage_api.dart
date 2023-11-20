@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -19,7 +19,7 @@ class FirebaseStorageApi {
     try {
       await referenceDirCharactersPictures.putFile(File(picture.path));
       pictureUrl = await referenceDirCharactersPictures.getDownloadURL();
-      getIt<CharactersApi>().setCharacterPictureUrl(
+      getIt<CreateCharactersApi>().setCharacterPictureUrl(
         pictureUrl,
         characterId,
       );

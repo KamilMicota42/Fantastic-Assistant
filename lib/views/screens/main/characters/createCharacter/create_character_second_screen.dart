@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/dnd_rules/dnd_hints.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../cubits/current_character.dart';
 import '../logic/show_hint.dart';
 import '../widgets/attribute_and_modifier.dart';
 
@@ -47,6 +48,7 @@ class _CreateCharacterSecondScreenState
 
   @override
   Widget build(BuildContext context) {
+    print(getIt<CurrentCreateCharacterCubit>().state.toString());
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
@@ -102,7 +104,8 @@ class _CreateCharacterSecondScreenState
                                 'The values might be incorrect, please check them.',
                               );
                             } else {
-                              getIt<CharactersApi>().setCharacterAttributes(
+                              getIt<CreateCharactersApi>()
+                                  .setCharacterAttributes(
                                 getIt<CurrentCharacterId>().state!,
                                 int.parse(_strengthController.text),
                                 int.parse(_dexterityController.text),
