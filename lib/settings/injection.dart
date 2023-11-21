@@ -1,4 +1,4 @@
-import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/services/api/characters/firebase_storage_api.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';

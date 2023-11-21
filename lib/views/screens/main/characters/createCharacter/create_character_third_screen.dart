@@ -9,7 +9,7 @@ import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/buttons/go_back_title_row.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../services/api/characters/create_characters_api.dart';
+import '../../../../../services/api/characters/firebase_characters_api.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../settings/routes/app_router.dart';
 import '../../../../../settings/routes/app_router.gr.dart';
@@ -127,7 +127,7 @@ class _CreateCharacterThirdScreenState
                                   child: ValueField(
                                     valueName: "Proficiency",
                                     valueController: _proficiencyController,
-                                    hintText: dndHints['proficiency'],
+                                    hintText: hintsList['proficiency'],
                                   ),
                                 ),
                               ),
@@ -139,7 +139,7 @@ class _CreateCharacterThirdScreenState
                                   child: ValueField(
                                     valueName: "Armor Class",
                                     valueController: _armorClassController,
-                                    hintText: dndHints['armorClass'],
+                                    hintText: hintsList['armorClass'],
                                   ),
                                 ),
                               ),
@@ -157,7 +157,7 @@ class _CreateCharacterThirdScreenState
                                   child: ValueField(
                                     valueName: "Initiative",
                                     valueController: _initiativeClassController,
-                                    hintText: dndHints['initiative'],
+                                    hintText: hintsList['initiative'],
                                   ),
                                 ),
                               ),
@@ -169,7 +169,7 @@ class _CreateCharacterThirdScreenState
                                   child: ValueField(
                                     valueName: "Speed",
                                     valueController: _speedController,
-                                    hintText: dndHints['speed'],
+                                    hintText: hintsList['speed'],
                                   ),
                                 ),
                               ),
@@ -187,7 +187,7 @@ class _CreateCharacterThirdScreenState
                                   child: CurrHpMaxHpTextField(
                                     currentHpController: _currentHpController,
                                     maxHpController: _maxHpController,
-                                    hintText: dndHints['hp'],
+                                    hintText: hintsList['hp'],
                                   ),
                                 ),
                               ),

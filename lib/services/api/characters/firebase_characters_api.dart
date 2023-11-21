@@ -200,6 +200,23 @@ class CreateCharactersApi {
           'character_prof_save_checks': mapOfSaveChecks,
         },
       );
+      getIt<AppRouter>().navigate(const CreateCharacterFifthRoute());
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> setCharacterNotes(
+    String characterId,
+    List<String> listOfNotes,
+  ) async {
+    try {
+      _characters.doc(characterId).update(
+        {
+          'character_notes': listOfNotes,
+        },
+      );
       getIt<AppRouter>().navigate(const CharactersRoute());
     } catch (e) {
       debugPrint(e.toString());

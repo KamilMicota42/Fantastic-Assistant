@@ -1,4 +1,4 @@
-Map<String, String> dndHints = {
+Map<String, String> hintsList = {
   "attributes":
       "You generate your character’s six ability scores randomly. Roll four 6-sided dice and record the total of the highest three dice on a piece of scratch paper. Do this five more times, so that you have six numbers. If you want to save time or don’t like the idea of randomly determining ability scores, you can use the following scores instead: 15, 14, 13, 12, 10, 8.\nNow take your six numbers and write each number beside one of your character’s six abilities to assign scores to Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma. Afterward, make any changes to your ability scores as a result of your race choice.",
   "proficiency":
@@ -11,4 +11,6 @@ Map<String, String> dndHints = {
       "Every character and monster has a speed, which is the distance in feet that the character or monster can walk in 1 round. This number assumes short bursts of energetic movement in the midst of a life- threatening situation.",
   "hp":
       "Your character’s hit points define how tough your character is in combat and other dangerous situations. Your hit points are determined by your Hit Dice (short for Hit Point Dice).\nAt 1st level, your character has 1 Hit Die, and the die type is determined by your class. You start with hit points equal to the highest roll of that die, as indicated in your class description. (You also add your Constitution modifier, which you’ll determine in step 3.) This is also your hit point maximum",
+  "notes":
+      "You can add notes in this screen or create them later when You edit character or inside the game (one character can contain maximum of 10 notes). I hope this feature will help You with taking notes about attributes that can not be predicted - backgrounds, items, plot in the games and many more.",
 };

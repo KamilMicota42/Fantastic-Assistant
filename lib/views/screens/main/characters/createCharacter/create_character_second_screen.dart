@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
@@ -69,7 +69,7 @@ class _CreateCharacterSecondScreenState
                           onTap: () {
                             showHint(
                               context,
-                              dndHints['attributes']!,
+                              hintsList['attributes']!,
                             );
                           },
                           child: const Align(

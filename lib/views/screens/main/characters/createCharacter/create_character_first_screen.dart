@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/characters/create_characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_class_list.dart';
 import 'package:fantastic_assistant/utils/const/enums/character_races_list.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
