@@ -3,41 +3,41 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class CharacterProfSkills extends Equatable {
-  final bool? intimidation;
+  final bool? acrobatics;
+  final bool? animalHandling;
   final bool? arcana;
+  final bool? athletics;
+  final bool? deception;
+  final bool? history;
+  final bool? insight;
+  final bool? intimidation;
+  final bool? investigation;
+  final bool? medicine;
+  final bool? nature;
   final bool? perception;
   final bool? performance;
-  final bool? deception;
-  final bool? insight;
-  final bool? investigation;
-  final bool? history;
-  final bool? nature;
-  final bool? medicine;
-  final bool? acrobatics;
-  final bool? religion;
-  final bool? animalHandling;
-  final bool? athletics;
   final bool? persuasion;
+  final bool? religion;
   final bool? sleightOfHand;
   final bool? stealth;
   final bool? survival;
 
   const CharacterProfSkills({
-    this.intimidation,
+    this.acrobatics,
+    this.animalHandling,
     this.arcana,
+    this.athletics,
+    this.deception,
+    this.history,
+    this.insight,
+    this.intimidation,
+    this.investigation,
+    this.medicine,
+    this.nature,
     this.perception,
     this.performance,
-    this.deception,
-    this.insight,
-    this.investigation,
-    this.history,
-    this.nature,
-    this.medicine,
-    this.acrobatics,
-    this.religion,
-    this.animalHandling,
-    this.athletics,
     this.persuasion,
+    this.religion,
     this.sleightOfHand,
     this.stealth,
     this.survival,
@@ -45,21 +45,21 @@ class CharacterProfSkills extends Equatable {
 
   factory CharacterProfSkills.fromMap(Map<String, dynamic> data) {
     return CharacterProfSkills(
-      intimidation: data['intimidation'] as bool?,
+      acrobatics: data['acrobatics'] as bool?,
+      animalHandling: data['animal_handling'] as bool?,
       arcana: data['arcana'] as bool?,
+      athletics: data['athletics'] as bool?,
+      deception: data['deception'] as bool?,
+      history: data['history'] as bool?,
+      insight: data['insight'] as bool?,
+      intimidation: data['intimidation'] as bool?,
+      investigation: data['investigation'] as bool?,
+      medicine: data['medicine'] as bool?,
+      nature: data['nature'] as bool?,
       perception: data['perception'] as bool?,
       performance: data['performance'] as bool?,
-      deception: data['deception'] as bool?,
-      insight: data['insight'] as bool?,
-      investigation: data['investigation'] as bool?,
-      history: data['history'] as bool?,
-      nature: data['nature'] as bool?,
-      medicine: data['medicine'] as bool?,
-      acrobatics: data['acrobatics'] as bool?,
-      religion: data['religion'] as bool?,
-      animalHandling: data['animal_handling'] as bool?,
-      athletics: data['athletics'] as bool?,
       persuasion: data['persuasion'] as bool?,
+      religion: data['religion'] as bool?,
       sleightOfHand: data['sleight_of_hand'] as bool?,
       stealth: data['stealth'] as bool?,
       survival: data['survival'] as bool?,
@@ -67,21 +67,21 @@ class CharacterProfSkills extends Equatable {
   }
 
   Map<String, dynamic> toMap() => {
-        'intimidation': intimidation,
+        'acrobatics': acrobatics,
+        'animal_handling': animalHandling,
         'arcana': arcana,
+        'athletics': athletics,
+        'deception': deception,
+        'history': history,
+        'insight': insight,
+        'intimidation': intimidation,
+        'investigation': investigation,
+        'medicine': medicine,
+        'nature': nature,
         'perception': perception,
         'performance': performance,
-        'deception': deception,
-        'insight': insight,
-        'investigation': investigation,
-        'history': history,
-        'nature': nature,
-        'medicine': medicine,
-        'acrobatics': acrobatics,
-        'religion': religion,
-        'animal_handling': animalHandling,
-        'athletics': athletics,
         'persuasion': persuasion,
+        'religion': religion,
         'sleight_of_hand': sleightOfHand,
         'stealth': stealth,
         'survival': survival,
@@ -101,41 +101,41 @@ class CharacterProfSkills extends Equatable {
   String toJson() => json.encode(toMap());
 
   CharacterProfSkills copyWith({
-    bool? intimidation,
+    bool? acrobatics,
+    bool? animalHandling,
     bool? arcana,
+    bool? athletics,
+    bool? deception,
+    bool? history,
+    bool? insight,
+    bool? intimidation,
+    bool? investigation,
+    bool? medicine,
+    bool? nature,
     bool? perception,
     bool? performance,
-    bool? deception,
-    bool? insight,
-    bool? investigation,
-    bool? history,
-    bool? nature,
-    bool? medicine,
-    bool? acrobatics,
-    bool? religion,
-    bool? animalHandling,
-    bool? athletics,
     bool? persuasion,
+    bool? religion,
     bool? sleightOfHand,
     bool? stealth,
     bool? survival,
   }) {
     return CharacterProfSkills(
-      intimidation: intimidation ?? this.intimidation,
+      acrobatics: acrobatics ?? this.acrobatics,
+      animalHandling: animalHandling ?? this.animalHandling,
       arcana: arcana ?? this.arcana,
+      athletics: athletics ?? this.athletics,
+      deception: deception ?? this.deception,
+      history: history ?? this.history,
+      insight: insight ?? this.insight,
+      intimidation: intimidation ?? this.intimidation,
+      investigation: investigation ?? this.investigation,
+      medicine: medicine ?? this.medicine,
+      nature: nature ?? this.nature,
       perception: perception ?? this.perception,
       performance: performance ?? this.performance,
-      deception: deception ?? this.deception,
-      insight: insight ?? this.insight,
-      investigation: investigation ?? this.investigation,
-      history: history ?? this.history,
-      nature: nature ?? this.nature,
-      medicine: medicine ?? this.medicine,
-      acrobatics: acrobatics ?? this.acrobatics,
-      religion: religion ?? this.religion,
-      animalHandling: animalHandling ?? this.animalHandling,
-      athletics: athletics ?? this.athletics,
       persuasion: persuasion ?? this.persuasion,
+      religion: religion ?? this.religion,
       sleightOfHand: sleightOfHand ?? this.sleightOfHand,
       stealth: stealth ?? this.stealth,
       survival: survival ?? this.survival,
@@ -148,21 +148,21 @@ class CharacterProfSkills extends Equatable {
   @override
   List<Object?> get props {
     return [
-      intimidation,
+      acrobatics,
+      animalHandling,
       arcana,
+      athletics,
+      deception,
+      history,
+      insight,
+      intimidation,
+      investigation,
+      medicine,
+      nature,
       perception,
       performance,
-      deception,
-      insight,
-      investigation,
-      history,
-      nature,
-      medicine,
-      acrobatics,
-      religion,
-      animalHandling,
-      athletics,
       persuasion,
+      religion,
       sleightOfHand,
       stealth,
       survival,

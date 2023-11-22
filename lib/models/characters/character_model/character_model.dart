@@ -8,68 +8,72 @@ import 'character_prof_save_checks.dart';
 import 'character_prof_skills.dart';
 
 class CharacterModel extends Equatable {
-  final int? characterLevel;
-  final CharacterBasicInfo? characterBasicInfo;
-  final CharacterProfSkills? characterProfSkills;
-  final String? characterPathToPicture;
-  final String? characterName;
-  final String? characterClass;
-  final CharacterAttributes? characterAttributes;
-  final CharacterProfSaveChecks? characterProfSaveChecks;
-  final String? characterRace;
   final String? accountId;
+  final CharacterAttributes? characterAttributes;
+  final CharacterBasicInfo? characterBasicInfo;
+  final String? characterClass;
+  final int? characterLevel;
+  final String? characterName;
+  final List<String>? characterNotes;
+  final String? characterPathToPicture;
+  final CharacterProfSaveChecks? characterProfSaveChecks;
+  final CharacterProfSkills? characterProfSkills;
+  final String? characterRace;
 
   const CharacterModel({
-    this.characterLevel,
-    this.characterBasicInfo,
-    this.characterProfSkills,
-    this.characterPathToPicture,
-    this.characterName,
-    this.characterClass,
-    this.characterAttributes,
-    this.characterProfSaveChecks,
-    this.characterRace,
     this.accountId,
+    this.characterAttributes,
+    this.characterBasicInfo,
+    this.characterClass,
+    this.characterLevel,
+    this.characterName,
+    this.characterNotes,
+    this.characterPathToPicture,
+    this.characterProfSaveChecks,
+    this.characterProfSkills,
+    this.characterRace,
   });
 
   factory CharacterModel.fromMap(Map<String, dynamic> data) {
     return CharacterModel(
-      characterLevel: data['character_level'] as int?,
-      characterBasicInfo: data['character_basic_info'] == null
-          ? null
-          : CharacterBasicInfo.fromMap(
-              data['character_basic_info'] as Map<String, dynamic>),
-      characterProfSkills: data['character_prof_skills'] == null
-          ? null
-          : CharacterProfSkills.fromMap(
-              data['character_prof_skills'] as Map<String, dynamic>),
-      characterPathToPicture: data['character_path_to_picture'] as String?,
-      characterName: data['character_name'] as String?,
-      characterClass: data['character_class'] as String?,
+      accountId: data['account_id'] as String?,
       characterAttributes: data['character_attributes'] == null
           ? null
           : CharacterAttributes.fromMap(
               data['character_attributes'] as Map<String, dynamic>),
+      characterBasicInfo: data['character_basic_info'] == null
+          ? null
+          : CharacterBasicInfo.fromMap(
+              data['character_basic_info'] as Map<String, dynamic>),
+      characterClass: data['character_class'] as String?,
+      characterLevel: data['character_level'] as int?,
+      characterName: data['character_name'] as String?,
+      characterNotes: data['character_notes'] as List<String>?,
+      characterPathToPicture: data['character_path_to_picture'] as String?,
       characterProfSaveChecks: data['character_prof_save_checks'] == null
           ? null
           : CharacterProfSaveChecks.fromMap(
               data['character_prof_save_checks'] as Map<String, dynamic>),
+      characterProfSkills: data['character_prof_skills'] == null
+          ? null
+          : CharacterProfSkills.fromMap(
+              data['character_prof_skills'] as Map<String, dynamic>),
       characterRace: data['character_race'] as String?,
-      accountId: data['account_id'] as String?,
     );
   }
 
   Map<String, dynamic> toMap() => {
-        'character_level': characterLevel,
-        'character_basic_info': characterBasicInfo?.toMap(),
-        'character_prof_skills': characterProfSkills?.toMap(),
-        'character_path_to_picture': characterPathToPicture,
-        'character_name': characterName,
-        'character_class': characterClass,
-        'character_attributes': characterAttributes?.toMap(),
-        'character_prof_save_checks': characterProfSaveChecks?.toMap(),
-        'character_race': characterRace,
         'account_id': accountId,
+        'character_attributes': characterAttributes?.toMap(),
+        'character_basic_info': characterBasicInfo?.toMap(),
+        'character_class': characterClass,
+        'character_level': characterLevel,
+        'character_name': characterName,
+        'character_notes': characterNotes,
+        'character_path_to_picture': characterPathToPicture,
+        'character_prof_save_checks': characterProfSaveChecks?.toMap(),
+        'character_prof_skills': characterProfSkills?.toMap(),
+        'character_race': characterRace,
       };
 
   /// `dart:convert`
@@ -85,30 +89,32 @@ class CharacterModel extends Equatable {
   String toJson() => json.encode(toMap());
 
   CharacterModel copyWith({
-    int? characterLevel,
-    CharacterBasicInfo? characterBasicInfo,
-    CharacterProfSkills? characterProfSkills,
-    String? characterPathToPicture,
-    String? characterName,
-    String? characterClass,
-    CharacterAttributes? characterAttributes,
-    CharacterProfSaveChecks? characterProfSaveChecks,
-    String? characterRace,
     String? accountId,
+    CharacterAttributes? characterAttributes,
+    CharacterBasicInfo? characterBasicInfo,
+    String? characterClass,
+    int? characterLevel,
+    String? characterName,
+    List<String>? characterNotes,
+    String? characterPathToPicture,
+    CharacterProfSaveChecks? characterProfSaveChecks,
+    CharacterProfSkills? characterProfSkills,
+    String? characterRace,
   }) {
     return CharacterModel(
-      characterLevel: characterLevel ?? this.characterLevel,
+      accountId: accountId ?? this.accountId,
+      characterAttributes: characterAttributes ?? this.characterAttributes,
       characterBasicInfo: characterBasicInfo ?? this.characterBasicInfo,
-      characterProfSkills: characterProfSkills ?? this.characterProfSkills,
+      characterClass: characterClass ?? this.characterClass,
+      characterLevel: characterLevel ?? this.characterLevel,
+      characterName: characterName ?? this.characterName,
+      characterNotes: characterNotes ?? this.characterNotes,
       characterPathToPicture:
           characterPathToPicture ?? this.characterPathToPicture,
-      characterName: characterName ?? this.characterName,
-      characterClass: characterClass ?? this.characterClass,
-      characterAttributes: characterAttributes ?? this.characterAttributes,
       characterProfSaveChecks:
           characterProfSaveChecks ?? this.characterProfSaveChecks,
+      characterProfSkills: characterProfSkills ?? this.characterProfSkills,
       characterRace: characterRace ?? this.characterRace,
-      accountId: accountId ?? this.accountId,
     );
   }
 
@@ -118,16 +124,17 @@ class CharacterModel extends Equatable {
   @override
   List<Object?> get props {
     return [
-      characterLevel,
-      characterBasicInfo,
-      characterProfSkills,
-      characterPathToPicture,
-      characterName,
-      characterClass,
-      characterAttributes,
-      characterProfSaveChecks,
-      characterRace,
       accountId,
+      characterAttributes,
+      characterBasicInfo,
+      characterClass,
+      characterLevel,
+      characterName,
+      characterNotes,
+      characterPathToPicture,
+      characterProfSaveChecks,
+      characterProfSkills,
+      characterRace,
     ];
   }
 }

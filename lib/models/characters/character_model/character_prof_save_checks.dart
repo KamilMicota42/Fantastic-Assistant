@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 
 class CharacterProfSaveChecks extends Equatable {
   final bool? saveCharisma;
-  final bool? saveDexterity;
   final bool? saveConstitution;
+  final bool? saveDexterity;
   final bool? saveIntelligence;
   final bool? saveStrength;
   final bool? saveWisdom;
 
   const CharacterProfSaveChecks({
     this.saveCharisma,
-    this.saveDexterity,
     this.saveConstitution,
+    this.saveDexterity,
     this.saveIntelligence,
     this.saveStrength,
     this.saveWisdom,
@@ -22,8 +22,8 @@ class CharacterProfSaveChecks extends Equatable {
   factory CharacterProfSaveChecks.fromMap(Map<String, dynamic> data) {
     return CharacterProfSaveChecks(
       saveCharisma: data['save_charisma'] as bool?,
-      saveDexterity: data['save_dexterity'] as bool?,
       saveConstitution: data['save_constitution'] as bool?,
+      saveDexterity: data['save_dexterity'] as bool?,
       saveIntelligence: data['save_intelligence'] as bool?,
       saveStrength: data['save_strength'] as bool?,
       saveWisdom: data['save_wisdom'] as bool?,
@@ -32,8 +32,8 @@ class CharacterProfSaveChecks extends Equatable {
 
   Map<String, dynamic> toMap() => {
         'save_charisma': saveCharisma,
-        'save_dexterity': saveDexterity,
         'save_constitution': saveConstitution,
+        'save_dexterity': saveDexterity,
         'save_intelligence': saveIntelligence,
         'save_strength': saveStrength,
         'save_wisdom': saveWisdom,
@@ -54,16 +54,16 @@ class CharacterProfSaveChecks extends Equatable {
 
   CharacterProfSaveChecks copyWith({
     bool? saveCharisma,
-    bool? saveDexterity,
     bool? saveConstitution,
+    bool? saveDexterity,
     bool? saveIntelligence,
     bool? saveStrength,
     bool? saveWisdom,
   }) {
     return CharacterProfSaveChecks(
       saveCharisma: saveCharisma ?? this.saveCharisma,
-      saveDexterity: saveDexterity ?? this.saveDexterity,
       saveConstitution: saveConstitution ?? this.saveConstitution,
+      saveDexterity: saveDexterity ?? this.saveDexterity,
       saveIntelligence: saveIntelligence ?? this.saveIntelligence,
       saveStrength: saveStrength ?? this.saveStrength,
       saveWisdom: saveWisdom ?? this.saveWisdom,
@@ -77,8 +77,8 @@ class CharacterProfSaveChecks extends Equatable {
   List<Object?> get props {
     return [
       saveCharisma,
-      saveDexterity,
       saveConstitution,
+      saveDexterity,
       saveIntelligence,
       saveStrength,
       saveWisdom,

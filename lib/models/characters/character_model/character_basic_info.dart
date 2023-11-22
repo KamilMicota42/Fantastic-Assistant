@@ -6,17 +6,17 @@ class CharacterBasicInfo extends Equatable {
   final int? armorClass;
   final int? currentHp;
   final int? initiative;
-  final int? speed;
   final int? maxHp;
   final int? proficiency;
+  final int? speed;
 
   const CharacterBasicInfo({
     this.armorClass,
     this.currentHp,
     this.initiative,
-    this.speed,
     this.maxHp,
     this.proficiency,
+    this.speed,
   });
 
   factory CharacterBasicInfo.fromMap(Map<String, dynamic> data) {
@@ -24,9 +24,9 @@ class CharacterBasicInfo extends Equatable {
       armorClass: data['armor_class'] as int?,
       currentHp: data['current_hp'] as int?,
       initiative: data['initiative'] as int?,
-      speed: data['speed'] as int?,
       maxHp: data['max_hp'] as int?,
       proficiency: data['proficiency'] as int?,
+      speed: data['speed'] as int?,
     );
   }
 
@@ -34,9 +34,9 @@ class CharacterBasicInfo extends Equatable {
         'armor_class': armorClass,
         'current_hp': currentHp,
         'initiative': initiative,
-        'speed': speed,
         'max_hp': maxHp,
         'proficiency': proficiency,
+        'speed': speed,
       };
 
   /// `dart:convert`
@@ -56,17 +56,17 @@ class CharacterBasicInfo extends Equatable {
     int? armorClass,
     int? currentHp,
     int? initiative,
-    int? speed,
     int? maxHp,
     int? proficiency,
+    int? speed,
   }) {
     return CharacterBasicInfo(
       armorClass: armorClass ?? this.armorClass,
       currentHp: currentHp ?? this.currentHp,
       initiative: initiative ?? this.initiative,
-      speed: speed ?? this.speed,
       maxHp: maxHp ?? this.maxHp,
       proficiency: proficiency ?? this.proficiency,
+      speed: speed ?? this.speed,
     );
   }
 
@@ -79,9 +79,9 @@ class CharacterBasicInfo extends Equatable {
       armorClass,
       currentHp,
       initiative,
-      speed,
       maxHp,
       proficiency,
+      speed,
     ];
   }
 }

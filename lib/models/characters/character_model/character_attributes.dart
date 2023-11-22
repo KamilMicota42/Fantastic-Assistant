@@ -3,40 +3,40 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class CharacterAttributes extends Equatable {
-  final int? dexterity;
-  final int? wisdom;
+  final int? charisma;
   final int? constitution;
+  final int? dexterity;
   final int? intelligence;
   final int? strength;
-  final int? charisma;
+  final int? wisdom;
 
   const CharacterAttributes({
-    this.dexterity,
-    this.wisdom,
+    this.charisma,
     this.constitution,
+    this.dexterity,
     this.intelligence,
     this.strength,
-    this.charisma,
+    this.wisdom,
   });
 
   factory CharacterAttributes.fromMap(Map<String, dynamic> data) {
     return CharacterAttributes(
-      dexterity: data['dexterity'] as int?,
-      wisdom: data['wisdom'] as int?,
+      charisma: data['charisma'] as int?,
       constitution: data['constitution'] as int?,
+      dexterity: data['dexterity'] as int?,
       intelligence: data['intelligence'] as int?,
       strength: data['strength'] as int?,
-      charisma: data['charisma'] as int?,
+      wisdom: data['wisdom'] as int?,
     );
   }
 
   Map<String, dynamic> toMap() => {
-        'dexterity': dexterity,
-        'wisdom': wisdom,
+        'charisma': charisma,
         'constitution': constitution,
+        'dexterity': dexterity,
         'intelligence': intelligence,
         'strength': strength,
-        'charisma': charisma,
+        'wisdom': wisdom,
       };
 
   /// `dart:convert`
@@ -53,20 +53,20 @@ class CharacterAttributes extends Equatable {
   String toJson() => json.encode(toMap());
 
   CharacterAttributes copyWith({
-    int? dexterity,
-    int? wisdom,
+    int? charisma,
     int? constitution,
+    int? dexterity,
     int? intelligence,
     int? strength,
-    int? charisma,
+    int? wisdom,
   }) {
     return CharacterAttributes(
-      dexterity: dexterity ?? this.dexterity,
-      wisdom: wisdom ?? this.wisdom,
+      charisma: charisma ?? this.charisma,
       constitution: constitution ?? this.constitution,
+      dexterity: dexterity ?? this.dexterity,
       intelligence: intelligence ?? this.intelligence,
       strength: strength ?? this.strength,
-      charisma: charisma ?? this.charisma,
+      wisdom: wisdom ?? this.wisdom,
     );
   }
 
@@ -76,12 +76,12 @@ class CharacterAttributes extends Equatable {
   @override
   List<Object?> get props {
     return [
-      dexterity,
-      wisdom,
+      charisma,
       constitution,
+      dexterity,
       intelligence,
       strength,
-      charisma,
+      wisdom,
     ];
   }
 }
