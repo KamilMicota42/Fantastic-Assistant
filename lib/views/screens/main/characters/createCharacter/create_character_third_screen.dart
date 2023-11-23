@@ -41,12 +41,12 @@ class _CreateCharacterThirdScreenState
   void initState() {
     _proficiencyController.text = '2';
     _proficiencyController.text = levelAndProficiencyMap[
-            getIt<CurrentCreateCharacterCubit>().state!.characterLevel]
+            getIt<CurrentCharacterCubit>().state!.characterLevel]
         .toString();
     _armorClassController.text =
-        '${10 + attributeToModifier(getIt<CurrentCreateCharacterCubit>().state!.characterAttributes!.dexterity!)}';
+        '${10 + attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity!)}';
     _initiativeClassController.text =
-        '${attributeToModifier(getIt<CurrentCreateCharacterCubit>().state!.characterAttributes!.dexterity!)}';
+        '${attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity!)}';
     _speedController.text = '30';
     _currentHpController.text = '0';
     _maxHpController.text = '0';

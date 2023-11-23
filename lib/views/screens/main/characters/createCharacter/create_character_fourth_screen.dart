@@ -62,35 +62,25 @@ class _CreateCharacterFourthScreenState
 
   @override
   void initState() {
-    strengthMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .strength!);
-    dexterityMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .dexterity!);
-    constitutionMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+    strengthMod = attributeToModifier(
+        getIt<CurrentCharacterCubit>().state!.characterAttributes!.strength!);
+    dexterityMod = attributeToModifier(
+        getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity!);
+    constitutionMod = attributeToModifier(getIt<CurrentCharacterCubit>()
         .state!
         .characterAttributes!
         .constitution!);
-    intelligenceMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
+    intelligenceMod = attributeToModifier(getIt<CurrentCharacterCubit>()
         .state!
         .characterAttributes!
         .intelligence!);
-    wisdomMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .wisdom!);
-    charismaMod = attributeToModifier(getIt<CurrentCreateCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .charisma!);
+    wisdomMod = attributeToModifier(
+        getIt<CurrentCharacterCubit>().state!.characterAttributes!.wisdom!);
+    charismaMod = attributeToModifier(
+        getIt<CurrentCharacterCubit>().state!.characterAttributes!.charisma!);
 
-    profMod = getIt<CurrentCreateCharacterCubit>()
-        .state!
-        .characterBasicInfo!
-        .proficiency!;
+    profMod =
+        getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.proficiency!;
     super.initState();
   }
 

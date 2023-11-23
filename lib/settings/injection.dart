@@ -18,6 +18,6 @@ Future<void> configureDependencies(String env) async {
   getIt.registerLazySingleton<CreateCharactersApi>(() => CreateCharactersApi());
   getIt.registerLazySingleton<FirebaseStorageApi>(() => FirebaseStorageApi());
   getIt.registerLazySingleton<CurrentCharacterId>(() => CurrentCharacterId());
-  getIt.registerLazySingleton<CurrentCreateCharacterCubit>(
-      () => CurrentCreateCharacterCubit());
+  getIt.registerLazySingleton<CurrentCharacterCubit>(
+      () => CurrentCharacterCubit());
 }

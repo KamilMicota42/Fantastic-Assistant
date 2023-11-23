@@ -14,7 +14,7 @@ class CharacterModel extends Equatable {
   final String? characterClass;
   final int? characterLevel;
   final String? characterName;
-  final List<String>? characterNotes;
+  final List<dynamic>? characterNotes;
   final String? characterPathToPicture;
   final CharacterProfSaveChecks? characterProfSaveChecks;
   final CharacterProfSkills? characterProfSkills;
@@ -37,27 +37,20 @@ class CharacterModel extends Equatable {
   factory CharacterModel.fromMap(Map<String, dynamic> data) {
     return CharacterModel(
       accountId: data['account_id'] as String?,
-      characterAttributes: data['character_attributes'] == null
-          ? null
-          : CharacterAttributes.fromMap(
-              data['character_attributes'] as Map<String, dynamic>),
-      characterBasicInfo: data['character_basic_info'] == null
-          ? null
-          : CharacterBasicInfo.fromMap(
-              data['character_basic_info'] as Map<String, dynamic>),
+      characterAttributes:
+          data['character_attributes'] == null ? null : CharacterAttributes.fromMap(data['character_attributes'] as Map<String, dynamic>),
+      characterBasicInfo:
+          data['character_basic_info'] == null ? null : CharacterBasicInfo.fromMap(data['character_basic_info'] as Map<String, dynamic>),
       characterClass: data['character_class'] as String?,
       characterLevel: data['character_level'] as int?,
       characterName: data['character_name'] as String?,
-      characterNotes: data['character_notes'] as List<String>?,
+      characterNotes: data['character_notes'] as List<dynamic>?,
       characterPathToPicture: data['character_path_to_picture'] as String?,
       characterProfSaveChecks: data['character_prof_save_checks'] == null
           ? null
-          : CharacterProfSaveChecks.fromMap(
-              data['character_prof_save_checks'] as Map<String, dynamic>),
-      characterProfSkills: data['character_prof_skills'] == null
-          ? null
-          : CharacterProfSkills.fromMap(
-              data['character_prof_skills'] as Map<String, dynamic>),
+          : CharacterProfSaveChecks.fromMap(data['character_prof_save_checks'] as Map<String, dynamic>),
+      characterProfSkills:
+          data['character_prof_skills'] == null ? null : CharacterProfSkills.fromMap(data['character_prof_skills'] as Map<String, dynamic>),
       characterRace: data['character_race'] as String?,
     );
   }
@@ -95,7 +88,7 @@ class CharacterModel extends Equatable {
     String? characterClass,
     int? characterLevel,
     String? characterName,
-    List<String>? characterNotes,
+    List<dynamic>? characterNotes,
     String? characterPathToPicture,
     CharacterProfSaveChecks? characterProfSaveChecks,
     CharacterProfSkills? characterProfSkills,
@@ -109,10 +102,8 @@ class CharacterModel extends Equatable {
       characterLevel: characterLevel ?? this.characterLevel,
       characterName: characterName ?? this.characterName,
       characterNotes: characterNotes ?? this.characterNotes,
-      characterPathToPicture:
-          characterPathToPicture ?? this.characterPathToPicture,
-      characterProfSaveChecks:
-          characterProfSaveChecks ?? this.characterProfSaveChecks,
+      characterPathToPicture: characterPathToPicture ?? this.characterPathToPicture,
+      characterProfSaveChecks: characterProfSaveChecks ?? this.characterProfSaveChecks,
       characterProfSkills: characterProfSkills ?? this.characterProfSkills,
       characterRace: characterRace ?? this.characterRace,
     );

@@ -44,7 +44,7 @@ class CreateCharactersApi {
         );
       }
       getIt<CurrentCharacterId>().set(newCharacterId.id);
-      getIt<CurrentCreateCharacterCubit>().set(CharacterModel(
+      getIt<CurrentCharacterCubit>().set(CharacterModel(
         characterLevel: characterLevel,
         characterClass: characterClass,
         characterRace: characterRace,
@@ -92,13 +92,10 @@ class CreateCharactersApi {
           },
         },
       );
-      getIt<CurrentCreateCharacterCubit>().set(CharacterModel(
-        characterLevel:
-            getIt<CurrentCreateCharacterCubit>().state?.characterLevel,
-        characterClass:
-            getIt<CurrentCreateCharacterCubit>().state?.characterClass,
-        characterRace:
-            getIt<CurrentCreateCharacterCubit>().state?.characterRace,
+      getIt<CurrentCharacterCubit>().set(CharacterModel(
+        characterLevel: getIt<CurrentCharacterCubit>().state?.characterLevel,
+        characterClass: getIt<CurrentCharacterCubit>().state?.characterClass,
+        characterRace: getIt<CurrentCharacterCubit>().state?.characterRace,
         characterAttributes: CharacterAttributes(
           strength: strength,
           dexterity: dexterity,
@@ -137,36 +134,33 @@ class CreateCharactersApi {
           }
         },
       );
-      getIt<CurrentCreateCharacterCubit>().set(
+      getIt<CurrentCharacterCubit>().set(
         CharacterModel(
-          characterLevel:
-              getIt<CurrentCreateCharacterCubit>().state?.characterLevel,
-          characterClass:
-              getIt<CurrentCreateCharacterCubit>().state?.characterClass,
-          characterRace:
-              getIt<CurrentCreateCharacterCubit>().state?.characterRace,
+          characterLevel: getIt<CurrentCharacterCubit>().state?.characterLevel,
+          characterClass: getIt<CurrentCharacterCubit>().state?.characterClass,
+          characterRace: getIt<CurrentCharacterCubit>().state?.characterRace,
           characterAttributes: CharacterAttributes(
-            strength: getIt<CurrentCreateCharacterCubit>()
+            strength: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .strength,
-            dexterity: getIt<CurrentCreateCharacterCubit>()
+            dexterity: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .dexterity,
-            constitution: getIt<CurrentCreateCharacterCubit>()
+            constitution: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .constitution,
-            intelligence: getIt<CurrentCreateCharacterCubit>()
+            intelligence: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .intelligence,
-            wisdom: getIt<CurrentCreateCharacterCubit>()
+            wisdom: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .wisdom,
-            charisma: getIt<CurrentCreateCharacterCubit>()
+            charisma: getIt<CurrentCharacterCubit>()
                 .state
                 ?.characterAttributes!
                 .charisma,
@@ -209,7 +203,7 @@ class CreateCharactersApi {
 
   Future<void> setCharacterNotes(
     String characterId,
-    List<String> listOfNotes,
+    List<dynamic> listOfNotes,
   ) async {
     try {
       _characters.doc(characterId).update(
