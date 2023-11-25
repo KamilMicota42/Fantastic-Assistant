@@ -7,6 +7,7 @@ import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/buttons/title_row.dart';
@@ -67,27 +68,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                                 padding: const EdgeInsets.all(6),
                                                 child: SizedBox(
                                                   height: 100,
-                                                  child: ClipRRect(
-                                                    borderRadius: const BorderRadius.all(
-                                                      Radius.circular(6),
-                                                    ),
-                                                    child: documentSnapshot['character_path_to_picture'] != null
-                                                        ? Image.network(
-                                                            documentSnapshot['character_path_to_picture'],
-                                                            fit: BoxFit.fill,
-                                                          )
-                                                        : Container(
-                                                            decoration: const BoxDecoration(
-                                                              color: AppColors.lighterGrey,
-                                                            ),
-                                                            child: const FittedBox(
-                                                              fit: BoxFit.fill,
-                                                              child: Icon(
-                                                                Icons.person_sharp,
-                                                                color: AppColors.darkerGrey,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                  child: CharacterPicture(
+                                                    pathToPicture: documentSnapshot['character_path_to_picture'],
                                                   ),
                                                 ),
                                               ),
@@ -131,6 +113,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                       getIt<CurrentCharacterCubit>().set(
                                         CharacterModel.fromJson(jsonEncode(documentSnapshot.data()).toString()),
                                       );
+                                      getIt<AppRouter>().navigate(const ViewCharacterRoute());
                                     },
                                   );
                                 }
