@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: Column(
               children: [
-                const TitleRow(screenTitle: 'Create Character'),
+                const TitleRow(screenTitle: 'Settings'),
                 Image.asset(
                   'assets/images/logo.png',
                   width: 200,
@@ -57,8 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   builder: (context, state) {
                     return Text(
                       '${state?.accountDisplayName}',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!
-                          .copyWith(color: AppColors.darkerGrey),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
                     );
                   },
                 ),
@@ -67,8 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   builder: (context, state) {
                     return Text(
                       '${state?.accountEmail}',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!
-                          .copyWith(color: AppColors.darkerGrey),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
                     );
                   },
                 ),
