@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../settings/routes/app_router.dart';
 import '../../../../../settings/routes/app_router.gr.dart';
+import '../../../../../widgets/containers/att_and_mod_container.dart';
 import '../widgets/description_left.dart';
 import '../widgets/title_left.dart';
 import '../widgets/value_and_description.dart';
@@ -47,21 +48,10 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               getIt<AppRouter>().navigate(const CharactersRoute());
                             },
                             rightSideWidget: IconButton(
-                              onPressed: () {
-                                //print(getIt<CurrentCharacterCubit>().state);
-                              },
+                              onPressed: () {},
                               icon: const Icon(Icons.edit_sharp),
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(bottom: 50),
-                          //   child: DefaultButton(
-                          //     text: 'Next',
-                          //     height: 50,
-                          //     function: () async {},
-                          //     icon: Icons.arrow_forward_ios_rounded,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -93,7 +83,7 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                 children: [
                                   ValueAndDescription(
                                     value:
-                                        '${state.characterBasicInfo!.proficiency! > 0 ? '+' : ''} ${state.characterBasicInfo?.proficiency.toString() ?? '0'}',
+                                        '${(state.characterBasicInfo?.proficiency ?? 0) > 0 ? '+' : ''} ${state.characterBasicInfo?.proficiency.toString() ?? '0'}',
                                     description: 'Prof. Bonus',
                                   ),
                                   ValueAndDescription(
@@ -102,7 +92,7 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                   ),
                                   ValueAndDescription(
                                     value:
-                                        '${state.characterBasicInfo!.initiative! > 0 ? '+' : ''} ${state.characterBasicInfo?.initiative.toString() ?? '0'}',
+                                        '${(state.characterBasicInfo?.initiative ?? 0) > 0 ? '+' : ''} ${state.characterBasicInfo?.initiative.toString() ?? '0'}',
                                     description: 'Initiative',
                                   ),
                                   ValueAndDescription(
@@ -114,6 +104,47 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               const SizedBox(height: 6),
                               const DefaultDivider(),
                               const TitleLeft(text: 'Attributes'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.strength ?? 0),
+                                  ),
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.dexterity ?? 0),
+                                  ),
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.constitution ?? 0),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.intelligence ?? 0),
+                                  ),
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.wisdom ?? 0),
+                                  ),
+                                  SizedBox(
+                                    width: 110,
+                                    height: 110,
+                                    child: AttAndModContainer(attributeValue: state.characterAttributes?.charisma ?? 0),
+                                  ),
+                                ],
+                              ),
                               const SizedBox(height: 120),
                             ],
                           ),
