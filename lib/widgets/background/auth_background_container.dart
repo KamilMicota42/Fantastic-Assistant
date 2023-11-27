@@ -6,8 +6,7 @@ class AuthBackgroundContainer extends StatefulWidget {
   const AuthBackgroundContainer({super.key, required this.child});
 
   @override
-  State<AuthBackgroundContainer> createState() =>
-      _AuthBackgroundContainerState();
+  State<AuthBackgroundContainer> createState() => _AuthBackgroundContainerState();
 }
 
 class _AuthBackgroundContainerState extends State<AuthBackgroundContainer> {

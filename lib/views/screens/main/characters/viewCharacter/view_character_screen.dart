@@ -15,6 +15,7 @@ import '../../../../../widgets/containers/att_and_mod_container.dart';
 import '../widgets/description_left.dart';
 import '../widgets/title_left.dart';
 import '../widgets/value_and_description.dart';
+import 'widgets/save_checks_container.dart';
 
 @RoutePage()
 class ViewCharacterScreen extends StatefulWidget {
@@ -104,6 +105,7 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               const SizedBox(height: 6),
                               const DefaultDivider(),
                               const TitleLeft(text: 'Attributes'),
+                              const SizedBox(height: 18),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -145,6 +147,10 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 6),
+                              const DefaultDivider(),
+                              const TitleLeft(text: 'Saving Throws'),
+                              SaveChecksContainer(characterModel: state),
                               const SizedBox(height: 120),
                             ],
                           ),
