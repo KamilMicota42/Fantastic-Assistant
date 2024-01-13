@@ -19,12 +19,10 @@ class CreateCharacterFourthScreen extends StatefulWidget {
   const CreateCharacterFourthScreen({super.key});
 
   @override
-  State<CreateCharacterFourthScreen> createState() =>
-      _CreateCharacterFourthScreenState();
+  State<CreateCharacterFourthScreen> createState() => _CreateCharacterFourthScreenState();
 }
 
-class _CreateCharacterFourthScreenState
-    extends State<CreateCharacterFourthScreen> {
+class _CreateCharacterFourthScreenState extends State<CreateCharacterFourthScreen> {
   bool athleticsProfController = false;
   bool acrobaticsProfController = false;
   bool sleightOfHandsProfController = false;
@@ -62,25 +60,14 @@ class _CreateCharacterFourthScreenState
 
   @override
   void initState() {
-    strengthMod = attributeToModifier(
-        getIt<CurrentCharacterCubit>().state!.characterAttributes!.strength!);
-    dexterityMod = attributeToModifier(
-        getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity!);
-    constitutionMod = attributeToModifier(getIt<CurrentCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .constitution!);
-    intelligenceMod = attributeToModifier(getIt<CurrentCharacterCubit>()
-        .state!
-        .characterAttributes!
-        .intelligence!);
-    wisdomMod = attributeToModifier(
-        getIt<CurrentCharacterCubit>().state!.characterAttributes!.wisdom!);
-    charismaMod = attributeToModifier(
-        getIt<CurrentCharacterCubit>().state!.characterAttributes!.charisma!);
+    strengthMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.strength!);
+    dexterityMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity!);
+    constitutionMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.constitution!);
+    intelligenceMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.intelligence!);
+    wisdomMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.wisdom!);
+    charismaMod = attributeToModifier(getIt<CurrentCharacterCubit>().state!.characterAttributes!.charisma!);
 
-    profMod =
-        getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.proficiency!;
+    profMod = getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.proficiency!;
     super.initState();
   }
 
@@ -372,8 +359,7 @@ class _CreateCharacterFourthScreenState
                         text: 'Next',
                         height: 50,
                         function: () async {
-                          getIt<CreateCharactersApi>()
-                              .setCharacterSkillsAndSaveChecksProficiency(
+                          getIt<CreateCharactersApi>().setCharacterSkillsAndSaveChecksProficiency(
                             getIt<CurrentCharacterId>().state!,
                             {
                               'athletics': athleticsProfController,
@@ -398,10 +384,8 @@ class _CreateCharacterFourthScreenState
                             {
                               'save_strength': saveStrengthProfController,
                               'save_dexterity': saveDexterityProfController,
-                              'save_constitution':
-                                  saveConstitutionProfController,
-                              'save_intelligence':
-                                  saveIntelligenceProfController,
+                              'save_constitution': saveConstitutionProfController,
+                              'save_intelligence': saveIntelligenceProfController,
                               'save_wisdom': saveWisdomProfController,
                               'save_charisma': saveCharismaProfController,
                             },

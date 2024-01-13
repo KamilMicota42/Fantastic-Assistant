@@ -16,6 +16,7 @@ import '../../../../../widgets/containers/att_and_mod_container.dart';
 import '../widgets/description_left.dart';
 import '../widgets/title_left.dart';
 import '../widgets/value_and_description.dart';
+import 'widgets/character_notes.dart';
 import 'widgets/save_checks_container.dart';
 
 @RoutePage()
@@ -37,7 +38,6 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
             child: BlocBuilder<CurrentCharacterCubit, CharacterModel?>(
               bloc: getIt<CurrentCharacterCubit>(),
               builder: (context, state) {
-                print(state?.characterNotes);
                 return Stack(
                   children: [
                     SizedBox(
@@ -51,7 +51,9 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               getIt<AppRouter>().navigate(const CharactersRoute());
                             },
                             rightSideWidget: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                getIt<AppRouter>().navigate(const EditCharacterRoute());
+                              },
                               icon: const Icon(Icons.edit_sharp),
                             ),
                           ),
@@ -145,7 +147,9 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               const SizedBox(height: 6),
                               const DefaultDivider(),
                               const TitleLeft(text: 'Saving Throws'),
-                              SaveChecksContainer(characterModel: state),
+                              SaveChecksContainer(
+                                characterModel: state,
+                              ),
                               const SizedBox(height: 6),
                               const DefaultDivider(),
                               const TitleLeft(text: 'Skills'),
@@ -155,6 +159,11 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                 characterAttributes: state.characterAttributes,
                                 characterProficiency: state.characterBasicInfo?.proficiency ?? 0,
                               ),
+                              const SizedBox(height: 6),
+                              const DefaultDivider(),
+                              const TitleLeft(text: 'Notes'),
+                              const SizedBox(height: 6),
+                              CharacterNotesWidget(listOfNotes: state.characterNotes),
                               const SizedBox(height: 120),
                             ],
                           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
@@ -26,73 +27,106 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
   String maxValueText = '0';
 
   @override
+  void initState() {
+    widget.currentHpController.text != '' ? currValueText = widget.currentHpController.text : null;
+    widget.maxHpController.text != '' ? maxValueText = widget.maxHpController.text : null;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Column(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.lighterGrey,
-                shape: BoxShape.circle,
-              ),
-              child: SizedBox(
-                height: 100,
-                child: Center(
-                  child: Text(
-                    '$currValueText / $maxValueText',
-                    style: DefaultTextTheme.titilliumWebBold16(context),
-                  ),
-                ),
-              ),
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                    ),
-                    child: DefaultTextFieldWLabel(
-                      textController: widget.currentHpController,
-                      labelText: 'Current HP',
-                      alignText: TextAlign.center,
-                      alignLabel: FloatingLabelAlignment.center,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            if (isIntable(value)) {
-                              currValueText = int.parse(value).toString();
-                            } else {
-                              currValueText = "0";
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                        ),
+                        child: Focus(
+                          onFocusChange: (hasFocus) {
+                            if (!isIntable(widget.currentHpController.text)) {
+                              widget.currentHpController.text = '0';
                             }
                           },
-                        );
-                      },
+                          child: DefaultTextFieldWLabel(
+                            textController: widget.currentHpController,
+                            labelText: 'Curr HP',
+                            alignText: TextAlign.center,
+                            alignLabel: FloatingLabelAlignment.center,
+                            onChanged: (value) {
+                              setState(
+                                () {
+                                  if (isIntable(value)) {
+                                    currValueText = int.parse(value).toString();
+                                  } else {
+                                    currValueText = "0";
+                                  }
+                                },
+                              );
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                            ],
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 100,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                        ),
+                        child: Focus(
+                          onFocusChange: (hasFocus) {
+                            if (!isIntable(widget.maxHpController.text)) {
+                              widget.maxHpController.text = '0';
+                            }
+                          },
+                          child: DefaultTextFieldWLabel(
+                            textController: widget.maxHpController,
+                            labelText: 'Max HP',
+                            alignText: TextAlign.center,
+                            alignLabel: FloatingLabelAlignment.center,
+                            onChanged: (value) {
+                              setState(
+                                () {
+                                  if (isIntable(value)) {
+                                    maxValueText = int.parse(value).toString();
+                                  } else {
+                                    maxValueText = "0";
+                                  }
+                                },
+                              );
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                            ],
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                    ),
-                    child: DefaultTextFieldWLabel(
-                      textController: widget.maxHpController,
-                      labelText: 'Max HP',
-                      alignText: TextAlign.center,
-                      alignLabel: FloatingLabelAlignment.center,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            if (isIntable(value)) {
-                              maxValueText = int.parse(value).toString();
-                            } else {
-                              maxValueText = "0";
-                            }
-                          },
-                        );
-                      },
+                SizedBox(
+                  width: 100,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Center(
+                      child: Text(
+                        '$currValueText / $maxValueText',
+                        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.clip),
+                      ),
                     ),
                   ),
                 ),

@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../utils/const/app_colors.dart';
 import '../../utils/global_var/default_text_theme.dart';
 
 class DefaultTextFieldWLabel extends StatelessWidget {
-  final TextEditingController textController;
+  final TextEditingController? textController;
   final String labelText;
   final TextAlign? alignText;
   final FloatingLabelAlignment? alignLabel;
   final TextInputType? keyboardType;
   final Function? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
   const DefaultTextFieldWLabel({
     super.key,
-    required this.textController,
+    this.textController,
     required this.labelText,
     this.alignText,
     this.alignLabel,
     this.keyboardType,
     this.onChanged,
+    this.inputFormatters,
   });
 
   @override
@@ -25,8 +28,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
     return TextField(
       controller: textController,
       textAlign: alignText ?? TextAlign.start,
-      style: DefaultTextTheme.titilliumWebBold20(context)!
-          .copyWith(color: AppColors.darkerGrey, fontWeight: FontWeight.bold),
+      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey, fontWeight: FontWeight.bold),
       keyboardType: keyboardType,
       onChanged: (value) {
         onChanged != null ? onChanged!(value) : null;
@@ -34,9 +36,9 @@ class DefaultTextFieldWLabel extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         floatingLabelAlignment: alignLabel ?? FloatingLabelAlignment.start,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!
-            .copyWith(color: AppColors.grey),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
       ),
+      inputFormatters: inputFormatters,
     );
   }
 }

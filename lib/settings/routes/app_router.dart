@@ -32,5 +32,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: CreateCharacterFifthRoute.page),
         // characters view
         AutoRoute(page: ViewCharacterRoute.page),
+        AutoRoute(page: EditCharacterRoute.page),
       ];
 }
