@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
@@ -6,7 +8,6 @@ import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/editCharacter/widgets/save_throw_container_editable.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/editCharacter/widgets/textfield_and_description.dart';
-import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/curr_hp_max_hp_text_field.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/go_back_title_row.dart';
@@ -21,6 +22,7 @@ import '../../../../../utils/const/enums/character_class_list.dart';
 import '../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../utils/const/enums/character_races_list.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
+import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/texts/describer_of_textfield.dart';
 import '../widgets/custom_dropdown_menu.dart';
 import '../widgets/prof_controller_row.dart';
@@ -35,6 +37,10 @@ class EditCharacterScreen extends StatefulWidget {
 }
 
 class _EditCharacterScreenState extends State<EditCharacterScreen> {
+  //photo
+  String? initialImageUrl;
+  File? pictureValue;
+  bool pictureChanged = false;
   TextEditingController characterNameController = TextEditingController();
   //Basic Info
   String levelStringValue = characterLevelsList.first;
@@ -88,6 +94,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
 
   @override
   void initState() {
+    initialImageUrl =
+        getIt<CurrentCharacterCubit>().state?.characterPathToPicture != null ? getIt<CurrentCharacterCubit>().state!.characterPathToPicture : null;
     //Basic Info
     characterNameController.text = getIt<CurrentCharacterCubit>().state!.characterName ?? '';
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
@@ -246,7 +254,10 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               getIt<AppRouter>().pop();
                             },
                             rightSideWidget: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print(pictureChanged);
+                                print(pictureValue);
+                              },
                               icon: const Icon(Icons.save_sharp),
                             ),
                           ),
@@ -264,7 +275,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               SizedBox(
                                 height: MediaQuery.of(context).size.width - 100,
                                 width: MediaQuery.of(context).size.width - 100,
-                                child: CharacterPicture(pathToPicture: state?.characterPathToPicture),
+                                child: AddPhotoIconButton(
+                                    initialImageUrl: initialImageUrl,
+                                    onTapFunction: (var value) {
+                                      pictureValue = value;
+                                    },
+                                    onChange: () {
+                                      pictureChanged = true;
+                                    }),
                               ),
                               const SizedBox(height: 6),
                               Align(

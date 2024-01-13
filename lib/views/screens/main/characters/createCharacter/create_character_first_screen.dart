@@ -24,14 +24,11 @@ class CreateCharacterFirstScreen extends StatefulWidget {
   const CreateCharacterFirstScreen({super.key});
 
   @override
-  State<CreateCharacterFirstScreen> createState() =>
-      _CreateCharacterFirstScreenState();
+  State<CreateCharacterFirstScreen> createState() => _CreateCharacterFirstScreenState();
 }
 
-class _CreateCharacterFirstScreenState
-    extends State<CreateCharacterFirstScreen> {
-  final TextEditingController _characterNameController =
-      TextEditingController();
+class _CreateCharacterFirstScreenState extends State<CreateCharacterFirstScreen> {
+  final TextEditingController _characterNameController = TextEditingController();
 
   String _levelValue = characterLevelsList.first;
   String _classValue = characterClassesList.first;
@@ -68,10 +65,8 @@ class _CreateCharacterFirstScreenState
                             if (_characterNameController.text.isEmpty) {
                               showSnackBar('Character name can not be empty');
                             } else {
-                              int? levelIntValue =
-                                  levelReturnIntFromString(_levelValue);
-                              await getIt<CreateCharactersApi>()
-                                  .createCharacter(
+                              int? levelIntValue = levelReturnIntFromString(_levelValue);
+                              await getIt<CreateCharactersApi>().createCharacter(
                                 _pictureValue,
                                 _characterNameController.text,
                                 levelIntValue,
@@ -98,6 +93,7 @@ class _CreateCharacterFirstScreenState
                             onTapFunction: (var value) {
                               _pictureValue = value;
                             },
+                            onChange: () {},
                           ),
                           DefaultTextFieldWLabel(
                             textController: _characterNameController,
