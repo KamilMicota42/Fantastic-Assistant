@@ -254,10 +254,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               getIt<AppRouter>().pop();
                             },
                             rightSideWidget: IconButton(
-                              onPressed: () {
-                                print(pictureChanged);
-                                print(pictureValue);
-                              },
+                              onPressed: () {},
                               icon: const Icon(Icons.save_sharp),
                             ),
                           ),
