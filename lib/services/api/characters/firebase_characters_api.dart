@@ -131,7 +131,6 @@ class CreateCharactersApi {
       _characters.doc(characterId).update(
         {
           'account_id': getIt<CurrentUserAdditionalData>().state!.accountId,
-          'character_path_to_picture': null,
           'character_name': characterName,
           'character_level': characterLevel,
           'character_class': characterClass,
