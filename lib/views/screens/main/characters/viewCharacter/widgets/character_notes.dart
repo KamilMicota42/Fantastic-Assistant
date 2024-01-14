@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 
 class CharacterNotesWidget extends StatefulWidget {
-  final List<dynamic>? listOfNotes;
+  final List<dynamic> listOfNotes;
   const CharacterNotesWidget({super.key, required this.listOfNotes});
 
   @override
@@ -15,14 +15,14 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
   int currNoteIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return widget.listOfNotes != null
+    return widget.listOfNotes.isNotEmpty
         ? Column(
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 20,
                 child: ListView.builder(
-                  itemCount: widget.listOfNotes!.length,
+                  itemCount: widget.listOfNotes.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -35,7 +35,7 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                         child: SizedBox(
                           width: 100,
                           child: Text(
-                            widget.listOfNotes![index],
+                            widget.listOfNotes[index],
                             style: index == currNoteIndex
                                 ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.ellipsis)
                                 : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(overflow: TextOverflow.ellipsis),
@@ -61,7 +61,7 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              widget.listOfNotes![currNoteIndex],
+                              widget.listOfNotes[currNoteIndex],
                               style: DefaultTextTheme.titilliumWebRegular16(context),
                             )
                           ],

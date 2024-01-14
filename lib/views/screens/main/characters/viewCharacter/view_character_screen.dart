@@ -163,7 +163,7 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               const DefaultDivider(),
                               const TitleLeft(text: 'Notes'),
                               const SizedBox(height: 6),
-                              CharacterNotesWidget(listOfNotes: state.characterNotes),
+                              CharacterNotesWidget(listOfNotes: state.characterNotes!),
                               const SizedBox(height: 120),
                             ],
                           ),

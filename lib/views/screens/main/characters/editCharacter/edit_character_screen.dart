@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/level_and_proficiency_map.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/editCharacter/widgets/save_throw_container_editable.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/editCharacter/widgets/textfield_and_description.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/curr_hp_max_hp_text_field.dart';
@@ -91,130 +93,129 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
   //Notes
   List<TextEditingController> notesControllers = [];
   int notesIndex = 0;
+  List<dynamic> notesValues = [];
 
   @override
   void initState() {
     initialImageUrl =
         getIt<CurrentCharacterCubit>().state?.characterPathToPicture != null ? getIt<CurrentCharacterCubit>().state!.characterPathToPicture : null;
     //Basic Info
-    characterNameController.text = getIt<CurrentCharacterCubit>().state!.characterName ?? '';
+    characterNameController.text =
+        getIt<CurrentCharacterCubit>().state?.characterName != null ? getIt<CurrentCharacterCubit>().state!.characterName! : '';
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
-      levelStringValue = "Level ${getIt<CurrentCharacterCubit>().state!.characterLevel}";
+      levelStringValue = "Level ${getIt<CurrentCharacterCubit>().state?.characterLevel}";
     }
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
       levelIntValue = getIt<CurrentCharacterCubit>().state!.characterLevel!;
     }
-    if (getIt<CurrentCharacterCubit>().state!.characterClass != null) classValue = getIt<CurrentCharacterCubit>().state!.characterClass.toString();
-    if (getIt<CurrentCharacterCubit>().state!.characterRace != null) raceValue = getIt<CurrentCharacterCubit>().state!.characterRace.toString();
-    currHpController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.currentHp.toString() ?? '0';
-    maxHpController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.maxHp.toString() ?? '0';
-    profBonusController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.proficiency != null
+    if (getIt<CurrentCharacterCubit>().state?.characterClass != null) classValue = getIt<CurrentCharacterCubit>().state!.characterClass.toString();
+    if (getIt<CurrentCharacterCubit>().state?.characterRace != null) raceValue = getIt<CurrentCharacterCubit>().state!.characterRace.toString();
+    currHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.currentHp.toString() ?? '0';
+    maxHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.maxHp.toString() ?? '0';
+    profBonusController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.proficiency != null
         ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.proficiency.toString()
-        : '0';
-    walkingSpeedController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.speed != null
+        : '2';
+    walkingSpeedController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.speed != null
         ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.speed.toString()
-        : '0';
-    initiativeController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.initiative != null
+        : '30';
+    initiativeController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.initiative != null
         ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.initiative.toString()
         : '0';
-    initiativeController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.initiative != null
-        ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.initiative.toString()
-        : '0';
-    armorClassController.text = getIt<CurrentCharacterCubit>().state!.characterBasicInfo?.armorClass != null
+    armorClassController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.armorClass != null
         ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.armorClass.toString()
-        : '0';
+        : '10';
     //Attributes
-    strAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.strength != null
+    strAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.strength != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.strength.toString()
-        : '0';
-    dexAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.dexterity != null
+        : '10';
+    dexAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.dexterity != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity.toString()
-        : '0';
-    conAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.constitution != null
+        : '10';
+    conAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.constitution != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.constitution.toString()
-        : '0';
-    intAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.intelligence != null
+        : '10';
+    intAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.intelligence != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.intelligence.toString()
-        : '0';
-    wisAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.wisdom != null
+        : '10';
+    wisAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.wisdom != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.wisdom.toString()
-        : '0';
-    chaAttController.text = getIt<CurrentCharacterCubit>().state!.characterAttributes?.charisma != null
+        : '10';
+    chaAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.charisma != null
         ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.charisma.toString()
-        : '0';
+        : '10';
 
     //Saving throw
-    strSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveStrength != null
+    strSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveStrength != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveStrength!
         : false;
-    dexSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveDexterity != null
+    dexSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveDexterity != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveDexterity!
         : false;
-    conSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveConstitution != null
+    conSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveConstitution != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveConstitution!
         : false;
-    intSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveIntelligence != null
+    intSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveIntelligence != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveIntelligence!
         : false;
-    wisSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveWisdom != null
+    wisSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveWisdom != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveWisdom!
         : false;
-    chaSavingThrowProf = getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks?.saveCharisma != null
+    chaSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveCharisma != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveCharisma!
         : false;
 
-    athleticsProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.athletics != null
+    athleticsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.athletics != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.athletics!
         : false;
-    acrobaticsProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.acrobatics != null
+    acrobaticsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.acrobatics != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.acrobatics!
         : false;
-    sleightOfHandsProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.sleightOfHand != null
+    sleightOfHandsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.sleightOfHand != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.sleightOfHand!
         : false;
-    stealthProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.stealth != null
+    stealthProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.stealth != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.stealth!
         : false;
-    arcanaProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.arcana != null
+    arcanaProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.arcana != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.arcana!
         : false;
-    historyProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.history != null
+    historyProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.history != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.history!
         : false;
-    investigationProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.investigation != null
+    investigationProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.investigation != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.investigation!
         : false;
-    natureProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.nature != null
+    natureProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.nature != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.nature!
         : false;
-    religionProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.religion != null
+    religionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.religion != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.religion!
         : false;
-    animalHandlingProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.animalHandling != null
+    animalHandlingProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.animalHandling != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.animalHandling!
         : false;
-    insightProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.insight != null
+    insightProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.insight != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.insight!
         : false;
-    medicineProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.medicine != null
+    medicineProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.medicine != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.medicine!
         : false;
-    perceptionProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.perception != null
+    perceptionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.perception != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.perception!
         : false;
-    survivalProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.survival != null
+    survivalProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.survival != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.survival!
         : false;
-    deceptionProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.deception != null
+    deceptionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.deception != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.deception!
         : false;
-    intimidationProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.intimidation != null
+    intimidationProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.intimidation != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.intimidation!
         : false;
-    performanceProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.performance != null
+    performanceProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.performance != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.performance!
         : false;
-    persuasionProfController = getIt<CurrentCharacterCubit>().state!.characterProfSkills?.persuasion != null
+    persuasionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.persuasion != null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.persuasion!
         : false;
 
@@ -254,7 +255,116 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                               getIt<AppRouter>().pop();
                             },
                             rightSideWidget: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                notesValues = [];
+                                for (TextEditingController controller in notesControllers) {
+                                  notesValues.add(controller.text);
+                                }
+                                if (getIt<CurrentCharacterId>().state != null) {
+                                  //edit
+                                  getIt<CreateCharactersApi>().updateCharacter(
+                                    getIt<CurrentCharacterId>().state.toString(),
+                                    pictureValue,
+                                    pictureChanged,
+                                    characterNameController.text,
+                                    levelIntValue,
+                                    classValue,
+                                    raceValue,
+                                    int.parse(currHpController.text),
+                                    int.parse(maxHpController.text),
+                                    int.parse(profBonusController.text),
+                                    int.parse(walkingSpeedController.text),
+                                    int.parse(initiativeController.text),
+                                    int.parse(armorClassController.text),
+                                    int.parse(strAttController.text),
+                                    int.parse(dexAttController.text),
+                                    int.parse(conAttController.text),
+                                    int.parse(intAttController.text),
+                                    int.parse(wisAttController.text),
+                                    int.parse(chaAttController.text),
+                                    {
+                                      "save_charisma": chaSavingThrowProf,
+                                      "save_constitution": conSavingThrowProf,
+                                      "save_dexterity": dexSavingThrowProf,
+                                      "save_intelligence": intSavingThrowProf,
+                                      "save_strength": strSavingThrowProf,
+                                      "save_wisdom": wisSavingThrowProf
+                                    },
+                                    {
+                                      "acrobatics": acrobaticsProfController,
+                                      "animal_handling": animalHandlingProfController,
+                                      "arcana": arcanaProfController,
+                                      "athletics": athleticsProfController,
+                                      "deception": deceptionProfController,
+                                      "history": historyProfController,
+                                      "insight": insightProfController,
+                                      "intimidation": intimidationProfController,
+                                      "investigation": investigationProfController,
+                                      "medicine": medicineProfController,
+                                      "nature": natureProfController,
+                                      "perception": perceptionProfController,
+                                      "performance": performanceProfController,
+                                      "persuasion": persuasionProfController,
+                                      "religion": religionProfController,
+                                      "sleight_of_hand": sleightOfHandsProfController,
+                                      "stealth": stealthProfController,
+                                      "survival": survivalProfController
+                                    },
+                                    notesValues,
+                                  );
+                                } else {
+                                  //save
+                                  getIt<CreateCharactersApi>().createCharacter(
+                                    pictureValue,
+                                    pictureChanged,
+                                    characterNameController.text,
+                                    levelIntValue,
+                                    classValue,
+                                    raceValue,
+                                    int.parse(currHpController.text),
+                                    int.parse(maxHpController.text),
+                                    int.parse(profBonusController.text),
+                                    int.parse(walkingSpeedController.text),
+                                    int.parse(initiativeController.text),
+                                    int.parse(armorClassController.text),
+                                    int.parse(strAttController.text),
+                                    int.parse(dexAttController.text),
+                                    int.parse(conAttController.text),
+                                    int.parse(intAttController.text),
+                                    int.parse(wisAttController.text),
+                                    int.parse(chaAttController.text),
+                                    {
+                                      "save_charisma": chaSavingThrowProf,
+                                      "save_constitution": conSavingThrowProf,
+                                      "save_dexterity": dexSavingThrowProf,
+                                      "save_intelligence": intSavingThrowProf,
+                                      "save_strength": strSavingThrowProf,
+                                      "save_wisdom": wisSavingThrowProf
+                                    },
+                                    {
+                                      "acrobatics": acrobaticsProfController,
+                                      "animal_handling": animalHandlingProfController,
+                                      "arcana": arcanaProfController,
+                                      "athletics": athleticsProfController,
+                                      "deception": deceptionProfController,
+                                      "history": historyProfController,
+                                      "insight": insightProfController,
+                                      "intimidation": intimidationProfController,
+                                      "investigation": investigationProfController,
+                                      "medicine": medicineProfController,
+                                      "nature": natureProfController,
+                                      "perception": perceptionProfController,
+                                      "performance": performanceProfController,
+                                      "persuasion": persuasionProfController,
+                                      "religion": religionProfController,
+                                      "sleight_of_hand": sleightOfHandsProfController,
+                                      "stealth": stealthProfController,
+                                      "survival": survivalProfController
+                                    },
+                                    notesValues,
+                                  );
+                                }
+                              },
                               icon: const Icon(Icons.save_sharp),
                             ),
                           ),
@@ -338,6 +448,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                           onChanged: (value) {
                                             levelStringValue = value;
                                             levelIntValue = levelReturnIntFromString(value);
+                                            profBonusController.text = levelAndProficiencyMap[levelReturnIntFromString(value)].toString();
                                             setState(() {});
                                           },
                                           initialValue: levelStringValue,
@@ -411,9 +522,17 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                               attributeName: 'Strength',
                                               controller: strAttController,
                                             ),
-                                            AttAndModEditable(
-                                              attributeName: 'Dexterity',
-                                              controller: dexAttController,
+                                            Focus(
+                                              onFocusChange: (hasFocus) {
+                                                initiativeController.text = attributeToModifier(int.parse(dexAttController.text)).toString();
+                                                armorClassController.text =
+                                                    '${10 + int.parse(attributeToModifier(int.parse(dexAttController.text)).toString())}';
+                                                setState(() {});
+                                              },
+                                              child: AttAndModEditable(
+                                                attributeName: 'Dexterity',
+                                                controller: dexAttController,
+                                              ),
                                             ),
                                             AttAndModEditable(
                                               attributeName: 'Constitution',

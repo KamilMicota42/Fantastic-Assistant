@@ -149,7 +149,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                       height: 50,
                       function: () {
                         getIt<CurrentCharacterCubit>().delete();
-                        getIt<AppRouter>().navigate(const CreateCharacterFirstRoute());
+                        getIt<CurrentCharacterId>().delete();
+                        getIt<AppRouter>().navigate(const EditCharacterRoute());
                       },
                     ),
                   ),
