@@ -37,8 +37,11 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                           child: Text(
                             widget.listOfNotes[index],
                             style: index == currNoteIndex
-                                ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.ellipsis)
-                                : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(overflow: TextOverflow.ellipsis),
+                                ? DefaultTextTheme.titilliumWebBold16(context)!
+                                    .copyWith(overflow: TextOverflow.ellipsis)
+                                : DefaultTextTheme.titilliumWebRegular16(
+                                        context)!
+                                    .copyWith(overflow: TextOverflow.ellipsis),
                           ),
                         ),
                       ),
@@ -55,14 +58,16 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                   SizedBox(
                     height: 300,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 25),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               widget.listOfNotes[currNoteIndex],
-                              style: DefaultTextTheme.titilliumWebRegular16(context),
+                              style: DefaultTextTheme.titilliumWebRegular16(
+                                  context),
                             )
                           ],
                         ),

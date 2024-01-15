@@ -48,11 +48,13 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                           GoBackTitleRow(
                             screenTitle: "View character",
                             popFunction: () {
-                              getIt<AppRouter>().navigate(const CharactersRoute());
+                              getIt<AppRouter>()
+                                  .navigate(const CharactersRoute());
                             },
                             rightSideWidget: IconButton(
                               onPressed: () {
-                                getIt<AppRouter>().navigate(const EditCharacterRoute());
+                                getIt<AppRouter>()
+                                    .navigate(const EditCharacterRoute());
                               },
                               icon: const Icon(Icons.edit_sharp),
                             ),
@@ -71,20 +73,25 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               SizedBox(
                                 height: MediaQuery.of(context).size.width - 100,
                                 width: MediaQuery.of(context).size.width - 100,
-                                child: CharacterPicture(pathToPicture: state?.characterPathToPicture),
+                                child: CharacterPicture(
+                                    pathToPicture:
+                                        state?.characterPathToPicture),
                               ),
                               const SizedBox(height: 6),
                               TitleLeft(
                                 text: state!.characterName ?? '',
                               ),
                               DescriptionLeft(
-                                text: '${state.characterRace} | ${state.characterClass} | Level ${state.characterLevel}',
+                                text:
+                                    '${state.characterRace} | ${state.characterClass} | Level ${state.characterLevel}',
                               ),
                               DescriptionLeft(
-                                text: 'Hit Points ${state.characterBasicInfo?.currentHp ?? '0'}/${state.characterBasicInfo?.maxHp ?? '0'}',
+                                text:
+                                    'Hit Points ${state.characterBasicInfo?.currentHp ?? '0'}/${state.characterBasicInfo?.maxHp ?? '0'}',
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   ValueAndDescription(
                                     value:
@@ -92,7 +99,8 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                     description: 'Prof. Bonus',
                                   ),
                                   ValueAndDescription(
-                                    value: '${state.characterBasicInfo?.speed.toString() ?? '0'} ft.',
+                                    value:
+                                        '${state.characterBasicInfo?.speed.toString() ?? '0'} ft.',
                                     description: 'Wlk. Speed',
                                   ),
                                   ValueAndDescription(
@@ -101,7 +109,9 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                     description: 'Initiative',
                                   ),
                                   ValueAndDescription(
-                                    value: state.characterBasicInfo?.armorClass.toString() ?? '0',
+                                    value: state.characterBasicInfo?.armorClass
+                                            .toString() ??
+                                        '0',
                                     description: 'Armor Class',
                                   ),
                                 ],
@@ -110,37 +120,50 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               const DefaultDivider(),
                               const TitleLeft(text: 'Attributes'),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   AttAndModContainer(
                                     attributeName: 'Strength',
-                                    attributeValue: state.characterAttributes?.strength ?? 0,
+                                    attributeValue:
+                                        state.characterAttributes?.strength ??
+                                            0,
                                   ),
                                   AttAndModContainer(
                                     attributeName: 'Dexterity',
-                                    attributeValue: state.characterAttributes?.dexterity ?? 0,
+                                    attributeValue:
+                                        state.characterAttributes?.dexterity ??
+                                            0,
                                   ),
                                   AttAndModContainer(
                                     attributeName: 'Constitution',
-                                    attributeValue: state.characterAttributes?.constitution ?? 0,
+                                    attributeValue: state.characterAttributes
+                                            ?.constitution ??
+                                        0,
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 6),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   AttAndModContainer(
                                     attributeName: 'Intelligence',
-                                    attributeValue: state.characterAttributes?.intelligence ?? 0,
+                                    attributeValue: state.characterAttributes
+                                            ?.intelligence ??
+                                        0,
                                   ),
                                   AttAndModContainer(
                                     attributeName: 'Wisdom',
-                                    attributeValue: state.characterAttributes?.wisdom ?? 0,
+                                    attributeValue:
+                                        state.characterAttributes?.wisdom ?? 0,
                                   ),
                                   AttAndModContainer(
                                     attributeName: 'Charisma',
-                                    attributeValue: state.characterAttributes?.charisma ?? 0,
+                                    attributeValue:
+                                        state.characterAttributes?.charisma ??
+                                            0,
                                   ),
                                 ],
                               ),
@@ -157,13 +180,15 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               SkillsContainer(
                                 characterProfSkills: state.characterProfSkills,
                                 characterAttributes: state.characterAttributes,
-                                characterProficiency: state.characterBasicInfo?.proficiency ?? 0,
+                                characterProficiency:
+                                    state.characterBasicInfo?.proficiency ?? 0,
                               ),
                               const SizedBox(height: 6),
                               const DefaultDivider(),
                               const TitleLeft(text: 'Notes'),
                               const SizedBox(height: 6),
-                              CharacterNotesWidget(listOfNotes: state.characterNotes!),
+                              CharacterNotesWidget(
+                                  listOfNotes: state.characterNotes!),
                               const SizedBox(height: 120),
                             ],
                           ),

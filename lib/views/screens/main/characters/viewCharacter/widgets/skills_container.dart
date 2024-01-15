@@ -31,7 +31,8 @@ class SkillsContainer extends StatelessWidget {
             SkillRow(
               skillName: 'Animal handling',
               characterAttribute: characterAttributes!.wisdom,
-              isCharacterProfInSkill: characterProfSkills!.animalHandling ?? false,
+              isCharacterProfInSkill:
+                  characterProfSkills!.animalHandling ?? false,
               characterProficiency: characterProficiency,
             ),
             SkillRow(
@@ -67,13 +68,15 @@ class SkillsContainer extends StatelessWidget {
             SkillRow(
               skillName: 'Intimidation',
               characterAttribute: characterAttributes!.charisma,
-              isCharacterProfInSkill: characterProfSkills!.intimidation ?? false,
+              isCharacterProfInSkill:
+                  characterProfSkills!.intimidation ?? false,
               characterProficiency: characterProficiency,
             ),
             SkillRow(
               skillName: 'Investigation',
               characterAttribute: characterAttributes!.intelligence,
-              isCharacterProfInSkill: characterProfSkills!.investigation ?? false,
+              isCharacterProfInSkill:
+                  characterProfSkills!.investigation ?? false,
               characterProficiency: characterProficiency,
             ),
             SkillRow(
@@ -115,7 +118,8 @@ class SkillsContainer extends StatelessWidget {
             SkillRow(
               skillName: 'Sleight of hand',
               characterAttribute: characterAttributes!.dexterity,
-              isCharacterProfInSkill: characterProfSkills!.sleightOfHand ?? false,
+              isCharacterProfInSkill:
+                  characterProfSkills!.sleightOfHand ?? false,
               characterProficiency: characterProficiency,
             ),
             SkillRow(

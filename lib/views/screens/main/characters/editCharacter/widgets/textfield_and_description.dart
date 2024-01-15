@@ -47,7 +47,8 @@ class TextfieldAndDescription extends StatelessWidget {
           ),
           Text(
             description,
-            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.grey),
+            style: DefaultTextTheme.titilliumWebRegular16(context)!
+                .copyWith(color: AppColors.grey),
           ),
         ],
       ),

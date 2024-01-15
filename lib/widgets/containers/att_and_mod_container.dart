@@ -30,7 +30,9 @@ class AttAndModContainer extends StatelessWidget {
                 'assets/images/att_mod_background.svg',
               ),
               Center(
-                child: Text(attributeToModifier(int.parse(attributeValue.toString())).toString()),
+                child: Text(
+                    attributeToModifier(int.parse(attributeValue.toString()))
+                        .toString()),
               ),
               LayoutBuilder(builder: (context, constraints) {
                 return Padding(

@@ -25,7 +25,9 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
   @override
   void initState() {
     if (isAttributeValid(widget.controller.text)) {
-      modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+      modValue = int.parse(
+          attributeToModifier(int.parse(widget.controller.text.toString()))
+              .toString());
     }
     super.initState();
   }
@@ -68,19 +70,26 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                         },
                         child: TextField(
                           textAlign: TextAlign.center,
-                          style: DefaultTextTheme.titilliumWebRegular12(context)!.copyWith(),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.zero),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular12(context)!
+                                  .copyWith(),
+                          decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.zero),
                           controller: widget.controller,
                           onChanged: (v) {
                             if (isAttributeValid(v)) {
-                              modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+                              modValue = int.parse(attributeToModifier(
+                                      int.parse(
+                                          widget.controller.text.toString()))
+                                  .toString());
                             } else {
                               modValue = 0;
                             }
                             setState(() {});
                           },
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\-?\d*')),
                           ],
                           keyboardType: TextInputType.number,
                         ),

@@ -44,11 +44,13 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
           },
           child: CachedNetworkImage(
             imageUrl: widget.initialImageUrl!,
-            progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(
               strokeWidth: 2,
               value: downloadProgress.progress,
             ),
-            errorWidget: (context, url, error) => const Icon(Icons.person_sharp),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.person_sharp),
             fit: BoxFit.fill,
           ),
         ),
@@ -71,7 +73,8 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
                   color: AppColors.darkerGrey,
                 ),
                 onPressed: () async {
-                  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                  final pickedFile =
+                      await picker.pickImage(source: ImageSource.gallery);
 
                   if (pickedFile != null) {
                     widget.onTapFunction(File(pickedFile.path));

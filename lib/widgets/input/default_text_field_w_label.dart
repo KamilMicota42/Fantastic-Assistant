@@ -28,7 +28,8 @@ class DefaultTextFieldWLabel extends StatelessWidget {
     return TextField(
       controller: textController,
       textAlign: alignText ?? TextAlign.start,
-      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey, fontWeight: FontWeight.bold),
+      style: DefaultTextTheme.titilliumWebBold20(context)!
+          .copyWith(color: AppColors.darkerGrey, fontWeight: FontWeight.bold),
       keyboardType: keyboardType,
       onChanged: (value) {
         onChanged != null ? onChanged!(value) : null;
@@ -36,7 +37,8 @@ class DefaultTextFieldWLabel extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         floatingLabelAlignment: alignLabel ?? FloatingLabelAlignment.start,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!
+            .copyWith(color: AppColors.grey),
       ),
       inputFormatters: inputFormatters,
     );

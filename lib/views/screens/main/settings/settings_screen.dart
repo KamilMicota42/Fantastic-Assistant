@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
@@ -73,6 +74,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 10),
                 const DefaultDivider(),
                 SettingRow(
+                  text: 'Friends',
+                  onTap: () {
+                    getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    getIt<AppRouter>().navigate(const FriendsRoute());
+                  },
+                ),
+                const DefaultDivider(),
+                SettingRow(
+                  text: 'Friends Requests',
+                  onTap: () {
+                    getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    getIt<AppRouter>().navigate(const FriendsRequestsRoute());
+                  },
+                ),
+                const DefaultDivider(),
+                SettingRow(
                   text: 'Change Display Name',
                   onTap: () {
                     getIt<AppRouter>().navigate(const ChangeDisplayNameRoute());
@@ -91,16 +108,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () {
                     showSupportInformation(context);
                   },
-                ),
-                const DefaultDivider(),
-                SettingRow(
-                  text: 'Privacy Policy',
-                  onTap: () {},
-                ),
-                const DefaultDivider(),
-                SettingRow(
-                  text: 'Terms of Use',
-                  onTap: () {},
                 ),
                 const DefaultDivider(),
                 const SizedBox(height: 50),

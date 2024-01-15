@@ -28,6 +28,8 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
+  int i = 0;
+
   final _characters = FirebaseFirestore.instance.collection('characters').where(
         'account_id',
         isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId,

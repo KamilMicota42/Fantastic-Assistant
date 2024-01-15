@@ -61,10 +61,12 @@ class SaveThrowContainerEditable extends StatefulWidget {
   });
 
   @override
-  State<SaveThrowContainerEditable> createState() => _SaveThrowContainerEditableState();
+  State<SaveThrowContainerEditable> createState() =>
+      _SaveThrowContainerEditableState();
 }
 
-class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable> {
+class _SaveThrowContainerEditableState
+    extends State<SaveThrowContainerEditable> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -87,12 +89,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Strength',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.strAtt, widget.profValue, widget.strSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.strSavingThrow,
@@ -109,12 +115,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Dexterity',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.dexAtt, widget.profValue, widget.dexSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.dexSavingThrow,
@@ -131,12 +141,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Constitution',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.conAtt, widget.profValue, widget.conSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.conSavingThrow,
@@ -153,12 +167,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Intelligence',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.intAtt, widget.profValue, widget.intSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.intSavingThrow,
@@ -175,12 +193,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Wisdom',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.wisAtt, widget.profValue, widget.wisSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.wisSavingThrow,
@@ -197,12 +219,16 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                       children: [
                         Text(
                           'Charisma',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
                           '${formatAttributeToSaveCheck(widget.chaAtt, widget.profValue, widget.chaSavingThrow)}',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular16(context)!
+                                  .copyWith(color: AppColors.black),
                         ),
                         Checkbox(
                           value: widget.chaSavingThrow,

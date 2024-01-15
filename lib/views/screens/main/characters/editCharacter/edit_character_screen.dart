@@ -108,8 +108,12 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
       levelIntValue = getIt<CurrentCharacterCubit>().state!.characterLevel!;
     }
-    if (getIt<CurrentCharacterCubit>().state?.characterClass != null) classValue = getIt<CurrentCharacterCubit>().state!.characterClass.toString();
-    if (getIt<CurrentCharacterCubit>().state?.characterRace != null) raceValue = getIt<CurrentCharacterCubit>().state!.characterRace.toString();
+    if (getIt<CurrentCharacterCubit>().state?.characterClass != null) {
+      classValue = getIt<CurrentCharacterCubit>().state!.characterClass.toString();
+    }
+    if (getIt<CurrentCharacterCubit>().state?.characterRace != null) {
+      raceValue = getIt<CurrentCharacterCubit>().state!.characterRace.toString();
+    }
     currHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.currentHp.toString() ?? '0';
     maxHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.maxHp.toString() ?? '0';
     profBonusController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.proficiency != null

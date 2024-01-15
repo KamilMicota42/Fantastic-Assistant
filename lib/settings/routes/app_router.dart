@@ -24,6 +24,9 @@ class AppRouter extends $AppRouter {
         ),
         // settings flow
         AutoRoute(page: ChangeDisplayNameRoute.page),
+        AutoRoute(page: UsersRoute.page),
+        AutoRoute(page: FriendsRequestsRoute.page),
+        AutoRoute(page: FriendsRoute.page),
         // characters view
         AutoRoute(page: ViewCharacterRoute.page),
         AutoRoute(page: EditCharacterRoute.page),

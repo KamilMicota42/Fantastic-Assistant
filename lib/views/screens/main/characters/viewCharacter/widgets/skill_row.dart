@@ -23,12 +23,14 @@ class SkillRow extends StatelessWidget {
       children: [
         Text(
           skillName,
-          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!
+              .copyWith(color: AppColors.black),
         ),
         Expanded(
           child: Text(
             '${attributeToModifier(characterAttribute ?? 0) + (isCharacterProfInSkill ? characterProficiency ?? 0 : 0)}',
-            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+            style: DefaultTextTheme.titilliumWebRegular16(context)!
+                .copyWith(color: AppColors.black),
             textAlign: TextAlign.end,
           ),
         ),
