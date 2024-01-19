@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/models/user/user_additional_data.dart';
-import 'package:fantastic_assistant/views/screens/auth/widgets/logo_up_column.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import '../../../../services/cubits/user_related_cubits/firebase_auth_current_us
 import '../../../../settings/injection.dart';
 import '../../../../widgets/background/auth_background_container.dart';
 import '../../../../widgets/buttons/default_button.dart';
+import '../../../../widgets/buttons/go_back_title_row.dart';
 import '../../../../widgets/input/default_text_field_w_label.dart';
 import '../../auth/widgets/text_and_clickable_text_row.dart';
 
@@ -34,7 +34,7 @@ class _ChangeDisplayNameScreenState extends State<ChangeDisplayNameScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const LogoUpColumn(
+                const GoBackTitleRow(
                   screenTitle: 'Change Name',
                 ),
                 Column(

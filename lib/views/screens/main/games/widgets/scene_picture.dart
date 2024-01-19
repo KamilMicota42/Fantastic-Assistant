@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../../utils/const/app_colors.dart';
 
-class CharacterPicture extends StatelessWidget {
+class ScenePicture extends StatelessWidget {
   final String? pathToPicture;
-  const CharacterPicture({
+  const ScenePicture({
     super.key,
     required this.pathToPicture,
   });
@@ -23,7 +23,7 @@ class CharacterPicture extends StatelessWidget {
                 strokeWidth: 2,
                 value: downloadProgress.progress,
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.person_sharp),
+              errorWidget: (context, url, error) => const Icon(Icons.games_rounded),
               fit: BoxFit.fill,
             )
           : Container(
@@ -33,7 +33,7 @@ class CharacterPicture extends StatelessWidget {
               child: const FittedBox(
                 fit: BoxFit.fill,
                 child: Icon(
-                  Icons.person_sharp,
+                  Icons.games_rounded,
                   color: AppColors.darkerGrey,
                 ),
               ),

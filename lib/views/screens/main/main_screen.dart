@@ -16,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       routes: const [
-        HomepageRoute(),
+        GamesRoute(),
         CharactersRoute(),
         SettingsRoute(),
       ],
@@ -36,15 +36,15 @@ class _MainScreenState extends State<MainScreen> {
             },
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+                icon: Icon(Icons.games_sharp),
+                label: 'Games',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
+                icon: Icon(Icons.account_circle_sharp),
                 label: 'Characters',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.settings_sharp),
                 label: 'Settings',
               ),
             ],

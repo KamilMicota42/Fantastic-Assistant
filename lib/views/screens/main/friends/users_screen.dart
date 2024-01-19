@@ -73,20 +73,16 @@ class _UsersScreenState extends State<UsersScreen> {
                                           height: 100,
                                           child: Row(
                                             children: [
-                                              const Expanded(
-                                                flex: 1,
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(6),
-                                                  child: SizedBox(
-                                                    height: 100,
-                                                    child: CharacterPicture(
-                                                      pathToPicture: null,
-                                                    ),
+                                              const Padding(
+                                                padding: EdgeInsets.all(6),
+                                                child: SizedBox(
+                                                  height: 100,
+                                                  child: CharacterPicture(
+                                                    pathToPicture: null,
                                                   ),
                                                 ),
                                               ),
                                               Expanded(
-                                                flex: 2,
                                                 child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
@@ -101,16 +97,13 @@ class _UsersScreenState extends State<UsersScreen> {
                                                   ],
                                                 ),
                                               ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    getIt<FirebaseUserData>().sendFriendRequest(
-                                                      documentSnapshot.id,
-                                                    );
-                                                  },
-                                                  icon: const Icon(Icons.add_sharp),
-                                                ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  getIt<FirebaseUserData>().sendFriendRequest(
+                                                    documentSnapshot.id,
+                                                  );
+                                                },
+                                                icon: const Icon(Icons.add_sharp),
                                               ),
                                             ],
                                           ),

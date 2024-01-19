@@ -1,5 +1,5 @@
 import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
-import 'package:fantastic_assistant/services/api/characters/firebase_storage_api.dart';
+import 'package:fantastic_assistant/services/api/firebase_storage_api.dart';
 import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
@@ -7,6 +7,7 @@ import 'package:fantastic_assistant/views/screens/main/characters/cubits/current
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import '../services/api/games/fierbase_games_api.dart';
 import 'injection.config.dart';
 
 GetIt getIt = GetIt.instance;
@@ -20,4 +21,5 @@ Future<void> configureDependencies(String env) async {
   getIt.registerLazySingleton<CurrentCharacterId>(() => CurrentCharacterId());
   getIt.registerLazySingleton<CurrentCharacterCubit>(() => CurrentCharacterCubit());
   getIt.registerLazySingleton<FirebaseUserData>(() => FirebaseUserData());
+  getIt.registerLazySingleton<CreateGamesApi>(() => CreateGamesApi());
 }

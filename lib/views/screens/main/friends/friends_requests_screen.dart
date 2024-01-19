@@ -39,7 +39,8 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: GoBackTitleRow(
                       screenTitle: "Friends Requests",
-                      popFunction: () {
+                      popFunction: () async {
+                        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                         getIt<AppRouter>().pop();
                       },
                     ),
@@ -52,6 +53,23 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                         stream: users.snapshots(),
                         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
+                            bool anyFriend = false;
+                            for (var i = 0; i < streamSnapshot.data!.docs.length; i++) {
+                              if (state!.friendsRequests!.contains(streamSnapshot.data!.docs[i].id)) {
+                                anyFriend = true;
+                              }
+                            }
+                            if (!anyFriend) {
+                              return Expanded(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    "No friends requests yet",
+                                    style: DefaultTextTheme.titilliumWebRegular16(context),
+                                  ),
+                                ),
+                              );
+                            }
                             return Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 5),

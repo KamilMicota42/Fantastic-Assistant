@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
+import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../utils/methods/show_snack_bar.dart';
+import '../../utils/methods/show_snack_bar.dart';
 
 class FirebaseStorageApi {
   Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -13,14 +14,31 @@ class FirebaseStorageApi {
     String characterId,
     File picture,
   ) async {
-    Reference referenceDirCharactersPictures =
-        referenceRoot.child('charactersPictures/${characterId}Picture');
+    Reference referenceDirCharactersPictures = referenceRoot.child('charactersPictures/${characterId}Picture');
     String pictureUrl = '';
     try {
       await referenceDirCharactersPictures.putFile(File(picture.path));
       pictureUrl = await referenceDirCharactersPictures.getDownloadURL();
       getIt<CreateCharactersApi>().setCharacterPictureUrl(
         characterId,
+        pictureUrl,
+      );
+    } catch (e) {
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> addGamePicture(
+    String gameId,
+    File picture,
+  ) async {
+    Reference referenceDirCharactersPictures = referenceRoot.child('gamesPictures/${gameId}Picture');
+    String pictureUrl = '';
+    try {
+      await referenceDirCharactersPictures.putFile(File(picture.path));
+      pictureUrl = await referenceDirCharactersPictures.getDownloadURL();
+      getIt<CreateGamesApi>().setGamePictureUrl(
+        gameId,
         pictureUrl,
       );
     } catch (e) {

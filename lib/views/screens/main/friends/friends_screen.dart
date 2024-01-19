@@ -23,7 +23,10 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  var users = FirebaseFirestore.instance.collection('userAdditionalData').orderBy('account_display_name');
+  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
+        'friends',
+        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +58,20 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     bloc: getIt<CurrentUserAdditionalData>(),
                     builder: (context, state) {
                       return StreamBuilder(
-                        stream: users.snapshots(),
+                        stream: friends.snapshots(),
                         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
+                            if (streamSnapshot.data!.docs.isEmpty) {
+                              return Expanded(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    "No friends yet",
+                                    style: DefaultTextTheme.titilliumWebRegular16(context),
+                                  ),
+                                ),
+                              );
+                            }
                             return Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -67,44 +81,40 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   itemCount: streamSnapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                    if (state!.friends!.contains(documentSnapshot.id)) {
-                                      return Card(
-                                        color: AppColors.lighterGrey,
-                                        child: SizedBox(
-                                          height: 100,
-                                          child: Row(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
-                                                child: SizedBox(
-                                                  height: 100,
-                                                  child: CharacterPicture(
-                                                    pathToPicture: null,
+                                    return Card(
+                                      color: AppColors.lighterGrey,
+                                      child: SizedBox(
+                                        height: 100,
+                                        child: Row(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                              child: SizedBox(
+                                                height: 100,
+                                                child: CharacterPicture(
+                                                  pathToPicture: null,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    documentSnapshot['account_display_name'],
+                                                    style: DefaultTextTheme.titilliumWebBold16(context),
                                                   ),
-                                                ),
+                                                  Text(
+                                                    documentSnapshot['account_email'],
+                                                    style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                  ),
+                                                ],
                                               ),
-                                              Expanded(
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      documentSnapshot['account_display_name'],
-                                                      style: DefaultTextTheme.titilliumWebBold16(context),
-                                                    ),
-                                                    Text(
-                                                      documentSnapshot['account_email'],
-                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
+                                      ),
+                                    );
                                   },
                                 ),
                               ),

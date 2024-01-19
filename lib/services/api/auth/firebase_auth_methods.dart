@@ -64,7 +64,7 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
+        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {

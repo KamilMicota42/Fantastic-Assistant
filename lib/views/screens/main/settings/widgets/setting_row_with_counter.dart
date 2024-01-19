@@ -5,7 +5,7 @@ import '../../../../../utils/global_var/default_text_theme.dart';
 
 class SettingRowWithCounter extends StatelessWidget {
   final String text;
-  final int notificationCounter;
+  final int? notificationCounter;
   final Function onTap;
   const SettingRowWithCounter({
     super.key,

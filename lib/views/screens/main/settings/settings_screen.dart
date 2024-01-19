@@ -7,7 +7,6 @@ import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/views/screens/main/settings/logic/show_delete_account.dart';
-import 'package:fantastic_assistant/views/screens/main/settings/widgets/setting_row_with_counter.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,32 +62,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
                   },
                 ),
-                BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
-                  bloc: getIt<CurrentUserAdditionalData>(),
-                  builder: (context, state) {
-                    return Text(
-                      '${state?.accountEmail}',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
-                    );
-                  },
+                Text(
+                  '${getIt<CurrentUserAdditionalData>().state?.accountEmail}',
+                  style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
                 ),
                 const SizedBox(height: 10),
                 const DefaultDivider(),
                 SettingRow(
                   text: 'Friends',
-                  onTap: () {
-                    getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                  onTap: () async {
+                    await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRoute());
                   },
                 ),
                 const DefaultDivider(),
-                SettingRowWithCounter(
-                  text: 'Friends Requests',
-                  onTap: () {
-                    getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                SettingRow(
+                  text: 'Friends requests',
+                  onTap: () async {
+                    await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRequestsRoute());
                   },
-                  notificationCounter: getIt<CurrentUserAdditionalData>().state!.friendsRequests!.length,
                 ),
                 const DefaultDivider(),
                 SettingRow(

@@ -17,7 +17,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: MainRoute.page,
           children: [
-            AutoRoute(page: HomepageRoute.page, initial: true),
+            AutoRoute(page: GamesRoute.page, initial: true),
             AutoRoute(page: CharactersRoute.page),
             AutoRoute(page: SettingsRoute.page),
           ],
@@ -30,5 +30,8 @@ class AppRouter extends $AppRouter {
         // characters view
         AutoRoute(page: ViewCharacterRoute.page),
         AutoRoute(page: EditCharacterRoute.page),
+        // games flow
+        AutoRoute(page: EditGameRoute.page),
+        // in games flow
       ];
 }
