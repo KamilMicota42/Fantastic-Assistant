@@ -109,10 +109,10 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
                                     try {
                                       getIt<CurrentCharacterCubit>().delete();
-                                      getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
+                                      await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
                                       getIt<AppRouter>().navigate(const ViewCharacterRoute());
                                     } catch (e) {
                                       showSnackBar("Error occured");
