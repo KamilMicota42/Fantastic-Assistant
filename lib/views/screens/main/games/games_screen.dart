@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/models/game_model/game_model.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_table.dart';
 import 'package:fantastic_assistant/views/screens/main/games/widgets/scene_picture.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +35,7 @@ class _GamesScreenState extends State<GamesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthBackgroundContainer(
+        physics: const NeverScrollableScrollPhysics(),
         child: Center(
           child: Stack(
             children: [
@@ -85,7 +90,12 @@ class _GamesScreenState extends State<GamesScreen> {
                                     ),
                                   ),
                                   onTap: () {
-                                    print(documentSnapshot.data());
+                                    getIt<CurrentGameCubit>().set(GameModel.fromJson(jsonEncode(documentSnapshot.data()).toString()));
+                                    if (documentSnapshot['dm_id'] == getIt<CurrentUserAdditionalData>().state?.accountId) {
+                                      getIt<AppRouter>().navigate(JoinGameRoute(isUserDm: true));
+                                    } else if (documentSnapshot['players_id'].contains(getIt<CurrentUserAdditionalData>().state?.accountId)) {
+                                      getIt<AppRouter>().navigate(JoinGameRoute(isUserDm: false));
+                                    }
                                   },
                                 );
                               },

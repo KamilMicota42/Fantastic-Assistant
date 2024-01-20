@@ -4,6 +4,7 @@ import 'package:fantastic_assistant/services/api/settings/firebase_database_user
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_table.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,4 +23,5 @@ Future<void> configureDependencies(String env) async {
   getIt.registerLazySingleton<CurrentCharacterCubit>(() => CurrentCharacterCubit());
   getIt.registerLazySingleton<FirebaseUserData>(() => FirebaseUserData());
   getIt.registerLazySingleton<CreateGamesApi>(() => CreateGamesApi());
+  getIt.registerLazySingleton<CurrentGameCubit>(() => CurrentGameCubit());
 }

@@ -13,7 +13,8 @@ import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
 class CreateCharactersApi {
-  final CollectionReference _characters = FirebaseFirestore.instance.collection('characters');
+  final CollectionReference _characters =
+      FirebaseFirestore.instance.collection('characters');
 
   Future<void> createCharacter(
     //picture
@@ -88,7 +89,8 @@ class CreateCharactersApi {
           );
         }
         var characterData = await _characters.doc(newCharacterId.id).get();
-        getIt<CurrentCharacterCubit>().set(CharacterModel.fromJson(jsonEncode(characterData.data())));
+        getIt<CurrentCharacterCubit>()
+            .set(CharacterModel.fromJson(jsonEncode(characterData.data())));
         getIt<CurrentCharacterId>().set(newCharacterId.id);
         showSnackBar('Successfully added character');
       } catch (e) {
@@ -174,7 +176,8 @@ class CreateCharactersApi {
           );
         }
         var characterData = await _characters.doc(characterId).get();
-        getIt<CurrentCharacterCubit>().set(CharacterModel.fromJson(jsonEncode(characterData.data())));
+        getIt<CurrentCharacterCubit>()
+            .set(CharacterModel.fromJson(jsonEncode(characterData.data())));
         getIt<CurrentCharacterId>().set(characterId);
         showSnackBar('Successfully updated character');
       } catch (e) {

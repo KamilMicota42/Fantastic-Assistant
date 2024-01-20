@@ -37,6 +37,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthBackgroundContainer(
+        physics: const NeverScrollableScrollPhysics(),
         child: Center(
           child: Stack(
             children: [

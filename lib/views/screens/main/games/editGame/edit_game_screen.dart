@@ -17,7 +17,6 @@ import '../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
 import '../../../../../widgets/input/default_text_field_w_label.dart';
-import '../../../../../widgets/others/default_divider.dart';
 import '../../characters/widgets/character_picture.dart';
 import '../../characters/widgets/title_left.dart';
 
@@ -33,10 +32,11 @@ class _EditGameScreenState extends State<EditGameScreen> {
   File? pictureValue;
   TextEditingController gametableNameController = TextEditingController();
 
-  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
-        'friends',
-        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
-      );
+  final friends =
+      FirebaseFirestore.instance.collection('userAdditionalData').where(
+            'friends',
+            arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+          );
 
   List<String> listOfInvitedFriends = [];
 
@@ -61,7 +61,10 @@ class _EditGameScreenState extends State<EditGameScreen> {
                         },
                         rightSideWidget: IconButton(
                           onPressed: () {
-                            getIt<CreateGamesApi>().createGame(pictureValue, gametableNameController.text, listOfInvitedFriends);
+                            getIt<CreateGamesApi>().createGame(
+                                pictureValue,
+                                gametableNameController.text,
+                                listOfInvitedFriends);
                             getIt<AppRouter>().navigate(const GamesRoute());
                           },
                           icon: const Icon(Icons.save_sharp),
@@ -94,32 +97,39 @@ class _EditGameScreenState extends State<EditGameScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const DefaultDivider(),
                       const TitleLeft(text: 'Invite friends'),
-                      BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                      const SizedBox(height: 6),
+                      BlocBuilder<CurrentUserAdditionalData,
+                          UserAdditionalData?>(
                         bloc: getIt<CurrentUserAdditionalData>(),
                         builder: (context, state) {
                           return StreamBuilder(
                             stream: friends.snapshots(),
-                            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                               if (streamSnapshot.hasData) {
-                                if (streamSnapshot.data!.docs.isEmpty || streamSnapshot.data?.docs.length == null) {
+                                if (streamSnapshot.data!.docs.isEmpty ||
+                                    streamSnapshot.data?.docs.length == null) {
                                   return Center(
                                     child: Text(
                                       "No friends yet",
-                                      style: DefaultTextTheme.titilliumWebRegular16(context),
+                                      style: DefaultTextTheme
+                                          .titilliumWebRegular16(context),
                                     ),
                                   );
                                 }
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 6),
                                   child: ListView.builder(
                                     padding: const EdgeInsets.only(bottom: 200),
                                     shrinkWrap: true,
                                     itemCount: streamSnapshot.data!.docs.length,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                      final DocumentSnapshot documentSnapshot =
+                                          streamSnapshot.data!.docs[index];
                                       return Card(
                                         color: AppColors.lighterGrey,
                                         child: SizedBox(
@@ -127,7 +137,8 @@ class _EditGameScreenState extends State<EditGameScreen> {
                                           child: Row(
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                                padding: EdgeInsets.only(
+                                                    left: 6, top: 6, bottom: 6),
                                                 child: SizedBox(
                                                   height: 100,
                                                   child: CharacterPicture(
@@ -137,35 +148,55 @@ class _EditGameScreenState extends State<EditGameScreen> {
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      documentSnapshot['account_display_name'],
-                                                      style: DefaultTextTheme.titilliumWebBold16(context),
+                                                      documentSnapshot[
+                                                          'account_display_name'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebBold16(
+                                                              context),
                                                     ),
                                                     Text(
-                                                      documentSnapshot['account_email'],
-                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                      documentSnapshot[
+                                                          'account_email'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebRegular13(
+                                                              context),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(right: 6, top: 6, bottom: 6),
-                                                child: !listOfInvitedFriends.contains(documentSnapshot.id)
+                                                padding: const EdgeInsets.only(
+                                                    right: 6,
+                                                    top: 6,
+                                                    bottom: 6),
+                                                child: !listOfInvitedFriends
+                                                        .contains(
+                                                            documentSnapshot.id)
                                                     ? IconButton(
                                                         onPressed: () {
-                                                          listOfInvitedFriends.add(documentSnapshot.id);
+                                                          listOfInvitedFriends
+                                                              .add(
+                                                                  documentSnapshot
+                                                                      .id);
                                                           setState(() {});
                                                         },
-                                                        icon: const Icon(Icons.add_sharp),
+                                                        icon: const Icon(
+                                                            Icons.add_sharp),
                                                       )
                                                     : IconButton(
                                                         onPressed: () {
-                                                          listOfInvitedFriends.remove(documentSnapshot.id);
+                                                          listOfInvitedFriends
+                                                              .remove(
+                                                                  documentSnapshot
+                                                                      .id);
                                                           setState(() {});
                                                         },
-                                                        icon: const Icon(Icons.remove_sharp),
+                                                        icon: const Icon(
+                                                            Icons.remove_sharp),
                                                       ),
                                               ),
                                             ],

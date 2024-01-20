@@ -14,7 +14,8 @@ class FirebaseStorageApi {
     String characterId,
     File picture,
   ) async {
-    Reference referenceDirCharactersPictures = referenceRoot.child('charactersPictures/${characterId}Picture');
+    Reference referenceDirCharactersPictures =
+        referenceRoot.child('charactersPictures/${characterId}Picture');
     String pictureUrl = '';
     try {
       await referenceDirCharactersPictures.putFile(File(picture.path));
@@ -32,7 +33,8 @@ class FirebaseStorageApi {
     String gameId,
     File picture,
   ) async {
-    Reference referenceDirCharactersPictures = referenceRoot.child('gamesPictures/${gameId}Picture');
+    Reference referenceDirCharactersPictures =
+        referenceRoot.child('gamesPictures/${gameId}Picture');
     String pictureUrl = '';
     try {
       await referenceDirCharactersPictures.putFile(File(picture.path));

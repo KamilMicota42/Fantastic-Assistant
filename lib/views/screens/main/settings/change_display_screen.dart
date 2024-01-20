@@ -19,7 +19,8 @@ class ChangeDisplayNameScreen extends StatefulWidget {
   const ChangeDisplayNameScreen({super.key});
 
   @override
-  State<ChangeDisplayNameScreen> createState() => _ChangeDisplayNameScreenState();
+  State<ChangeDisplayNameScreen> createState() =>
+      _ChangeDisplayNameScreenState();
 }
 
 class _ChangeDisplayNameScreenState extends State<ChangeDisplayNameScreen> {
@@ -51,12 +52,15 @@ class _ChangeDisplayNameScreenState extends State<ChangeDisplayNameScreen> {
                         height: 50,
                         function: () {
                           //AUTH DISPLAY NAME CHANGE
-                          FirebaseAuthMethods(FirebaseAuth.instance).changeAuthDisplayName(
+                          FirebaseAuthMethods(FirebaseAuth.instance)
+                              .changeAuthDisplayName(
                             newDisplayName: displayNameController.text,
                           );
                           //FIREBASE DATABASE DISPLAY NAME CHANGE
                           getIt<FirebaseUserData>().changeUserDisplayName(
-                            getIt<CurrentUserAdditionalData>().state!.accountId!,
+                            getIt<CurrentUserAdditionalData>()
+                                .state!
+                                .accountId!,
                             displayNameController.text,
                           );
                         },

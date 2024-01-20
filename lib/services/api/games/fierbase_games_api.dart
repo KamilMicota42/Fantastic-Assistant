@@ -9,7 +9,8 @@ import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
 class CreateGamesApi {
-  final CollectionReference _games = FirebaseFirestore.instance.collection('games');
+  final CollectionReference _games =
+      FirebaseFirestore.instance.collection('games');
 
   Future<void> createGame(
     //picture

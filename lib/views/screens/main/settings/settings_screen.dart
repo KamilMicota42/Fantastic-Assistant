@@ -40,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthBackgroundContainer(
+        physics: const NeverScrollableScrollPhysics(),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(

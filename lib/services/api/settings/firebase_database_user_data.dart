@@ -7,7 +7,8 @@ import '../../../utils/methods/show_snack_bar.dart';
 import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 
 class FirebaseUserData {
-  final CollectionReference _userAdditionalData = FirebaseFirestore.instance.collection('userAdditionalData');
+  final CollectionReference _userAdditionalData =
+      FirebaseFirestore.instance.collection('userAdditionalData');
 
   Future<void> createUserAdditionalData(
     BuildContext context,
@@ -28,7 +29,10 @@ class FirebaseUserData {
   }
 
   Future<void> getUserAdditionalDataToGetIt(userUid) async {
-    var userAdditionalData = await FirebaseFirestore.instance.collection('userAdditionalData').doc(userUid).get();
+    var userAdditionalData = await FirebaseFirestore.instance
+        .collection('userAdditionalData')
+        .doc(userUid)
+        .get();
     getIt<CurrentUserAdditionalData>().set(
       UserAdditionalData(
         accountId: userUid,
@@ -45,7 +49,9 @@ class FirebaseUserData {
     String newDisplayName,
   ) async {
     try {
-      await _userAdditionalData.doc(userUid).update({"account_display_name": newDisplayName});
+      await _userAdditionalData
+          .doc(userUid)
+          .update({"account_display_name": newDisplayName});
       await getUserAdditionalDataToGetIt(userUid);
       showSnackBar('Changed display name successfully');
     } catch (e) {
@@ -57,12 +63,19 @@ class FirebaseUserData {
     String userWhoIsBeingInvitedId,
   ) async {
     try {
-      var userAdditionalData = await FirebaseFirestore.instance.collection('userAdditionalData').doc(userWhoIsBeingInvitedId).get();
-      List<dynamic> currentFriendsRequestsList = userAdditionalData.data()?['friends_requests'];
-      currentFriendsRequestsList.add(getIt<CurrentUserAdditionalData>().state!.accountId);
+      var userAdditionalData = await FirebaseFirestore.instance
+          .collection('userAdditionalData')
+          .doc(userWhoIsBeingInvitedId)
+          .get();
+      List<dynamic> currentFriendsRequestsList =
+          userAdditionalData.data()?['friends_requests'];
+      currentFriendsRequestsList
+          .add(getIt<CurrentUserAdditionalData>().state!.accountId);
 
       if (!currentFriendsRequestsList.contains(userWhoIsBeingInvitedId)) {
-        await _userAdditionalData.doc(userWhoIsBeingInvitedId).update({"friends_requests": currentFriendsRequestsList});
+        await _userAdditionalData
+            .doc(userWhoIsBeingInvitedId)
+            .update({"friends_requests": currentFriendsRequestsList});
       }
       showSnackBar('User invited successfully');
     } catch (e) {
@@ -74,11 +87,15 @@ class FirebaseUserData {
     String userWhoSentInvitationId,
   ) async {
     try {
-      List<dynamic> currentFriendsRequestsList = getIt<CurrentUserAdditionalData>().state!.friendsRequests!;
+      List<dynamic> currentFriendsRequestsList =
+          getIt<CurrentUserAdditionalData>().state!.friendsRequests!;
       currentFriendsRequestsList.remove(userWhoSentInvitationId);
 
-      await _userAdditionalData.doc(getIt<CurrentUserAdditionalData>().state!.accountId).update({"friends_requests": currentFriendsRequestsList});
-      await getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+      await _userAdditionalData
+          .doc(getIt<CurrentUserAdditionalData>().state!.accountId)
+          .update({"friends_requests": currentFriendsRequestsList});
+      await getUserAdditionalDataToGetIt(
+          getIt<CurrentUserAdditionalData>().state!.accountId);
       showSnackBar('User invitation declined');
     } catch (e) {
       showSnackBar(e.toString());
@@ -90,24 +107,39 @@ class FirebaseUserData {
   ) async {
     try {
       //update current user friends
-      List<dynamic> currentFriendsList = getIt<CurrentUserAdditionalData>().state!.friends!;
+      List<dynamic> currentFriendsList =
+          getIt<CurrentUserAdditionalData>().state!.friends!;
       if (!currentFriendsList.contains(userWhoSentInvitationId)) {
         currentFriendsList.add(userWhoSentInvitationId);
       }
-      await _userAdditionalData.doc(getIt<CurrentUserAdditionalData>().state!.accountId).update({"friends": currentFriendsList});
+      await _userAdditionalData
+          .doc(getIt<CurrentUserAdditionalData>().state!.accountId)
+          .update({"friends": currentFriendsList});
       //update user who sent invitation friends
-      var userWhoSentInvite = await FirebaseFirestore.instance.collection('userAdditionalData').doc(userWhoSentInvitationId).get();
-      List<dynamic> firendsListOfUserWhoSentInvite = userWhoSentInvite.data()?['friends'];
-      if (!firendsListOfUserWhoSentInvite.contains(getIt<CurrentUserAdditionalData>().state!.accountId)) {
-        firendsListOfUserWhoSentInvite.add(getIt<CurrentUserAdditionalData>().state!.accountId);
+      var userWhoSentInvite = await FirebaseFirestore.instance
+          .collection('userAdditionalData')
+          .doc(userWhoSentInvitationId)
+          .get();
+      List<dynamic> firendsListOfUserWhoSentInvite =
+          userWhoSentInvite.data()?['friends'];
+      if (!firendsListOfUserWhoSentInvite
+          .contains(getIt<CurrentUserAdditionalData>().state!.accountId)) {
+        firendsListOfUserWhoSentInvite
+            .add(getIt<CurrentUserAdditionalData>().state!.accountId);
       }
-      await _userAdditionalData.doc(userWhoSentInvitationId).update({"friends": firendsListOfUserWhoSentInvite});
+      await _userAdditionalData
+          .doc(userWhoSentInvitationId)
+          .update({"friends": firendsListOfUserWhoSentInvite});
       //delete invite from request list
-      List<dynamic> currentFriendsRequestsList = getIt<CurrentUserAdditionalData>().state!.friendsRequests!;
+      List<dynamic> currentFriendsRequestsList =
+          getIt<CurrentUserAdditionalData>().state!.friendsRequests!;
       currentFriendsRequestsList.remove(userWhoSentInvitationId);
-      await _userAdditionalData.doc(getIt<CurrentUserAdditionalData>().state!.accountId).update({"friends_requests": currentFriendsRequestsList});
+      await _userAdditionalData
+          .doc(getIt<CurrentUserAdditionalData>().state!.accountId)
+          .update({"friends_requests": currentFriendsRequestsList});
       //refresh getIt
-      await getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+      await getUserAdditionalDataToGetIt(
+          getIt<CurrentUserAdditionalData>().state!.accountId);
       showSnackBar('User invitation accepted');
     } catch (e) {
       showSnackBar(e.toString());

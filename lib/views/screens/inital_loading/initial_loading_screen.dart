@@ -37,7 +37,8 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
         const Duration(seconds: 1),
         () async {
           try {
-            await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(userUid);
+            await getIt<FirebaseUserData>()
+                .getUserAdditionalDataToGetIt(userUid);
           } catch (e) {
             context.mounted ? showSnackBar(e.toString()) : null;
           }

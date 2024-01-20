@@ -3,18 +3,22 @@ import 'package:flutter/material.dart';
 
 class AuthBackgroundContainer extends StatefulWidget {
   final Widget child;
-  const AuthBackgroundContainer({super.key, required this.child});
+  final ScrollPhysics? physics;
+  const AuthBackgroundContainer({
+    super.key,
+    required this.child,
+    this.physics,
+  });
 
   @override
-  State<AuthBackgroundContainer> createState() =>
-      _AuthBackgroundContainerState();
+  State<AuthBackgroundContainer> createState() => _AuthBackgroundContainerState();
 }
 
 class _AuthBackgroundContainerState extends State<AuthBackgroundContainer> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
+      physics: widget.physics ?? const ClampingScrollPhysics(),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
