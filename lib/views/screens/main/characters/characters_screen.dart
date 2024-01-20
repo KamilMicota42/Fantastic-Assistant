@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -17,7 +16,6 @@ import 'package:flutter/material.dart';
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../settings/routes/app_router.gr.dart';
-import 'cubits/current_character_id.dart';
 
 @RoutePage()
 class CharactersScreen extends StatefulWidget {
@@ -114,10 +112,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   onTap: () {
                                     try {
                                       getIt<CurrentCharacterCubit>().delete();
-                                      getIt<CurrentCharacterCubit>().set(
-                                        CharacterModel.fromJson(jsonEncode(documentSnapshot.data()).toString()),
-                                      );
-                                      getIt<CurrentCharacterId>().set(documentSnapshot.id);
+                                      getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
                                       getIt<AppRouter>().navigate(const ViewCharacterRoute());
                                     } catch (e) {
                                       showSnackBar("Error occured");

@@ -26,7 +26,7 @@ class FirebaseAuthMethods {
         password: password,
       );
       context.mounted ? await sendEmailVerification(context, email) : null;
-      _auth.currentUser?.updateDisplayName(displayName);
+      await _auth.currentUser?.updateDisplayName(displayName);
       if (context.mounted) {
         getIt<FirebaseUserData>().createUserAdditionalData(
           context,
@@ -64,8 +64,7 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        await getIt<FirebaseUserData>()
-            .getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
+        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {

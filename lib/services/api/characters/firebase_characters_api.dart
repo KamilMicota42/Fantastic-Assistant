@@ -13,8 +13,7 @@ import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
 class CreateCharactersApi {
-  final CollectionReference _characters =
-      FirebaseFirestore.instance.collection('characters');
+  final CollectionReference _characters = FirebaseFirestore.instance.collection('characters');
 
   Future<void> createCharacter(
     //picture
@@ -88,10 +87,7 @@ class CreateCharactersApi {
             null,
           );
         }
-        var characterData = await _characters.doc(newCharacterId.id).get();
-        getIt<CurrentCharacterCubit>()
-            .set(CharacterModel.fromJson(jsonEncode(characterData.data())));
-        getIt<CurrentCharacterId>().set(newCharacterId.id);
+        await setCharacterIntoCubits(newCharacterId.id);
         showSnackBar('Successfully added character');
       } catch (e) {
         debugPrint(e.toString());
@@ -135,7 +131,7 @@ class CreateCharactersApi {
   ) async {
     if (characterName != '') {
       try {
-        _characters.doc(characterId).update(
+        await _characters.doc(characterId).update(
           {
             'account_id': getIt<CurrentUserAdditionalData>().state!.accountId,
             'character_name': characterName,
@@ -175,10 +171,7 @@ class CreateCharactersApi {
             null,
           );
         }
-        var characterData = await _characters.doc(characterId).get();
-        getIt<CurrentCharacterCubit>()
-            .set(CharacterModel.fromJson(jsonEncode(characterData.data())));
-        getIt<CurrentCharacterId>().set(characterId);
+        await setCharacterIntoCubits(characterId);
         showSnackBar('Successfully updated character');
       } catch (e) {
         debugPrint(e.toString());
@@ -194,9 +187,22 @@ class CreateCharactersApi {
     String? characterPictureUrl,
   ) async {
     try {
-      _characters.doc(characterId).update({
+      await _characters.doc(characterId).update({
         'character_path_to_picture': characterPictureUrl,
       });
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> setCharacterIntoCubits(
+    String characterId,
+  ) async {
+    try {
+      var characterData = await _characters.doc(characterId).get();
+      getIt<CurrentCharacterCubit>().set(CharacterModel.fromJson(jsonEncode(characterData.data()).toString()));
+      getIt<CurrentCharacterId>().set(characterId);
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());

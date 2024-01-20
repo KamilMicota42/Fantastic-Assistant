@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
-import 'package:fantastic_assistant/views/screens/main/games/cubits/current_table.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +63,9 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                   child: DefaultButton(
                                     text: 'As dungeon master',
                                     height: 50,
-                                    function: () {},
+                                    function: () {
+                                      //TODO nawigacja
+                                    },
                                   ),
                                 ),
                                 const SizedBox(height: 20),
@@ -140,9 +144,9 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                             ),
                                             onTap: () {
                                               if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
-                                                print('add character to game');
+                                                getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
                                               } else {
-                                                print('just navigate');
+                                                //TODO nawigacja
                                               }
                                             },
                                           );

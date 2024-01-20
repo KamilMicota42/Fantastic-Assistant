@@ -1,16 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/game_model/game_model.dart';
 import '../../../settings/injection.dart';
 import '../../../utils/methods/show_snack_bar.dart';
+import '../../../views/screens/main/games/cubits/current_game.dart';
 import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
 class CreateGamesApi {
-  final CollectionReference _games =
-      FirebaseFirestore.instance.collection('games');
+  final CollectionReference _games = FirebaseFirestore.instance.collection('games');
 
   Future<void> createGame(
     //picture
@@ -54,9 +58,47 @@ class CreateGamesApi {
     String? gamePictureUrl,
   ) async {
     try {
-      _games.doc(gameId).update({
-        'game_path_to_picture': gamePictureUrl,
-      });
+      await _games.doc(gameId).update(
+        {
+          'game_path_to_picture': gamePictureUrl,
+        },
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> setGameIntoCubits(
+    String gameId,
+  ) async {
+    try {
+      var gameData = await _games.doc(gameId).get();
+      getIt<CurrentGameCubit>().set(GameModel.fromJson(jsonEncode(gameData.data()).toString()));
+      getIt<CurrentGameId>().set(gameId);
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> addCharacterToTable(
+    String gameId,
+    String newCharacterId,
+  ) async {
+    try {
+      var gameDataInJson = await _games.doc(gameId).get();
+      var charactersInGame = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).charactersId;
+      print(charactersInGame);
+      if (!charactersInGame!.contains(newCharacterId)) {
+        charactersInGame.add(newCharacterId);
+        await _games.doc(gameId).update(
+          {
+            'characters_id': charactersInGame,
+          },
+        );
+        print(getIt<CurrentCharacterCubit>().state);
+      }
     } catch (e) {
       debugPrint(e.toString());
       showSnackBar(e.toString());
