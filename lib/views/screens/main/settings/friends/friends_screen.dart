@@ -9,10 +9,10 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utils/const/app_colors.dart';
-import '../../../../utils/global_var/default_text_theme.dart';
-import '../../../../widgets/buttons/go_back_title_row.dart';
-import '../characters/widgets/character_picture.dart';
+import '../../../../../utils/const/app_colors.dart';
+import '../../../../../utils/global_var/default_text_theme.dart';
+import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../characters/widgets/character_picture.dart';
 
 @RoutePage()
 class FriendsScreen extends StatefulWidget {
@@ -23,11 +23,10 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  final friends =
-      FirebaseFirestore.instance.collection('userAdditionalData').where(
-            'friends',
-            arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
-          );
+  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
+        'friends',
+        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +59,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     builder: (context, state) {
                       return StreamBuilder(
                         stream: friends.snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
                             if (streamSnapshot.data!.docs.isEmpty) {
                               return Expanded(
@@ -69,24 +67,20 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   alignment: Alignment.topCenter,
                                   child: Text(
                                     "No friends yet",
-                                    style:
-                                        DefaultTextTheme.titilliumWebRegular16(
-                                            context),
+                                    style: DefaultTextTheme.titilliumWebRegular16(context),
                                   ),
                                 ),
                               );
                             }
                             return Expanded(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
                                 child: ListView.builder(
                                   padding: const EdgeInsets.only(bottom: 200),
                                   shrinkWrap: true,
                                   itemCount: streamSnapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
-                                    final DocumentSnapshot documentSnapshot =
-                                        streamSnapshot.data!.docs[index];
+                                    final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     return Card(
                                       color: AppColors.lighterGrey,
                                       child: SizedBox(
@@ -94,8 +88,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                         child: Row(
                                           children: [
                                             const Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 6, top: 6, bottom: 6),
+                                              padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
                                               child: SizedBox(
                                                 height: 100,
                                                 child: CharacterPicture(
@@ -105,22 +98,15 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                             ),
                                             Expanded(
                                               child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    documentSnapshot[
-                                                        'account_display_name'],
-                                                    style: DefaultTextTheme
-                                                        .titilliumWebBold16(
-                                                            context),
+                                                    documentSnapshot['account_display_name'],
+                                                    style: DefaultTextTheme.titilliumWebBold16(context),
                                                   ),
                                                   Text(
-                                                    documentSnapshot[
-                                                        'account_email'],
-                                                    style: DefaultTextTheme
-                                                        .titilliumWebRegular13(
-                                                            context),
+                                                    documentSnapshot['account_email'],
+                                                    style: DefaultTextTheme.titilliumWebRegular13(context),
                                                   ),
                                                 ],
                                               ),

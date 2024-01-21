@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +89,6 @@ class CreateGamesApi {
     try {
       var gameDataInJson = await _games.doc(gameId).get();
       var charactersInGame = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).charactersId;
-      print(charactersInGame);
       if (!charactersInGame!.contains(newCharacterId)) {
         charactersInGame.add(newCharacterId);
         await _games.doc(gameId).update(
@@ -97,7 +96,7 @@ class CreateGamesApi {
             'characters_id': charactersInGame,
           },
         );
-        print(getIt<CurrentCharacterCubit>().state);
+        await getIt<CreateCharactersApi>().setCharacterIntoCubits(newCharacterId);
       }
     } catch (e) {
       debugPrint(e.toString());

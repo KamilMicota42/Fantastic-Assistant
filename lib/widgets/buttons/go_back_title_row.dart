@@ -47,10 +47,7 @@ class GoBackTitleRow extends StatelessWidget {
                   child: Center(
                     child: Text(
                       screenTitle!,
-                      style: DefaultTextTheme.titilliumWebBold22(context)!
-                          .copyWith(
-                              color: AppColors.black,
-                              overflow: TextOverflow.visible),
+                      style: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(color: AppColors.black, overflow: TextOverflow.visible),
                     ),
                   ),
                 )

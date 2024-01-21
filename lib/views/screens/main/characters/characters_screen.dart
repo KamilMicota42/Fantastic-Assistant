@@ -44,7 +44,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const TitleRow(screenTitle: 'Characters'),
+                    const TitleRow(screenTitle: 'CHARACTERS'),
                     StreamBuilder(
                       stream: _characters.snapshots(),
                       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {

@@ -9,28 +9,21 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utils/const/app_colors.dart';
-import '../../../../utils/global_var/default_text_theme.dart';
-import '../../../../widgets/buttons/go_back_title_row.dart';
-import '../characters/widgets/character_picture.dart';
+import '../../../../../utils/const/app_colors.dart';
+import '../../../../../utils/global_var/default_text_theme.dart';
+import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../characters/widgets/character_picture.dart';
 
 @RoutePage()
-class UsersScreen extends StatefulWidget {
-  const UsersScreen({super.key});
+class FriendsRequestsScreen extends StatefulWidget {
+  const FriendsRequestsScreen({super.key});
 
   @override
-  State<UsersScreen> createState() => _UsersScreenState();
+  State<FriendsRequestsScreen> createState() => _FriendsRequestsScreenState();
 }
 
-class _UsersScreenState extends State<UsersScreen> {
-  var users = FirebaseFirestore.instance
-      .collection('userAdditionalData')
-      .orderBy('account_display_name');
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
+  var users = FirebaseFirestore.instance.collection('userAdditionalData').orderBy('account_display_name');
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +38,9 @@ class _UsersScreenState extends State<UsersScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: GoBackTitleRow(
-                      screenTitle: "Users",
-                      popFunction: () {
+                      screenTitle: "Friends Requests",
+                      popFunction: () async {
+                        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                         getIt<AppRouter>().pop();
                       },
                     ),
@@ -57,24 +51,35 @@ class _UsersScreenState extends State<UsersScreen> {
                     builder: (context, state) {
                       return StreamBuilder(
                         stream: users.snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
+                            bool anyFriend = false;
+                            for (var i = 0; i < streamSnapshot.data!.docs.length; i++) {
+                              if (state!.friendsRequests!.contains(streamSnapshot.data!.docs[i].id)) {
+                                anyFriend = true;
+                              }
+                            }
+                            if (!anyFriend) {
+                              return Expanded(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    "No friends requests yet",
+                                    style: DefaultTextTheme.titilliumWebRegular16(context),
+                                  ),
+                                ),
+                              );
+                            }
                             return Expanded(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
                                 child: ListView.builder(
                                   padding: const EdgeInsets.only(bottom: 200),
                                   shrinkWrap: true,
                                   itemCount: streamSnapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
-                                    final DocumentSnapshot documentSnapshot =
-                                        streamSnapshot.data!.docs[index];
-                                    if (documentSnapshot.id !=
-                                            state!.accountId &&
-                                        !state.friends!
-                                            .contains(documentSnapshot.id)) {
+                                    final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                    if (state!.friendsRequests!.contains(documentSnapshot.id)) {
                                       return Card(
                                         color: AppColors.lighterGrey,
                                         child: SizedBox(
@@ -82,7 +87,7 @@ class _UsersScreenState extends State<UsersScreen> {
                                           child: Row(
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.all(6),
+                                                padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
                                                 child: SizedBox(
                                                   height: 100,
                                                   child: CharacterPicture(
@@ -92,35 +97,35 @@ class _UsersScreenState extends State<UsersScreen> {
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      documentSnapshot[
-                                                          'account_display_name'],
-                                                      style: DefaultTextTheme
-                                                          .titilliumWebBold16(
-                                                              context),
+                                                      documentSnapshot['account_display_name'],
+                                                      style: DefaultTextTheme.titilliumWebBold16(context),
                                                     ),
                                                     Text(
-                                                      documentSnapshot[
-                                                          'account_email'],
-                                                      style: DefaultTextTheme
-                                                          .titilliumWebRegular13(
-                                                              context),
+                                                      documentSnapshot['account_email'],
+                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  getIt<FirebaseUserData>()
-                                                      .sendFriendRequest(
-                                                    documentSnapshot.id,
-                                                  );
-                                                },
-                                                icon:
-                                                    const Icon(Icons.add_sharp),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      getIt<FirebaseUserData>().declineFriendRequest(documentSnapshot.id);
+                                                    },
+                                                    icon: const Icon(Icons.cancel_outlined),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      getIt<FirebaseUserData>().acceptFriendRequest(documentSnapshot.id);
+                                                    },
+                                                    icon: const Icon(Icons.check_circle_outline),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),

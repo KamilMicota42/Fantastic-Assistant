@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: Column(
               children: [
-                const TitleRow(screenTitle: 'Settings'),
+                const TitleRow(screenTitle: 'SETTINGS'),
                 Image.asset(
                   'assets/images/logo.png',
                   width: 200,

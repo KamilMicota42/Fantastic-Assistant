@@ -41,7 +41,7 @@ class _GamesScreenState extends State<GamesScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const TitleRow(screenTitle: 'Games'),
+                    const TitleRow(screenTitle: 'GAMES'),
                     StreamBuilder(
                       stream: _games.snapshots(),
                       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -86,8 +86,8 @@ class _GamesScreenState extends State<GamesScreen> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
-                                    getIt<CreateGamesApi>().setGameIntoCubits(documentSnapshot.id);
+                                  onTap: () async {
+                                    await getIt<CreateGamesApi>().setGameIntoCubits(documentSnapshot.id);
                                     getIt<AppRouter>().navigate(
                                       JoinGameRoute(isUserDm: documentSnapshot['dm_id'] == getIt<CurrentUserAdditionalData>().state?.accountId),
                                     );

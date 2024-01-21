@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -64,7 +66,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                     text: 'As dungeon master',
                                     height: 50,
                                     function: () {
-                                      //TODO nawigacja
+                                      getIt<AppRouter>().navigate(const MainGameRoute());
                                     },
                                   ),
                                 ),
@@ -142,12 +144,12 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                                 ),
                                               ),
                                             ),
-                                            onTap: () {
+                                            onTap: () async {
                                               if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
-                                                getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
-                                              } else {
-                                                //TODO nawigacja
+                                                await getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
                                               }
+                                              await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
+                                              getIt<AppRouter>().push(const MainGameRoute());
                                             },
                                           );
                                         },

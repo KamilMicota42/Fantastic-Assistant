@@ -4,23 +4,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../services/api/auth/firebase_auth_methods.dart';
-import '../../../../services/api/settings/firebase_database_user_data.dart';
-import '../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
-import '../../../../settings/injection.dart';
-import '../../../../widgets/background/auth_background_container.dart';
-import '../../../../widgets/buttons/default_button.dart';
-import '../../../../widgets/buttons/go_back_title_row.dart';
-import '../../../../widgets/input/default_text_field_w_label.dart';
-import '../../auth/widgets/text_and_clickable_text_row.dart';
+import '../../../../../services/api/auth/firebase_auth_methods.dart';
+import '../../../../../services/api/settings/firebase_database_user_data.dart';
+import '../../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import '../../../../../settings/injection.dart';
+import '../../../../../widgets/background/auth_background_container.dart';
+import '../../../../../widgets/buttons/default_button.dart';
+import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../../../widgets/input/default_text_field_w_label.dart';
+import '../../../auth/widgets/text_and_clickable_text_row.dart';
 
 @RoutePage()
 class ChangeDisplayNameScreen extends StatefulWidget {
   const ChangeDisplayNameScreen({super.key});
 
   @override
-  State<ChangeDisplayNameScreen> createState() =>
-      _ChangeDisplayNameScreenState();
+  State<ChangeDisplayNameScreen> createState() => _ChangeDisplayNameScreenState();
 }
 
 class _ChangeDisplayNameScreenState extends State<ChangeDisplayNameScreen> {
@@ -52,15 +51,12 @@ class _ChangeDisplayNameScreenState extends State<ChangeDisplayNameScreen> {
                         height: 50,
                         function: () {
                           //AUTH DISPLAY NAME CHANGE
-                          FirebaseAuthMethods(FirebaseAuth.instance)
-                              .changeAuthDisplayName(
+                          FirebaseAuthMethods(FirebaseAuth.instance).changeAuthDisplayName(
                             newDisplayName: displayNameController.text,
                           );
                           //FIREBASE DATABASE DISPLAY NAME CHANGE
                           getIt<FirebaseUserData>().changeUserDisplayName(
-                            getIt<CurrentUserAdditionalData>()
-                                .state!
-                                .accountId!,
+                            getIt<CurrentUserAdditionalData>().state!.accountId!,
                             displayNameController.text,
                           );
                         },
