@@ -56,7 +56,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
-                                      color: AppColors.lighterGrey,
+                                      color: AppColors.lighterGrey.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(

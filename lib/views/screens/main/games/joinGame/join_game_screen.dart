@@ -4,6 +4,8 @@ import 'package:fantastic_assistant/services/api/characters/firebase_characters_
 import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -66,6 +68,8 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                     text: 'As dungeon master',
                                     height: 50,
                                     function: () {
+                                      getIt<CurrentCharacterCubit>().delete();
+                                      getIt<CurrentCharacterId>().delete();
                                       getIt<AppRouter>().navigate(const MainGameRoute());
                                     },
                                   ),

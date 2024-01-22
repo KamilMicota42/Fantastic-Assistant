@@ -26,10 +26,13 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  final _characters = FirebaseFirestore.instance.collection('characters').where(
+  final _characters = FirebaseFirestore.instance
+      .collection('characters')
+      .where(
         'account_id',
         isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId,
-      );
+      )
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                   children: [
                     const TitleRow(screenTitle: 'CHARACTERS'),
                     StreamBuilder(
-                      stream: _characters.snapshots(),
+                      stream: _characters,
                       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
                           return Expanded(
@@ -60,7 +63,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
-                                      color: AppColors.lighterGrey,
+                                      color: AppColors.lighterGrey.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(

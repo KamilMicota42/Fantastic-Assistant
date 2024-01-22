@@ -103,4 +103,24 @@ class CreateGamesApi {
       showSnackBar(e.toString());
     }
   }
+
+  Future<void> addRollToHistoryRoll(
+    String gameId,
+    String characterName,
+    int roll,
+  ) async {
+    try {
+      var gameDataInJson = await _games.doc(gameId).get();
+      var diceHistory = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).diceHistory;
+      diceHistory![diceHistory.length.toString()] = [characterName, roll];
+      await _games.doc(gameId).update(
+        {
+          'dice_history': diceHistory,
+        },
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
 }

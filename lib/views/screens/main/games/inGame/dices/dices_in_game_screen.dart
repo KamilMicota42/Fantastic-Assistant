@@ -1,8 +1,15 @@
 import 'dart:math';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
+import 'package:fantastic_assistant/views/screens/main/games/inGame/dices/widgets/random_number_snackbar.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
@@ -22,116 +29,226 @@ class DicesInGameScreen extends StatefulWidget {
 class _DicesInGameScreenState extends State<DicesInGameScreen> {
   Random random = Random();
   bool isPrivate = false;
+  List<TypewriterAnimatedText> randoms = [];
+  var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthBackgroundContainer(
-        physics: const NeverScrollableScrollPhysics(),
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 25,
-            ),
-            child: Column(
-              children: [
-                GoBackTitleRow(
-                  screenTitle: "DICES",
-                  isX: true,
-                  popFunction: () {
-                    getIt<AppRouter>().pop();
-                  },
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Roll the dice',
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                children: [
+                  GoBackTitleRow(
+                    screenTitle: "DICES",
+                    isX: true,
+                    popFunction: () {
+                      getIt<AppRouter>().pop();
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Roll the dice',
+                        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            isPrivate ? 'private' : 'public',
+                            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                          ),
+                          const SizedBox(width: 6),
+                          Switch(
+                            value: isPrivate,
+                            onChanged: (value) {
+                              isPrivate = value;
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DiceButton(
+                        assetPath: 'assets/images/d4.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 4);
+                        },
+                        diceName: 'D4',
+                      ),
+                      DiceButton(
+                        assetPath: 'assets/images/d6.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 6);
+                        },
+                        diceName: 'D6',
+                      ),
+                      DiceButton(
+                        assetPath: 'assets/images/d8.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 8);
+                        },
+                        diceName: 'D8',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DiceButton(
+                        assetPath: 'assets/images/d10.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 10);
+                        },
+                        diceName: 'D10',
+                      ),
+                      DiceButton(
+                        assetPath: 'assets/images/d12.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 12);
+                        },
+                        diceName: 'D12',
+                      ),
+                      DiceButton(
+                        assetPath: 'assets/images/d20.svg',
+                        onTap: () async {
+                          await rollTheDice(context, 20);
+                        },
+                        diceName: 'D20',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Roll history',
                       style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
                     ),
-                    Row(
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 6),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    child: Stack(
                       children: [
-                        Text(
-                          'private',
-                          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width,
+                          child: SvgPicture.asset(
+                            'assets/images/save_throw_background.svg',
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                        const SizedBox(width: 6),
-                        Switch(
-                          value: isPrivate,
-                          onChanged: (value) {
-                            isPrivate = value;
-                            setState(() {});
-                          },
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                            child: StreamBuilder<Object>(
+                              stream: game,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  return snapshot.data['dice_history'].length > 0
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          padding: EdgeInsets.zero,
+                                          itemCount: snapshot.data['dice_history'].length,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${snapshot.data['dice_history']['$index'][0]}:",
+                                                        style: DefaultTextTheme.titilliumWebRegular16(context),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${snapshot.data['dice_history']['$index'][1]}",
+                                                      style: snapshot.data['dice_history']['$index'][1] == 20
+                                                          ? DefaultTextTheme.titilliumWebBold16(context)
+                                                          : DefaultTextTheme.titilliumWebRegular16(context),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Divider()
+                                              ],
+                                            );
+                                          },
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            "No rolls yet",
+                                            style: DefaultTextTheme.titilliumWebRegular16(context),
+                                          ),
+                                        );
+                                }
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DiceButton(
-                      assetPath: 'assets/images/d4.svg',
-                      onTap: () {
-                        print(random.nextInt(4) + 1);
-                      },
-                      diceName: 'D4',
-                    ),
-                    DiceButton(
-                      assetPath: 'assets/images/d6.svg',
-                      onTap: () {
-                        print(random.nextInt(6) + 1);
-                      },
-                      diceName: 'D6',
-                    ),
-                    DiceButton(
-                      assetPath: 'assets/images/d8.svg',
-                      onTap: () {
-                        print(random.nextInt(8) + 1);
-                      },
-                      diceName: 'D8',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DiceButton(
-                      assetPath: 'assets/images/d10.svg',
-                      onTap: () {
-                        print(random.nextInt(10) + 1);
-                      },
-                      diceName: 'D10',
-                    ),
-                    DiceButton(
-                      assetPath: 'assets/images/d12.svg',
-                      onTap: () {
-                        print(random.nextInt(12) + 1);
-                      },
-                      diceName: 'D12',
-                    ),
-                    DiceButton(
-                      assetPath: 'assets/images/d20.svg',
-                      onTap: () {
-                        print(random.nextInt(20) + 1);
-                      },
-                      diceName: 'D20',
-                    ),
-                  ],
-                ),
-                AnimatedBuilder(
-  animation: mergeTweenables([x,y])
-  child: ...
-  builder: ...
-)
-              ],
+                  ),
+                  const SizedBox(height: 120),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> rollTheDice(BuildContext context, int dice) async {
+    createRandoms(dice);
+    showRandomNumberRoll(context, randoms, 'd$dice');
+    if (!isPrivate) {
+      await Future.delayed(const Duration(seconds: 2));
+      await getIt<CreateGamesApi>().addRollToHistoryRoll(
+        getIt<CurrentGameId>().state!,
+        getIt<CurrentCharacterCubit>().state?.characterName ?? 'DM',
+        int.parse(randoms.last.text),
+      );
+      setState(() {});
+    }
+  }
+
+  void createRandoms(int dice) {
+    randoms = [];
+    for (var i = 0; i < 10; i++) {
+      randoms.add(
+        TypewriterAnimatedText(
+          (random.nextInt(dice) + 1).toString(),
+          textStyle: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+          ),
+          speed: Duration(milliseconds: i),
+          cursor: '',
+        ),
+      );
+    }
   }
 }
