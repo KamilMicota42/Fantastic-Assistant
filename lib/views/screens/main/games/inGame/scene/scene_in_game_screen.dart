@@ -39,7 +39,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      var characters;
+                      Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
                             .collection('characters')
