@@ -4,7 +4,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
+import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
+import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/inGame/dices/widgets/random_number_snackbar.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -228,7 +230,9 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
       await Future.delayed(const Duration(seconds: 2));
       await getIt<CreateGamesApi>().addRollToHistoryRoll(
         getIt<CurrentGameId>().state!,
-        getIt<CurrentCharacterCubit>().state?.characterName ?? 'DM',
+        getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId
+            ? 'DM'
+            : getIt<CurrentCharacterCubit>().state!.characterName!,
         int.parse(randoms.last.text),
       );
       setState(() {});

@@ -37,10 +37,17 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: MainGameRoute.page,
           children: [
+            //player flow
             AutoRoute(page: SceneInGameRoute.page),
             AutoRoute(page: CharacterInGameRoute.page),
+            //dm flow
+            AutoRoute(page: DmCharactersRoute.page),
+            //both
             AutoRoute(page: DicesInGameRoute.page),
           ],
         ),
+        //dm flow
+        AutoRoute(page: DmEditSceneInGameRoute.page),
+        AutoRoute(page: DmViewCharacterRoute.page),
       ];
 }

@@ -43,7 +43,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: SingleChildScrollView(
             child: Stack(
               children: [
@@ -79,92 +79,89 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                             )
                           : const SizedBox(),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 0),
-                          child: Column(
-                            children: [
-                              const TitleLeft(text: 'As character'),
-                              const SizedBox(height: 6),
-                              StreamBuilder(
-                                stream: _characters.snapshots(),
-                                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                                  if (streamSnapshot.hasData) {
-                                    return Expanded(
-                                      child: ListView.builder(
-                                        padding: const EdgeInsets.only(bottom: 200),
-                                        itemCount: streamSnapshot.data!.docs.length,
-                                        itemBuilder: (context, index) {
-                                          final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                          return InkWell(
-                                            child: SizedBox(
-                                              height: 100,
-                                              child: Card(
-                                                color: AppColors.lighterGrey,
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(6),
-                                                        child: SizedBox(
-                                                          height: 100,
-                                                          child: CharacterPicture(
-                                                            pathToPicture: documentSnapshot['character_path_to_picture'],
-                                                          ),
+                        child: Column(
+                          children: [
+                            const TitleLeft(text: 'As character'),
+                            const SizedBox(height: 6),
+                            StreamBuilder(
+                              stream: _characters.snapshots(),
+                              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                                if (streamSnapshot.hasData) {
+                                  return Expanded(
+                                    child: ListView.builder(
+                                      padding: const EdgeInsets.only(bottom: 200),
+                                      itemCount: streamSnapshot.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                        return InkWell(
+                                          child: SizedBox(
+                                            height: 100,
+                                            child: Card(
+                                              color: AppColors.lighterGrey,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(6),
+                                                      child: SizedBox(
+                                                        height: 100,
+                                                        child: CharacterPicture(
+                                                          pathToPicture: documentSnapshot['character_path_to_picture'],
                                                         ),
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                        documentSnapshot['character_name'],
-                                                        textAlign: TextAlign.center,
-                                                        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                          color: AppColors.darkerGrey,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      documentSnapshot['character_name'],
+                                                      textAlign: TextAlign.center,
+                                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
+                                                        color: AppColors.darkerGrey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          "Level ${documentSnapshot['character_level']}".toString(),
+                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
                                                         ),
-                                                      ),
+                                                        Text(
+                                                          documentSnapshot['character_class'],
+                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                        ),
+                                                        Text(
+                                                          documentSnapshot['character_race'],
+                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Text(
-                                                            "Level ${documentSnapshot['character_level']}".toString(),
-                                                            style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                          ),
-                                                          Text(
-                                                            documentSnapshot['character_class'],
-                                                            style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                          ),
-                                                          Text(
-                                                            documentSnapshot['character_race'],
-                                                            style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            onTap: () async {
-                                              if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
-                                                await getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
-                                              }
-                                              await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
-                                              getIt<AppRouter>().push(const MainGameRoute());
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }
-                                  return const CircularProgressIndicator();
-                                },
-                              ),
-                            ],
-                          ),
+                                          ),
+                                          onTap: () async {
+                                            if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
+                                              await getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
+                                            }
+                                            await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
+                                            getIt<AppRouter>().push(const MainGameRoute());
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }
+                                return const CircularProgressIndicator();
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],

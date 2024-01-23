@@ -1,30 +1,34 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
-import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
-import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
-import 'package:fantastic_assistant/views/screens/main/games/inGame/scene/widgets/scene_picture_in_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
+import '../../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../../widgets/buttons/go_back_title_row.dart';
 
 @RoutePage()
-class SceneInGameScreen extends StatefulWidget {
-  const SceneInGameScreen({super.key});
+class DmEditSceneInGameScreen extends StatefulWidget {
+  const DmEditSceneInGameScreen({super.key});
 
   @override
-  State<SceneInGameScreen> createState() => _SceneInGameScreenState();
+  State<DmEditSceneInGameScreen> createState() => _DmEditSceneInGameScreenState();
 }
 
-class _SceneInGameScreenState extends State<SceneInGameScreen> {
+class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
+
+  File? pictureValue;
+  TextEditingController gameNameController = TextEditingController();
+  List<dynamic> charactersId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,8 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
+                      gameNameController.text = snapshot.data?['game_name'] ?? '';
+                      charactersId = snapshot.data?['characters_id'] ?? [];
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
@@ -61,33 +67,34 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                 children: [
                                   GoBackTitleRow(
                                     screenTitle: "SCENE",
-                                    isX: true,
                                     popFunction: () {
                                       getIt<AppRouter>().pop();
                                     },
-                                    rightSideWidget: getIt<CurrentUserAdditionalData>().state!.accountId == getIt<CurrentGameCubit>().state?.dmId
-                                        ? IconButton(
-                                            onPressed: () {
-                                              getIt<AppRouter>().navigate(const DmEditSceneInGameRoute());
-                                            },
-                                            icon: const Icon(Icons.settings_sharp),
-                                          )
-                                        : null,
+                                    rightSideWidget: IconButton(
+                                      icon: const Icon(Icons.save_sharp),
+                                      onPressed: () {},
+                                    ),
                                   ),
                                   const SizedBox(height: 20),
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      '${snapshot.data?['game_name'] ?? 'Game title'}',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                                    child: DefaultTextFieldWLabel(
+                                      labelText: 'Game name',
+                                      textController: gameNameController,
                                     ),
                                   ),
                                   const Divider(),
                                   const SizedBox(height: 6),
-                                  ScenePictureInGame(
-                                    pathToPicture: snapshot.data?['game_path_to_picture'],
+                                  SizedBox(
                                     width: MediaQuery.of(context).size.width - 32,
                                     height: MediaQuery.of(context).size.width - 32,
+                                    child: AddPhotoIconButton(
+                                      onTapFunction: (var value) {
+                                        pictureValue = value;
+                                      },
+                                      onChange: () {},
+                                      initialImageUrl: snapshot.data?['game_path_to_picture'],
+                                    ),
                                   ),
                                   const SizedBox(height: 20),
                                   Align(
@@ -111,7 +118,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 8),
                                             child: ListView.builder(
-                                              itemCount: streamSnapshotCharacters.data!.docs.length,
+                                              itemCount: charactersId.length,
                                               shrinkWrap: true,
                                               padding: EdgeInsets.zero,
                                               physics: const NeverScrollableScrollPhysics(),
@@ -147,22 +154,12 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                         ),
                                                         Expanded(
                                                           flex: 1,
-                                                          child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              Text(
-                                                                "Level ${documentSnapshotCharacters['character_level']}".toString(),
-                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                              ),
-                                                              Text(
-                                                                documentSnapshotCharacters['character_class'],
-                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                              ),
-                                                              Text(
-                                                                documentSnapshotCharacters['character_race'],
-                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                              ),
-                                                            ],
+                                                          child: IconButton(
+                                                            icon: const Icon(Icons.cancel_outlined),
+                                                            onPressed: () {
+                                                              charactersId.remove(documentSnapshotCharacters.id);
+                                                              setState(() {});
+                                                            },
                                                           ),
                                                         ),
                                                       ],
