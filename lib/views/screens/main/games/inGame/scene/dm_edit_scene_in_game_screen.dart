@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -27,8 +28,9 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
   File? pictureValue;
+  bool hasPictureChanged = false;
   TextEditingController gameNameController = TextEditingController();
-  List<dynamic> charactersId = [];
+  List<dynamic> charactersToRemove = [];
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                       );
                     } else {
                       gameNameController.text = snapshot.data?['game_name'] ?? '';
-                      charactersId = snapshot.data?['characters_id'] ?? [];
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
@@ -72,7 +73,16 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                     },
                                     rightSideWidget: IconButton(
                                       icon: const Icon(Icons.save_sharp),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        getIt<CreateGamesApi>().editGame(
+                                          getIt<CurrentGameId>().state!,
+                                          pictureValue,
+                                          hasPictureChanged,
+                                          gameNameController.text,
+                                          charactersToRemove,
+                                          snapshot.data?['characters_id'],
+                                        );
+                                      },
                                     ),
                                   ),
                                   const SizedBox(height: 20),
@@ -92,7 +102,9 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                       onTapFunction: (var value) {
                                         pictureValue = value;
                                       },
-                                      onChange: () {},
+                                      onChange: () {
+                                        hasPictureChanged = true;
+                                      },
                                       initialImageUrl: snapshot.data?['game_path_to_picture'],
                                     ),
                                   ),
@@ -118,7 +130,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 8),
                                             child: ListView.builder(
-                                              itemCount: charactersId.length,
+                                              itemCount: streamSnapshotCharacters.data!.docs.length,
                                               shrinkWrap: true,
                                               padding: EdgeInsets.zero,
                                               physics: const NeverScrollableScrollPhysics(),
@@ -154,13 +166,21 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         ),
                                                         Expanded(
                                                           flex: 1,
-                                                          child: IconButton(
-                                                            icon: const Icon(Icons.cancel_outlined),
-                                                            onPressed: () {
-                                                              charactersId.remove(documentSnapshotCharacters.id);
-                                                              setState(() {});
-                                                            },
-                                                          ),
+                                                          child: charactersToRemove.contains(documentSnapshotCharacters.id)
+                                                              ? IconButton(
+                                                                  icon: const Icon(Icons.replay_sharp),
+                                                                  onPressed: () {
+                                                                    charactersToRemove.remove(documentSnapshotCharacters.id);
+                                                                    setState(() {});
+                                                                  },
+                                                                )
+                                                              : IconButton(
+                                                                  icon: const Icon(Icons.delete_sharp),
+                                                                  onPressed: () {
+                                                                    charactersToRemove.add(documentSnapshotCharacters.id);
+                                                                    setState(() {});
+                                                                  },
+                                                                ),
                                                         ),
                                                       ],
                                                     ),

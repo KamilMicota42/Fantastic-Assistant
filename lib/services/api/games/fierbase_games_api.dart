@@ -123,4 +123,39 @@ class CreateGamesApi {
       showSnackBar(e.toString());
     }
   }
+
+  Future<void> editGame(
+    String gameId,
+    //picture
+    File? gamePicture,
+    bool hasPictureChanged,
+    //basic info
+    String gameName,
+    List<dynamic> charactersToRemove,
+    List<dynamic> currentCharacters,
+  ) async {
+    if (gameName != '') {
+      try {
+        currentCharacters.removeWhere((item) => charactersToRemove.contains(item));
+        await _games.doc(gameId).update(
+          {
+            'game_name': gameName,
+            'game_path_to_picture': null,
+            'characters_id': currentCharacters,
+          },
+        );
+
+        if (hasPictureChanged && gamePicture != null) {
+          await getIt<FirebaseStorageApi>().addGamePicture(gameId, gamePicture);
+        }
+
+        showSnackBar('Successfully updated game');
+      } catch (e) {
+        debugPrint(e.toString());
+        showSnackBar(e.toString());
+      }
+    } else {
+      showSnackBar('Game name can not be empty');
+    }
+  }
 }
