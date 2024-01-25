@@ -1,3 +1,4 @@
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,18 +29,23 @@ class AttAndModContainer extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 'assets/images/att_mod_background.svg',
+                colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
               ),
               Center(
                 child: Text(
-                    attributeToModifier(int.parse(attributeValue.toString()))
-                        .toString()),
+                  attributeToModifier(int.parse(attributeValue.toString())).toString(),
+                  style: DefaultTextTheme.titilliumWebRegular16(context),
+                ),
               ),
               LayoutBuilder(builder: (context, constraints) {
                 return Padding(
                   padding: EdgeInsets.only(bottom: constraints.maxHeight / 11),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text(attributeValue.toString()),
+                    child: Text(
+                      attributeValue.toString(),
+                      style: DefaultTextTheme.titilliumWebRegular13(context),
+                    ),
                   ),
                 );
               }),

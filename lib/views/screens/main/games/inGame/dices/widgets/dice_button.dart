@@ -36,7 +36,7 @@ class DiceButton extends StatelessWidget {
         ),
         Text(
           diceName,
-          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.white),
         ),
       ],
     );

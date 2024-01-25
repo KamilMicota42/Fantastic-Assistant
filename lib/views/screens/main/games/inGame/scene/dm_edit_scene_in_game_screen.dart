@@ -72,7 +72,10 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                       getIt<AppRouter>().pop();
                                     },
                                     rightSideWidget: IconButton(
-                                      icon: const Icon(Icons.save_sharp),
+                                      icon: const Icon(
+                                        Icons.save_sharp,
+                                        color: AppColors.white,
+                                      ),
                                       onPressed: () {
                                         getIt<CreateGamesApi>().editGame(
                                           getIt<CurrentGameId>().state!,
@@ -82,10 +85,10 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           charactersToRemove,
                                           snapshot.data?['characters_id'],
                                         );
+                                        getIt<AppRouter>().pop();
                                       },
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: DefaultTextFieldWLabel(
@@ -93,8 +96,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                       textController: gameNameController,
                                     ),
                                   ),
-                                  const Divider(),
-                                  const SizedBox(height: 6),
+                                  const SizedBox(height: 12),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width - 32,
                                     height: MediaQuery.of(context).size.width - 32,
@@ -113,7 +115,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Characters',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.white),
                                     ),
                                   ),
                                   const Divider(),
@@ -139,7 +141,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
-                                                    color: AppColors.lighterGrey.withOpacity(0.5),
+                                                    color: AppColors.semiWhite.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
@@ -160,7 +162,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                             documentSnapshotCharacters['character_name'],
                                                             textAlign: TextAlign.center,
                                                             style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                              color: AppColors.darkerGrey,
+                                                              color: AppColors.semiWhite,
                                                             ),
                                                           ),
                                                         ),
@@ -168,14 +170,20 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                           flex: 1,
                                                           child: charactersToRemove.contains(documentSnapshotCharacters.id)
                                                               ? IconButton(
-                                                                  icon: const Icon(Icons.replay_sharp),
+                                                                  icon: const Icon(
+                                                                    Icons.replay_sharp,
+                                                                    color: AppColors.white,
+                                                                  ),
                                                                   onPressed: () {
                                                                     charactersToRemove.remove(documentSnapshotCharacters.id);
                                                                     setState(() {});
                                                                   },
                                                                 )
                                                               : IconButton(
-                                                                  icon: const Icon(Icons.delete_sharp),
+                                                                  icon: const Icon(
+                                                                    Icons.delete_sharp,
+                                                                    color: AppColors.white,
+                                                                  ),
                                                                   onPressed: () {
                                                                     charactersToRemove.add(documentSnapshotCharacters.id);
                                                                     setState(() {});

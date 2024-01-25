@@ -28,7 +28,7 @@ class SettingRowWithCounter extends StatelessWidget {
             EdgeInsets.zero,
           ),
           overlayColor: const MaterialStatePropertyAll(
-            AppColors.lighterGrey,
+            AppColors.semiWhite,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             const RoundedRectangleBorder(
@@ -42,7 +42,7 @@ class SettingRowWithCounter extends StatelessWidget {
             Text(
               text,
               style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
-                color: AppColors.black,
+                color: AppColors.white,
               ),
             ),
             Stack(
@@ -53,7 +53,7 @@ class SettingRowWithCounter extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.notifications_sharp,
-                    color: AppColors.darkerGrey,
+                    color: AppColors.semiWhite,
                   ),
                 ),
                 Positioned(
@@ -62,7 +62,7 @@ class SettingRowWithCounter extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: AppColors.darkerGrey,
+                      color: AppColors.semiWhite,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     constraints: const BoxConstraints(

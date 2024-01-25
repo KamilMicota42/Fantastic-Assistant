@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 
 class CharacterNotesWidget extends StatefulWidget {
@@ -46,7 +47,8 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                             widget.listOfNotes[index],
                             style: index == currNoteIndex
                                 ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.ellipsis)
-                                : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(overflow: TextOverflow.ellipsis),
+                                : DefaultTextTheme.titilliumWebRegular16(context)!
+                                    .copyWith(overflow: TextOverflow.ellipsis, color: AppColors.lighterGrey),
                           ),
                         ),
                       ),
@@ -59,6 +61,7 @@ class _CharacterNotesWidgetState extends State<CharacterNotesWidget> {
                   SvgPicture.asset(
                     'assets/images/note_background.svg',
                     width: MediaQuery.of(context).size.width,
+                    colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                   ),
                   SizedBox(
                     height: 300,

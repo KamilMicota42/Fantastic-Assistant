@@ -9,11 +9,13 @@ import '../../../../../../utils/global_var/default_text_theme.dart';
 class TextfieldAndDescription extends StatelessWidget {
   final TextEditingController controller;
   final String description;
+  final Color? descriptionColor;
   final String? defValueIfNotCorrect;
   const TextfieldAndDescription({
     super.key,
     required this.controller,
     required this.description,
+    this.descriptionColor,
     this.defValueIfNotCorrect,
   });
 
@@ -47,8 +49,7 @@ class TextfieldAndDescription extends StatelessWidget {
           ),
           Text(
             description,
-            style: DefaultTextTheme.titilliumWebRegular16(context)!
-                .copyWith(color: AppColors.grey),
+            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: descriptionColor ?? AppColors.grey),
           ),
         ],
       ),

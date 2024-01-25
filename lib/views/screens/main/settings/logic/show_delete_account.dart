@@ -10,6 +10,7 @@ void showDeleteAccount(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: AppColors.semiWhite,
         title: Text(
           'Delete Account',
           style: DefaultTextTheme.titilliumWebBold20(context),
@@ -32,14 +33,14 @@ void showDeleteAccount(BuildContext context) {
             function: () {
               deleteAccountEmailRequest();
             },
-            textStyle: DefaultTextTheme.titilliumWebBold16(context)!
-                .copyWith(color: AppColors.red),
+            textStyle: DefaultTextTheme.titilliumWebBold16(context),
           ),
           DefaultButton(
-            text: "No, close window",
+            text: "Close",
             function: () {
               Navigator.of(context).pop();
             },
+            textStyle: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
           ),
         ],
       );

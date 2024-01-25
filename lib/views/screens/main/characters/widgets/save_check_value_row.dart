@@ -24,19 +24,18 @@ class SaveCheckValueRow extends StatelessWidget {
       children: [
         Text(
           name,
-          style: DefaultTextTheme.titilliumWebRegular16(context)!
-              .copyWith(color: AppColors.black),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
         ),
         const Expanded(child: SizedBox()),
         Text(
           '${formatAttributeToSaveCheck(attValue, profValue, boolValue)}',
-          style: DefaultTextTheme.titilliumWebRegular16(context)!
-              .copyWith(color: AppColors.black),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
         ),
         Checkbox(
           value: boolValue ?? false,
           onChanged: (value) {},
-          activeColor: AppColors.black,
+          activeColor: AppColors.white,
+          side: const BorderSide(color: AppColors.lighterGrey),
           shape: const CircleBorder(),
         )
       ],

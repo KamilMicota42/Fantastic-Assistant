@@ -1,3 +1,4 @@
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/global_var/default_text_theme.dart';
@@ -20,7 +21,10 @@ class DescriberOfTextField extends StatelessWidget {
           title,
           style: DefaultTextTheme.titilliumWebRegular16(context),
         ),
-        Icon(icon),
+        Icon(
+          icon,
+          color: AppColors.white,
+        ),
       ],
     );
   }

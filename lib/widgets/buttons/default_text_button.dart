@@ -18,13 +18,12 @@ class DefaultTextButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
-      style: const ButtonStyle(
-        overlayColor: MaterialStatePropertyAll(AppColors.lighterIris),
+      style: ButtonStyle(
+        overlayColor: MaterialStatePropertyAll(AppColors.lighterIris.withOpacity(0.1)),
       ),
       child: Text(
         text,
-        style: DefaultTextTheme.titilliumWebBold16(context)!
-            .copyWith(color: AppColors.darkerGrey),
+        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.white),
       ),
     );
   }

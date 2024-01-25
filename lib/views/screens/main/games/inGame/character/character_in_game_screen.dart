@@ -19,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
+import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/const/enums/character_class_list.dart';
 import '../../../../../../utils/const/enums/character_levels_list.dart';
 import '../../../../../../utils/const/enums/character_races_list.dart';
@@ -254,7 +255,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           GoBackTitleRow(
-                            screenTitle: "CHARACTER",
+                            screenTitle: "Edit character",
                             popFunction: () {
                               getIt<AppRouter>().pop();
                             },
@@ -370,7 +371,10 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                   );
                                 }
                               },
-                              icon: const Icon(Icons.save_sharp),
+                              icon: const Icon(
+                                Icons.save_sharp,
+                                color: AppColors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -401,6 +405,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                 alignment: Alignment.centerLeft,
                                 child: DefaultTextFieldWLabel(
                                   textController: characterNameController,
+                                  labelColor: AppColors.white,
                                   labelText: 'Character name',
                                 ),
                               ),
@@ -427,8 +432,14 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                                 child: Text(
                                                   mainTabs[index],
                                                   style: mainIndex == index
-                                                      ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.ellipsis)
-                                                      : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(overflow: TextOverflow.ellipsis),
+                                                      ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(
+                                                          overflow: TextOverflow.ellipsis,
+                                                          color: AppColors.lighterIris,
+                                                        )
+                                                      : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
+                                                          overflow: TextOverflow.ellipsis,
+                                                          color: AppColors.grey,
+                                                        ),
                                                 ),
                                               ),
                                             ),
@@ -494,21 +505,25 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                             TextfieldAndDescription(
                                               controller: profBonusController,
                                               description: 'Prof. Bonus',
+                                              descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: levelAndProficiencyMap[levelIntValue].toString(),
                                             ),
                                             TextfieldAndDescription(
                                               controller: walkingSpeedController,
                                               description: 'Wlk. Speed',
+                                              descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: '30',
                                             ),
                                             TextfieldAndDescription(
                                               controller: initiativeController,
                                               description: 'Initiative',
+                                              descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: attributeToModifier(int.parse(dexAttController.text)).toString(),
                                             ),
                                             TextfieldAndDescription(
                                               controller: armorClassController,
                                               description: 'Armor Class',
+                                              descriptionColor: AppColors.white,
                                               defValueIfNotCorrect:
                                                   '${10 + int.parse(attributeToModifier(int.parse(dexAttController.text)).toString())}',
                                             ),

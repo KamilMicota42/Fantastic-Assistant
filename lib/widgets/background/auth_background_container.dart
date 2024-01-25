@@ -31,8 +31,8 @@ class _AuthBackgroundContainerState extends State<AuthBackgroundContainer> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppColors.white,
-                AppColors.lighterGrey,
+                AppColors.black,
+                AppColors.darkerGrey,
               ],
             ),
           ),

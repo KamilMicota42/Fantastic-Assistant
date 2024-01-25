@@ -48,6 +48,5 @@ class AppRouter extends $AppRouter {
         ),
         //dm flow
         AutoRoute(page: DmEditSceneInGameRoute.page),
-        AutoRoute(page: DmViewCharacterRoute.page),
       ];
 }

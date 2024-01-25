@@ -27,7 +27,7 @@ class _AttributeAndModifierState extends State<AttributeAndModifier> {
       children: [
         Container(
           decoration: const BoxDecoration(
-            color: AppColors.lighterGrey,
+            color: AppColors.semiWhite,
             shape: BoxShape.circle,
           ),
           child: SizedBox(
@@ -49,8 +49,7 @@ class _AttributeAndModifierState extends State<AttributeAndModifier> {
             onChanged: (value) {
               setState(() {
                 if (isAttributeValid(value)) {
-                  valueModifier =
-                      attributeToModifier(int.parse(value)).toString();
+                  valueModifier = attributeToModifier(int.parse(value)).toString();
                 } else {
                   valueModifier = "0";
                 }

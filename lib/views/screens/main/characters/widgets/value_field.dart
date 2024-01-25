@@ -30,7 +30,7 @@ class _ValueFieldState extends State<ValueField> {
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: AppColors.lighterGrey,
+                color: AppColors.semiWhite,
                 shape: BoxShape.circle,
               ),
               child: SizedBox(
@@ -53,8 +53,7 @@ class _ValueFieldState extends State<ValueField> {
                   setState(
                     () {
                       if (isIntable(value)) {
-                        widget.valueController.text =
-                            int.parse(value).toString();
+                        widget.valueController.text = int.parse(value).toString();
                       } else {
                         widget.valueController.text = "0";
                       }
@@ -76,7 +75,7 @@ class _ValueFieldState extends State<ValueField> {
                     padding: EdgeInsets.all(6),
                     child: Icon(
                       Icons.question_mark_sharp,
-                      color: AppColors.darkerGrey,
+                      color: AppColors.semiWhite,
                     ),
                   ),
                 ),

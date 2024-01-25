@@ -81,7 +81,7 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     if (state!.friendsRequests!.contains(documentSnapshot.id)) {
                                       return Card(
-                                        color: AppColors.lighterGrey,
+                                        color: AppColors.darkerGrey,
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(
@@ -117,13 +117,19 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                                     onPressed: () {
                                                       getIt<FirebaseUserData>().declineFriendRequest(documentSnapshot.id);
                                                     },
-                                                    icon: const Icon(Icons.cancel_outlined),
+                                                    icon: const Icon(
+                                                      Icons.cancel_outlined,
+                                                      color: AppColors.semiWhite,
+                                                    ),
                                                   ),
                                                   IconButton(
                                                     onPressed: () {
                                                       getIt<FirebaseUserData>().acceptFriendRequest(documentSnapshot.id);
                                                     },
-                                                    icon: const Icon(Icons.check_circle_outline),
+                                                    icon: const Icon(
+                                                      Icons.check_circle_outline,
+                                                      color: AppColors.semiWhite,
+                                                    ),
                                                   ),
                                                 ],
                                               ),

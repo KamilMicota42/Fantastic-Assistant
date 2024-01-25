@@ -35,7 +35,7 @@ class ScenePictureInGame extends StatelessWidget {
               )
             : Container(
                 decoration: const BoxDecoration(
-                  color: AppColors.lighterGrey,
+                  color: AppColors.semiWhite,
                 ),
                 child: const FittedBox(
                   fit: BoxFit.fill,

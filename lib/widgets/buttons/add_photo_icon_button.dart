@@ -44,13 +44,14 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
           },
           child: CachedNetworkImage(
             imageUrl: widget.initialImageUrl!,
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CircularProgressIndicator(
+            progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
               strokeWidth: 2,
               value: downloadProgress.progress,
             ),
-            errorWidget: (context, url, error) =>
-                const Icon(Icons.person_sharp),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.person_sharp,
+              color: AppColors.darkerGrey,
+            ),
             fit: BoxFit.fill,
           ),
         ),
@@ -61,11 +62,11 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
               width: 150,
               height: 150,
               decoration: BoxDecoration(
-                color: AppColors.lighterGrey,
+                color: AppColors.semiWhite,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: IconButton(
-                splashColor: AppColors.white,
+                splashColor: AppColors.black,
                 style: const ButtonStyle(),
                 icon: const Icon(
                   Icons.add_photo_alternate_rounded,
@@ -73,8 +74,7 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
                   color: AppColors.darkerGrey,
                 ),
                 onPressed: () async {
-                  final pickedFile =
-                      await picker.pickImage(source: ImageSource.gallery);
+                  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
                   if (pickedFile != null) {
                     widget.onTapFunction(File(pickedFile.path));
@@ -116,16 +116,16 @@ class _AddPhotoIconButtonState extends State<AddPhotoIconButton> {
     //         width: 150,
     //         height: 150,
     //         decoration: BoxDecoration(
-    //           color: AppColors.lighterGrey,
+    //           color: AppColors.semiWhite,
     //           borderRadius: BorderRadius.circular(6),
     //         ),
     //         child: IconButton(
-    //           splashColor: AppColors.white,
+    //           splashColor: AppColors.black,
     //           style: const ButtonStyle(),
     //           icon: const Icon(
     //             Icons.add_photo_alternate_rounded,
     //             size: 100,
-    //             color: AppColors.darkerGrey,
+    //             color: AppColors.semiWhite,
     //           ),
     //           onPressed: () async {
     //             final pickedFile = await picker.pickImage(source: ImageSource.gallery);

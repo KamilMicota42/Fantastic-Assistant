@@ -38,7 +38,7 @@ class GoBackTitleRow extends StatelessWidget {
               },
               icon: Icon(
                 isX == true ? Icons.close_sharp : Icons.arrow_back_ios,
-                color: AppColors.black,
+                color: AppColors.white,
               ),
             ),
           ),
@@ -47,7 +47,7 @@ class GoBackTitleRow extends StatelessWidget {
                   child: Center(
                     child: Text(
                       screenTitle!,
-                      style: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(color: AppColors.black, overflow: TextOverflow.visible),
+                      style: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(color: AppColors.white, overflow: TextOverflow.visible),
                     ),
                   ),
                 )

@@ -25,7 +25,7 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(
-            color: AppColors.lighterGrey,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(6),
           ),
           width: constraints.constrainWidth(),
@@ -42,13 +42,12 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
                 },
               );
             },
-            dropdownMenuEntries:
-                widget.listItem.map<DropdownMenuEntry<String>>((String value) {
+            dropdownMenuEntries: widget.listItem.map<DropdownMenuEntry<String>>((String value) {
               return DropdownMenuEntry<String>(
                 value: value,
                 label: value,
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.white),
+                  backgroundColor: MaterialStatePropertyAll(AppColors.white),
                 ),
               );
             }).toList(),

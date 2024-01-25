@@ -7,6 +7,7 @@ import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/inGame/scene/widgets/scene_picture_in_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../settings/injection.dart';
@@ -70,20 +71,22 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                             onPressed: () {
                                               getIt<AppRouter>().navigate(const DmEditSceneInGameRoute());
                                             },
-                                            icon: const Icon(Icons.settings_sharp),
+                                            icon: const Icon(
+                                              Icons.settings_sharp,
+                                              color: AppColors.white,
+                                            ),
                                           )
                                         : null,
                                   ),
-                                  const SizedBox(height: 20),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       '${snapshot.data?['game_name'] ?? 'Game title'}',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
                                     ),
                                   ),
-                                  const Divider(),
-                                  const SizedBox(height: 6),
+                                  const DefaultDivider(),
+                                  const SizedBox(height: 12),
                                   ScenePictureInGame(
                                     pathToPicture: snapshot.data?['game_path_to_picture'],
                                     width: MediaQuery.of(context).size.width - 32,
@@ -94,10 +97,10 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Characters',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
                                     ),
                                   ),
-                                  const Divider(),
+                                  const DefaultDivider(),
                                   const SizedBox(height: 6),
                                 ],
                               ),
@@ -120,7 +123,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
-                                                    color: AppColors.lighterGrey.withOpacity(0.5),
+                                                    color: AppColors.semiWhite.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
@@ -141,7 +144,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                             documentSnapshotCharacters['character_name'],
                                                             textAlign: TextAlign.center,
                                                             style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                              color: AppColors.darkerGrey,
+                                                              color: AppColors.semiWhite,
                                                             ),
                                                           ),
                                                         ),

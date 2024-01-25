@@ -49,7 +49,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         onPressed: () {
                           getIt<AppRouter>().navigate(const UsersRoute());
                         },
-                        icon: const Icon(Icons.add_box_sharp),
+                        icon: const Icon(
+                          Icons.add_box_sharp,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -82,7 +85,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   itemBuilder: (context, index) {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     return Card(
-                                      color: AppColors.lighterGrey,
+                                      color: AppColors.darkerGrey,
                                       child: SizedBox(
                                         height: 100,
                                         child: Row(

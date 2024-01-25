@@ -63,7 +63,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
-                                      color: AppColors.lighterGrey.withOpacity(0.5),
+                                      elevation: 5,
+                                      color: AppColors.darkerGrey.withOpacity(0.9),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -84,7 +85,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                               documentSnapshot['character_name'],
                                               textAlign: TextAlign.center,
                                               style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                color: AppColors.darkerGrey,
+                                                color: AppColors.semiWhite,
                                               ),
                                             ),
                                           ),

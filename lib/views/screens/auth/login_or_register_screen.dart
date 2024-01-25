@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/global_var/default_text_theme.dart';
@@ -66,8 +67,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
                             alignment: Alignment.center,
                             child: Text(
                               titlesList[i],
-                              style:
-                                  DefaultTextTheme.titilliumWebBold20(context),
+                              style: DefaultTextTheme.titilliumWebBold20(context),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -76,8 +76,7 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
                             child: Text(
                               descriptionList[i],
                               textAlign: TextAlign.center,
-                              style: DefaultTextTheme.titilliumWebRegular16(
-                                  context),
+                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.semiWhite),
                             ),
                           ),
                         ],

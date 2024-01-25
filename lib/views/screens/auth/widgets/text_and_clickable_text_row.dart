@@ -1,3 +1,4 @@
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/global_var/default_text_theme.dart';
@@ -23,7 +24,7 @@ class TextAndClickableTextRow extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             contentText,
-            style: DefaultTextTheme.titilliumWebRegular16(context),
+            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.semiWhite),
           ),
         ),
         Align(

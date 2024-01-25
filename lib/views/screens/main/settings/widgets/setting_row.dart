@@ -26,7 +26,7 @@ class SettingRow extends StatelessWidget {
             EdgeInsets.zero,
           ),
           overlayColor: const MaterialStatePropertyAll(
-            AppColors.lighterGrey,
+            AppColors.darkerGrey,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             const RoundedRectangleBorder(
@@ -39,7 +39,7 @@ class SettingRow extends StatelessWidget {
           child: Text(
             text,
             style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
-              color: AppColors.black,
+              color: AppColors.white,
             ),
           ),
         ),

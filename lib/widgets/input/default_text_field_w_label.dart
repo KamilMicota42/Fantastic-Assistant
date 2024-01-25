@@ -7,6 +7,7 @@ import '../../utils/global_var/default_text_theme.dart';
 class DefaultTextFieldWLabel extends StatelessWidget {
   final TextEditingController? textController;
   final String labelText;
+  final Color? labelColor;
   final TextAlign? alignText;
   final FloatingLabelAlignment? alignLabel;
   final TextInputType? keyboardType;
@@ -16,6 +17,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
     super.key,
     this.textController,
     required this.labelText,
+    this.labelColor,
     this.alignText,
     this.alignLabel,
     this.keyboardType,
@@ -28,8 +30,10 @@ class DefaultTextFieldWLabel extends StatelessWidget {
     return TextField(
       controller: textController,
       textAlign: alignText ?? TextAlign.start,
-      style: DefaultTextTheme.titilliumWebBold20(context)!
-          .copyWith(color: AppColors.darkerGrey, fontWeight: FontWeight.bold),
+      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
+        color: AppColors.semiWhite,
+        fontWeight: FontWeight.bold,
+      ),
       keyboardType: keyboardType,
       onChanged: (value) {
         onChanged != null ? onChanged!(value) : null;
@@ -37,8 +41,17 @@ class DefaultTextFieldWLabel extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         floatingLabelAlignment: alignLabel ?? FloatingLabelAlignment.start,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!
-            .copyWith(color: AppColors.grey),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: labelColor ?? AppColors.grey),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.semiWhite,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.white,
+          ),
+        ),
       ),
       inputFormatters: inputFormatters,
     );

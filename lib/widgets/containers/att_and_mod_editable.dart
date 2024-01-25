@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../utils/const/app_colors.dart';
 import '../../utils/dnd_rules/attribute_to_modifier.dart';
 
 class AttAndModEditable extends StatefulWidget {
@@ -25,9 +26,7 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
   @override
   void initState() {
     if (isAttributeValid(widget.controller.text)) {
-      modValue = int.parse(
-          attributeToModifier(int.parse(widget.controller.text.toString()))
-              .toString());
+      modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
     }
     super.initState();
   }
@@ -47,9 +46,13 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
             children: [
               SvgPicture.asset(
                 'assets/images/att_mod_background.svg',
+                colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
               ),
               Center(
-                child: Text(modValue.toString()),
+                child: Text(
+                  modValue.toString(),
+                  style: DefaultTextTheme.titilliumWebRegular16(context),
+                ),
               ),
               LayoutBuilder(builder: (context, constraints) {
                 return Padding(
@@ -70,26 +73,27 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                         },
                         child: TextField(
                           textAlign: TextAlign.center,
-                          style:
-                              DefaultTextTheme.titilliumWebRegular12(context)!
-                                  .copyWith(),
+                          style: DefaultTextTheme.titilliumWebRegular13(context),
                           decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.zero),
+                            contentPadding: EdgeInsets.zero,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                            ),
+                          ),
                           controller: widget.controller,
                           onChanged: (v) {
                             if (isAttributeValid(v)) {
-                              modValue = int.parse(attributeToModifier(
-                                      int.parse(
-                                          widget.controller.text.toString()))
-                                  .toString());
+                              modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
                             } else {
                               modValue = 0;
                             }
                             setState(() {});
                           },
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\-?\d*')),
+                            FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
                           ],
                           keyboardType: TextInputType.number,
                         ),

@@ -51,31 +51,34 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                       getIt<AppRouter>().pop();
                     },
                   ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Roll the dice',
-                        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            isPrivate ? 'private' : 'public',
-                            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.black),
-                          ),
-                          const SizedBox(width: 6),
-                          Switch(
-                            value: isPrivate,
-                            onChanged: (value) {
-                              isPrivate = value;
-                              setState(() {});
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                  SizedBox(
+                    height: 26,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Roll the dice',
+                          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              isPrivate ? 'private' : 'public',
+                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+                            ),
+                            const SizedBox(width: 6),
+                            Switch(
+                              value: isPrivate,
+                              onChanged: (value) {
+                                isPrivate = value;
+                                setState(() {});
+                              },
+                              activeColor: AppColors.grey,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const Divider(),
                   const SizedBox(height: 6),
@@ -137,7 +140,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Roll history',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.black),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
                     ),
                   ),
                   const Divider(),
@@ -152,6 +155,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                           height: MediaQuery.of(context).size.width,
                           child: SvgPicture.asset(
                             'assets/images/save_throw_background.svg',
+                            colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -245,10 +249,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
       randoms.add(
         TypewriterAnimatedText(
           (random.nextInt(dice) + 1).toString(),
-          textStyle: const TextStyle(
-            fontSize: 32.0,
-            fontWeight: FontWeight.bold,
-          ),
+          textStyle: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(fontSize: 32),
           speed: Duration(milliseconds: i),
           cursor: '',
         ),

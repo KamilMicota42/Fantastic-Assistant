@@ -65,7 +65,6 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                 },
                               ),
                             ),
-                            const SizedBox(height: 20),
                             (snapshot.data?['characters_id'].isNotEmpty)
                                 ? StreamBuilder(
                                     stream: characters,
@@ -85,7 +84,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                   child: SizedBox(
                                                     height: 100,
                                                     child: Card(
-                                                      color: AppColors.lighterGrey.withOpacity(0.5),
+                                                      color: AppColors.semiWhite.withOpacity(0.5),
                                                       child: Row(
                                                         children: [
                                                           Expanded(
@@ -106,7 +105,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                               documentSnapshotCharacters['character_name'],
                                                               textAlign: TextAlign.center,
                                                               style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                                color: AppColors.darkerGrey,
+                                                                color: AppColors.semiWhite,
                                                               ),
                                                             ),
                                                           ),
@@ -138,7 +137,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                     try {
                                                       getIt<CurrentCharacterCubit>().delete();
                                                       await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshotCharacters.id);
-                                                      getIt<AppRouter>().navigate(const DmViewCharacterRoute());
+                                                      getIt<AppRouter>().navigate(const ViewCharacterRoute());
                                                     } catch (e) {
                                                       showSnackBar("Error occured");
                                                     }

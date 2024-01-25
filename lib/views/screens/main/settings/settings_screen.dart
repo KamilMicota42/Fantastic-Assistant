@@ -59,13 +59,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   builder: (context, state) {
                     return Text(
                       '${state?.accountDisplayName}',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite),
                     );
                   },
                 ),
                 Text(
                   '${getIt<CurrentUserAdditionalData>().state?.accountEmail}',
-                  style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.darkerGrey),
+                  style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite),
                 ),
                 const SizedBox(height: 10),
                 const DefaultDivider(),
@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: TextButton(
                     style: const ButtonStyle(
                       foregroundColor: MaterialStatePropertyAll(
-                        AppColors.red,
+                        AppColors.lighterGrey,
                       ),
                       textStyle: MaterialStatePropertyAll(
                         TextStyle(

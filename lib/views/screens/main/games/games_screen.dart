@@ -56,7 +56,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
-                                      color: AppColors.lighterGrey.withOpacity(0.5),
+                                      color: AppColors.semiWhite.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -77,7 +77,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                               documentSnapshot['game_name'],
                                               textAlign: TextAlign.center,
                                               style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                color: AppColors.darkerGrey,
+                                                color: AppColors.semiWhite,
                                               ),
                                             ),
                                           ),

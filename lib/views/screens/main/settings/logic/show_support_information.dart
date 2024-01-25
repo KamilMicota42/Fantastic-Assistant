@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,7 @@ void showSupportInformation(BuildContext context) async {
   if (Platform.isAndroid) {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
     systemName = 'Android';
-    systemVersion =
-        '${androidInfo.version.release} (SDK ${androidInfo.version.sdkInt})';
+    systemVersion = '${androidInfo.version.release} (SDK ${androidInfo.version.sdkInt})';
     deviceName = androidInfo.manufacturer;
     deviceModel = androidInfo.model;
   }
@@ -53,6 +53,7 @@ Widget _supportInformationPopUp(
   String? deviceModel,
 ) {
   return AlertDialog(
+    backgroundColor: AppColors.semiWhite,
     title: Text(
       'Support Information',
       style: DefaultTextTheme.titilliumWebBold20(context),
@@ -102,6 +103,7 @@ Widget _supportInformationPopUp(
         function: () {
           Navigator.of(context).pop();
         },
+        textStyle: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
       ),
     ],
   );

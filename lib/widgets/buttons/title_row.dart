@@ -24,8 +24,7 @@ class TitleRow extends StatelessWidget {
           screenTitle != null
               ? Text(
                   screenTitle!,
-                  style: DefaultTextTheme.titilliumWebBold22(context)!
-                      .copyWith(color: AppColors.black),
+                  style: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(color: AppColors.white),
                 )
               : const SizedBox(),
           const SizedBox(

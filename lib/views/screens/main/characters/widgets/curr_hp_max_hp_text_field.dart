@@ -28,12 +28,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
 
   @override
   void initState() {
-    widget.currentHpController.text != ''
-        ? currValueText = widget.currentHpController.text
-        : null;
-    widget.maxHpController.text != ''
-        ? maxValueText = widget.maxHpController.text
-        : null;
+    widget.currentHpController.text != '' ? currValueText = widget.currentHpController.text : null;
+    widget.maxHpController.text != '' ? maxValueText = widget.maxHpController.text : null;
     super.initState();
   }
 
@@ -63,6 +59,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                           child: DefaultTextFieldWLabel(
                             textController: widget.currentHpController,
                             labelText: 'Curr HP',
+                            labelColor: AppColors.white,
                             alignText: TextAlign.center,
                             alignLabel: FloatingLabelAlignment.center,
                             onChanged: (value) {
@@ -77,8 +74,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                               );
                             },
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\-?\d*')),
+                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
                             ],
                             keyboardType: TextInputType.number,
                           ),
@@ -100,6 +96,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                           child: DefaultTextFieldWLabel(
                             textController: widget.maxHpController,
                             labelText: 'Max HP',
+                            labelColor: AppColors.white,
                             alignText: TextAlign.center,
                             alignLabel: FloatingLabelAlignment.center,
                             onChanged: (value) {
@@ -114,8 +111,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                               );
                             },
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\-?\d*')),
+                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
                             ],
                             keyboardType: TextInputType.number,
                           ),
@@ -131,8 +127,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                     child: Center(
                       child: Text(
                         '$currValueText / $maxValueText',
-                        style: DefaultTextTheme.titilliumWebBold16(context)!
-                            .copyWith(overflow: TextOverflow.clip),
+                        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.clip),
                       ),
                     ),
                   ),
@@ -152,7 +147,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                     padding: EdgeInsets.all(6),
                     child: Icon(
                       Icons.question_mark_sharp,
-                      color: AppColors.darkerGrey,
+                      color: AppColors.semiWhite,
                     ),
                   ),
                 ),

@@ -11,7 +11,7 @@ class DefaultDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Divider(
       height: 1,
-      color: AppColors.lighterGrey,
+      color: AppColors.darkerGrey,
     );
   }
 }

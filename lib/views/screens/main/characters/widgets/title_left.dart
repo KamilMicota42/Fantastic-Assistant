@@ -5,10 +5,12 @@ import '../../../../../utils/global_var/default_text_theme.dart';
 
 class TitleLeft extends StatelessWidget {
   final String text;
+  final Color? textColor;
   final AlignmentGeometry? alignment;
   const TitleLeft({
     super.key,
     required this.text,
+    this.textColor,
     this.alignment,
   });
 
@@ -18,8 +20,7 @@ class TitleLeft extends StatelessWidget {
       alignment: alignment ?? Alignment.centerLeft,
       child: Text(
         text,
-        style: DefaultTextTheme.titilliumWebBold20(context)!
-            .copyWith(color: AppColors.black),
+        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: textColor ?? AppColors.grey),
       ),
     );
   }

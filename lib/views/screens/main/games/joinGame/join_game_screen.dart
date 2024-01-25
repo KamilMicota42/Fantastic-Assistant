@@ -10,6 +10,7 @@ import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
+import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/injection.dart';
@@ -43,7 +44,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: SingleChildScrollView(
             child: Stack(
               children: [
@@ -63,7 +64,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                           ? Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
                                   child: DefaultButton(
                                     text: 'As dungeon master',
                                     height: 50,
@@ -81,7 +82,11 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                       Expanded(
                         child: Column(
                           children: [
-                            const TitleLeft(text: 'As character'),
+                            const TitleLeft(
+                              text: 'As character',
+                              textColor: AppColors.white,
+                            ),
+                            const DefaultDivider(),
                             const SizedBox(height: 6),
                             StreamBuilder(
                               stream: _characters.snapshots(),
@@ -97,7 +102,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                           child: SizedBox(
                                             height: 100,
                                             child: Card(
-                                              color: AppColors.lighterGrey,
+                                              color: AppColors.darkerGrey,
                                               child: Row(
                                                 children: [
                                                   Expanded(
@@ -105,7 +110,6 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(6),
                                                       child: SizedBox(
-                                                        height: 100,
                                                         child: CharacterPicture(
                                                           pathToPicture: documentSnapshot['character_path_to_picture'],
                                                         ),
@@ -118,7 +122,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                                       documentSnapshot['character_name'],
                                                       textAlign: TextAlign.center,
                                                       style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                        color: AppColors.darkerGrey,
+                                                        color: AppColors.semiWhite,
                                                       ),
                                                     ),
                                                   ),
