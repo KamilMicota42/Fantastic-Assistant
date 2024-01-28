@@ -2,13 +2,18 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
+import 'package:fantastic_assistant/views/screens/main/characters/widgets/title_left.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
+import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../models/user/user_additional_data.dart';
+import '../../../../../../services/api/games/fierbase_games_api.dart';
+import '../../../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
@@ -31,6 +36,13 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   bool hasPictureChanged = false;
   TextEditingController gameNameController = TextEditingController();
   List<dynamic> charactersToRemove = [];
+
+  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
+        'friends',
+        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+      );
+  List<dynamic> listOfPlayersId = [];
+  bool initBuild = true;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +70,10 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                               whereIn: snapshot.data?['characters_id'],
                             )
                             .snapshots();
+                        if (snapshot.data?['players_id'].isNotEmpty && initBuild) {
+                          listOfPlayersId = snapshot.data?['players_id'];
+                          initBuild = false;
+                        }
                       }
                       return SingleChildScrollView(
                         child: Column(
@@ -84,6 +100,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           gameNameController.text,
                                           charactersToRemove,
                                           snapshot.data?['characters_id'],
+                                          listOfPlayersId,
                                         );
                                         getIt<AppRouter>().pop();
                                       },
@@ -111,14 +128,8 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 20),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Characters',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.white),
-                                    ),
-                                  ),
-                                  const Divider(),
+                                  const TitleLeft(text: 'Characters'),
+                                  const DefaultDivider(),
                                   const SizedBox(height: 6),
                                 ],
                               ),
@@ -141,7 +152,8 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
-                                                    color: AppColors.semiWhite.withOpacity(0.5),
+                                                    elevation: 5,
+                                                    color: AppColors.darkerGrey.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
@@ -204,10 +216,116 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                   )
                                 : Center(
                                     child: Text(
-                                      "No friends yet",
+                                      "No characters yet",
                                       style: DefaultTextTheme.titilliumWebRegular16(context),
                                     ),
                                   ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 17),
+                                    child: TitleLeft(text: 'Invite friends'),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 17),
+                                    child: DefaultDivider(),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                                    bloc: getIt<CurrentUserAdditionalData>(),
+                                    builder: (context, state) {
+                                      return StreamBuilder(
+                                        stream: friends.snapshots(),
+                                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                                          if (streamSnapshot.hasData) {
+                                            if (streamSnapshot.data!.docs.isEmpty || streamSnapshot.data?.docs.length == null) {
+                                              return Center(
+                                                child: Text(
+                                                  "No friends yet",
+                                                  style: DefaultTextTheme.titilliumWebRegular16(context),
+                                                ),
+                                              );
+                                            }
+                                            return ListView.builder(
+                                              padding: const EdgeInsets.only(bottom: 200),
+                                              shrinkWrap: true,
+                                              itemCount: streamSnapshot.data!.docs.length,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              itemBuilder: (context, index) {
+                                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                                return Card(
+                                                  elevation: 5,
+                                                  color: AppColors.darkerGrey.withOpacity(0.5),
+                                                  child: SizedBox(
+                                                    height: 100,
+                                                    child: Row(
+                                                      children: [
+                                                        const Padding(
+                                                          padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                                          child: SizedBox(
+                                                            height: 100,
+                                                            child: CharacterPicture(
+                                                              pathToPicture: null,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              Text(
+                                                                documentSnapshot['account_display_name'],
+                                                                style: DefaultTextTheme.titilliumWebBold16(context),
+                                                              ),
+                                                              Text(
+                                                                documentSnapshot['account_email'],
+                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(right: 6, top: 6, bottom: 6),
+                                                          child: !listOfPlayersId.contains(documentSnapshot.id)
+                                                              ? IconButton(
+                                                                  onPressed: () {
+                                                                    listOfPlayersId.add(documentSnapshot.id);
+                                                                    setState(() {});
+                                                                  },
+                                                                  icon: const Icon(
+                                                                    Icons.add_sharp,
+                                                                    color: AppColors.semiWhite,
+                                                                  ),
+                                                                )
+                                                              : IconButton(
+                                                                  onPressed: () {
+                                                                    listOfPlayersId.remove(documentSnapshot.id);
+                                                                    setState(() {});
+                                                                  },
+                                                                  icon: const Icon(
+                                                                    Icons.remove_sharp,
+                                                                    color: AppColors.semiWhite,
+                                                                  ),
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
+                                          return const CircularProgressIndicator();
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 120),
                           ],
                         ),

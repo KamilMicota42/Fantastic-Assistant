@@ -64,7 +64,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                     height: 100,
                                     child: Card(
                                       elevation: 5,
-                                      color: AppColors.darkerGrey.withOpacity(0.9),
+                                      color: AppColors.darkerGrey.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(

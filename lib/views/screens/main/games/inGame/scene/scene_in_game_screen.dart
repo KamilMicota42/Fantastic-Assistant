@@ -123,7 +123,8 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
-                                                    color: AppColors.semiWhite.withOpacity(0.5),
+                                                    elevation: 5,
+                                                    color: AppColors.darkerGrey.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
@@ -182,7 +183,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                   )
                                 : Center(
                                     child: Text(
-                                      "No friends yet",
+                                      "No characters yet",
                                       style: DefaultTextTheme.titilliumWebRegular16(context),
                                     ),
                                   ),

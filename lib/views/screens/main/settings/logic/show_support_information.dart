@@ -53,7 +53,7 @@ Widget _supportInformationPopUp(
   String? deviceModel,
 ) {
   return AlertDialog(
-    backgroundColor: AppColors.semiWhite,
+    backgroundColor: AppColors.darkerGrey,
     title: Text(
       'Support Information',
       style: DefaultTextTheme.titilliumWebBold20(context),

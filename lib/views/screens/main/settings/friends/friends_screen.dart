@@ -85,7 +85,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   itemBuilder: (context, index) {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     return Card(
-                                      color: AppColors.darkerGrey,
+                                      elevation: 5,
+                                      color: AppColors.darkerGrey.withOpacity(0.5),
                                       child: SizedBox(
                                         height: 100,
                                         child: Row(

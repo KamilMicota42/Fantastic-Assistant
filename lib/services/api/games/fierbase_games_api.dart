@@ -133,15 +133,21 @@ class CreateGamesApi {
     String gameName,
     List<dynamic> charactersToRemove,
     List<dynamic> currentCharacters,
+    List<dynamic> currentPlayes,
   ) async {
+    print(gamePicture);
+    print(hasPictureChanged);
+    if (hasPictureChanged && gamePicture != null) {
+      print('update');
+    }
     if (gameName != '') {
       try {
         currentCharacters.removeWhere((item) => charactersToRemove.contains(item));
         await _games.doc(gameId).update(
           {
             'game_name': gameName,
-            'game_path_to_picture': null,
             'characters_id': currentCharacters,
+            'players_id': currentPlayes,
           },
         );
 

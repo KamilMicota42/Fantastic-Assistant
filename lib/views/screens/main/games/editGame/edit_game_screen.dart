@@ -115,7 +115,7 @@ class _EditGameScreenState extends State<EditGameScreen> {
                                   );
                                 }
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                                  padding: const EdgeInsets.symmetric(horizontal: 0),
                                   child: ListView.builder(
                                     padding: const EdgeInsets.only(bottom: 200),
                                     shrinkWrap: true,
@@ -124,7 +124,8 @@ class _EditGameScreenState extends State<EditGameScreen> {
                                     itemBuilder: (context, index) {
                                       final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                       return Card(
-                                        color: AppColors.darkerGrey,
+                                        elevation: 5,
+                                        color: AppColors.darkerGrey.withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(

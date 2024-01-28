@@ -81,7 +81,8 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     if (state!.friendsRequests!.contains(documentSnapshot.id)) {
                                       return Card(
-                                        color: AppColors.darkerGrey,
+                                        elevation: 5,
+                                        color: AppColors.darkerGrey.withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(

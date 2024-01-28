@@ -68,7 +68,8 @@ class _UsersScreenState extends State<UsersScreen> {
                                     final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                     if (documentSnapshot.id != state!.accountId && !state.friends!.contains(documentSnapshot.id)) {
                                       return Card(
-                                        color: AppColors.darkerGrey,
+                                        elevation: 5,
+                                        color: AppColors.darkerGrey.withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(

@@ -102,7 +102,8 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                           child: SizedBox(
                                             height: 100,
                                             child: Card(
-                                              color: AppColors.darkerGrey,
+                                              elevation: 5,
+                                              color: AppColors.darkerGrey.withOpacity(0.5),
                                               child: Row(
                                                 children: [
                                                   Expanded(

@@ -153,7 +153,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                   )
                                 : Center(
                                     child: Text(
-                                      "No friends yet",
+                                      "No characters yet",
                                       style: DefaultTextTheme.titilliumWebRegular16(context),
                                     ),
                                   ),
