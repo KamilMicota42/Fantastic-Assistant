@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
 import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
+import 'package:fantastic_assistant/utils/dnd_rules/dnd_hints.dart';
 import 'package:fantastic_assistant/utils/dnd_rules/level_and_proficiency_map.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
@@ -506,18 +507,21 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                               description: 'Prof. Bonus',
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: levelAndProficiencyMap[levelIntValue].toString(),
+                                              hintText: hintsList["proficiency"],
                                             ),
                                             TextfieldAndDescription(
                                               controller: walkingSpeedController,
                                               description: 'Wlk. Speed',
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: '30',
+                                              hintText: hintsList["speed"],
                                             ),
                                             TextfieldAndDescription(
                                               controller: initiativeController,
                                               description: 'Initiative',
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: attributeToModifier(int.parse(dexAttController.text)).toString(),
+                                              hintText: hintsList["initiative"],
                                             ),
                                             TextfieldAndDescription(
                                               controller: armorClassController,
@@ -525,6 +529,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect:
                                                   '${10 + int.parse(attributeToModifier(int.parse(dexAttController.text)).toString())}',
+                                              hintText: hintsList["armorClass"],
                                             ),
                                           ],
                                         ),

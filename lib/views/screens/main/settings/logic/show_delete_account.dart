@@ -10,7 +10,7 @@ void showDeleteAccount(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        backgroundColor: AppColors.semiWhite,
+        backgroundColor: AppColors.darkerGrey,
         title: Text(
           'Delete Account',
           style: DefaultTextTheme.titilliumWebBold20(context),

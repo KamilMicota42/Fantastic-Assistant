@@ -1,6 +1,7 @@
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../utils/const/app_colors.dart';
 import '../../../../../widgets/buttons/default_button.dart';
 
 void showHint(BuildContext context, String hintText) async {
@@ -20,13 +21,17 @@ Widget _hintPopUp(
   String hintText,
 ) {
   return AlertDialog(
+    backgroundColor: AppColors.darkerGrey,
     title: Text(
       'Hint',
       style: DefaultTextTheme.titilliumWebBold20(context),
       textAlign: TextAlign.center,
     ),
-    content: Text(
-      hintText,
+    content: SingleChildScrollView(
+      child: Text(
+        hintText,
+        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
+      ),
     ),
     actions: <Widget>[
       DefaultButton(

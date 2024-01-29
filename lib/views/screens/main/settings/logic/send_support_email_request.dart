@@ -5,7 +5,7 @@ void sendSupportEmailRequest() async {
   try {
     final Uri params = Uri(
       scheme: 'mailto',
-      path: 'fantastic.assistant.support@gmail.com',
+      path: 'kamilmicota42@gmail.com',
       query: 'subject=Support Request&body=',
     );
     await launchUrl(params);
