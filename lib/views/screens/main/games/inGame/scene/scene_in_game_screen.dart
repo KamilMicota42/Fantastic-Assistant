@@ -82,7 +82,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       '${snapshot.data?['game_name'] ?? 'Game title'}',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                                     ),
                                   ),
                                   const DefaultDivider(),
@@ -97,7 +97,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Characters',
-                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                                     ),
                                   ),
                                   const DefaultDivider(),

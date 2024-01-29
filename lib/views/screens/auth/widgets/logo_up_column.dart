@@ -17,9 +17,9 @@ class LogoUpColumn extends StatelessWidget {
           screenTitle: screenTitle,
         ),
         Image.asset(
-          'assets/images/logo.png',
-          width: 200,
-          height: 200,
+          'assets/images/logo_wo_background.png',
+          width: 150,
+          height: 150,
         ),
       ],
     );

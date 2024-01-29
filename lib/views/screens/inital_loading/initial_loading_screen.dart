@@ -37,8 +37,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
         const Duration(seconds: 1),
         () async {
           try {
-            await getIt<FirebaseUserData>()
-                .getUserAdditionalDataToGetIt(userUid);
+            await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(userUid);
           } catch (e) {
             context.mounted ? showSnackBar(e.toString()) : null;
           }
@@ -64,14 +63,14 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
           child: Stack(
             children: [
               SpinKitSpinningLines(
-                color: AppColors.lighterIris,
+                color: AppColors.greenNeon,
                 size: MediaQuery.of(context).size.width - 50,
               ),
               Center(
                 child: Image.asset(
-                  'assets/images/logo.png',
-                  width: 200,
-                  height: 200,
+                  'assets/images/logo_wo_background.png',
+                  width: 100,
+                  height: 100,
                 ),
               ),
             ],

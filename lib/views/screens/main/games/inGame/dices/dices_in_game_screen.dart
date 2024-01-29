@@ -58,7 +58,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                       children: [
                         Text(
                           'Roll the dice',
-                          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+                          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                         ),
                         Row(
                           children: [
@@ -73,7 +73,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                                 isPrivate = value;
                                 setState(() {});
                               },
-                              activeColor: AppColors.grey,
+                              activeColor: AppColors.greenWhite,
                             ),
                           ],
                         ),
@@ -140,7 +140,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Roll history',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                     ),
                   ),
                   const Divider(),

@@ -20,7 +20,7 @@ class TitleLeft extends StatelessWidget {
       alignment: alignment ?? Alignment.centerLeft,
       child: Text(
         text,
-        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: textColor ?? AppColors.grey),
+        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: textColor ?? AppColors.greenWhite),
       ),
     );
   }

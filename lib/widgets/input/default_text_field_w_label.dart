@@ -41,7 +41,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         floatingLabelAlignment: alignLabel ?? FloatingLabelAlignment.start,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: labelColor ?? AppColors.grey),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: labelColor ?? AppColors.greenWhite),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.semiWhite,

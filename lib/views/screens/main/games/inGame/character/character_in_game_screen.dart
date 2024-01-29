@@ -434,11 +434,11 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                                   style: mainIndex == index
                                                       ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(
                                                           overflow: TextOverflow.ellipsis,
-                                                          color: AppColors.lighterIris,
+                                                          color: AppColors.greenNeon,
                                                         )
                                                       : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
                                                           overflow: TextOverflow.ellipsis,
-                                                          color: AppColors.grey,
+                                                          color: AppColors.greenWhite,
                                                         ),
                                                 ),
                                               ),

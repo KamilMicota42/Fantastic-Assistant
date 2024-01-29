@@ -50,9 +50,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 const TitleRow(screenTitle: 'SETTINGS'),
                 Image.asset(
-                  'assets/images/logo.png',
-                  width: 200,
-                  height: 200,
+                  'assets/images/logo_wo_background.png',
+                  width: 100,
+                  height: 100,
                 ),
                 BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
                   bloc: getIt<CurrentUserAdditionalData>(),

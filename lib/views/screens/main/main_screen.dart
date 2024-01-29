@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           body: child,
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: AppColors.black,
-            fixedColor: AppColors.grey,
+            fixedColor: AppColors.greenWhite,
             unselectedItemColor: AppColors.white,
             unselectedFontSize: 13,
             selectedFontSize: 16,

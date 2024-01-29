@@ -29,7 +29,7 @@ class _DefaultObscureTextFieldWLabelState extends State<DefaultObscureTextFieldW
       style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         labelText: widget.labelText,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.grey),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
         suffixIcon: IconButton(
           alignment: Alignment.bottomCenter,
           onPressed: () {
@@ -37,7 +37,7 @@ class _DefaultObscureTextFieldWLabelState extends State<DefaultObscureTextFieldW
           },
           icon: Icon(
             widget.textObscure ? Icons.visibility_off : Icons.visibility,
-            color: AppColors.grey,
+            color: AppColors.greenWhite,
           ),
         ),
         enabledBorder: const UnderlineInputBorder(

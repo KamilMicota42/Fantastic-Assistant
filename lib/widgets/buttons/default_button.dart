@@ -33,7 +33,7 @@ class _DefaultButtonState extends State<DefaultButton> {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: AppColors.iris.withOpacity(0.2),
+            color: AppColors.greenNeonLight.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 6,
             offset: const Offset(0, 5),
@@ -43,9 +43,9 @@ class _DefaultButtonState extends State<DefaultButton> {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: const MaterialStatePropertyAll(AppColors.black),
-          shadowColor: const MaterialStatePropertyAll(AppColors.iris),
-          surfaceTintColor: const MaterialStatePropertyAll(AppColors.iris),
-          overlayColor: MaterialStatePropertyAll(AppColors.lighterIris.withOpacity(0.5)),
+          shadowColor: const MaterialStatePropertyAll(AppColors.greenNeonLight),
+          surfaceTintColor: const MaterialStatePropertyAll(AppColors.greenNeonLight),
+          overlayColor: MaterialStatePropertyAll(AppColors.greenNeon.withOpacity(0.5)),
         ),
         onPressed: () {
           widget.function();

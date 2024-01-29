@@ -35,14 +35,13 @@ class DefaultTheme {
   );
 
   static ThemeData theme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.iris)
-        .copyWith(background: Colors.white),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenNeonLight).copyWith(background: Colors.white),
     useMaterial3: true,
     textTheme: _textTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: AppColors.iris,
+        backgroundColor: AppColors.greenNeonLight,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

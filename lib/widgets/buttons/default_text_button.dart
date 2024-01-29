@@ -19,7 +19,7 @@ class DefaultTextButton extends StatelessWidget {
         onPressed();
       },
       style: ButtonStyle(
-        overlayColor: MaterialStatePropertyAll(AppColors.lighterIris.withOpacity(0.1)),
+        overlayColor: MaterialStatePropertyAll(AppColors.greenNeon.withOpacity(0.1)),
       ),
       child: Text(
         text,
