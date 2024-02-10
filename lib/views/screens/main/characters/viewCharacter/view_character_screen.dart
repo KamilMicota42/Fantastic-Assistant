@@ -172,13 +172,19 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                 characterAttributes: state.characterAttributes,
                                 characterProficiency: state.characterBasicInfo?.proficiency ?? 0,
                               ),
-                              const SizedBox(height: 20),
-                              const TitleLeft(text: 'Notes'),
-                              const DefaultDivider(),
-                              const SizedBox(height: 6),
-                              CharacterNotesWidget(
-                                listOfNotes: state.characterNotes!,
-                              ),
+                              widget.canEdit == true
+                                  ? Column(
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        const TitleLeft(text: 'Notes'),
+                                        const DefaultDivider(),
+                                        const SizedBox(height: 6),
+                                        CharacterNotesWidget(
+                                          listOfNotes: state.characterNotes!,
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
                               const SizedBox(height: 120),
                             ],
                           ),
