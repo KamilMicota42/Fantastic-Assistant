@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 
 import '../../../settings/injection.dart';
 import '../../../utils/methods/show_snack_bar.dart';
+import '../../../views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../../../views/screens/main/characters/cubits/current_character_id.dart';
-import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
-class CreateCharactersApi {
+class CharactersApi {
   final CollectionReference _characters = FirebaseFirestore.instance.collection('characters');
 
   Future<void> createCharacter(

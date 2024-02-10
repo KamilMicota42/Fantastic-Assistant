@@ -52,7 +52,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                         ),
                         child: Focus(
                           onFocusChange: (hasFocus) {
-                            if (!isIntable(widget.currentHpController.text)) {
+                            if (!DataValidatin.isIntable(widget.currentHpController.text)) {
                               widget.currentHpController.text = '0';
                             }
                           },
@@ -65,7 +65,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                             onChanged: (value) {
                               setState(
                                 () {
-                                  if (isIntable(value)) {
+                                  if (DataValidatin.isIntable(value)) {
                                     currValueText = int.parse(value).toString();
                                   } else {
                                     currValueText = "0";
@@ -89,7 +89,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                         ),
                         child: Focus(
                           onFocusChange: (hasFocus) {
-                            if (!isIntable(widget.maxHpController.text)) {
+                            if (!DataValidatin.isIntable(widget.maxHpController.text)) {
                               widget.maxHpController.text = '0';
                             }
                           },
@@ -102,7 +102,7 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                             onChanged: (value) {
                               setState(
                                 () {
-                                  if (isIntable(value)) {
+                                  if (DataValidatin.isIntable(value)) {
                                     maxValueText = int.parse(value).toString();
                                   } else {
                                     maxValueText = "0";

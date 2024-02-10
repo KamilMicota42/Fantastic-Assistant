@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
-import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
-import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
-import 'package:fantastic_assistant/utils/dnd_rules/level_and_proficiency_map.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/editCharacter/widgets/save_throw_container_editable.dart';
@@ -20,9 +18,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
-import '../../../../../../utils/const/enums/character_class_list.dart';
-import '../../../../../../utils/const/enums/character_levels_list.dart';
-import '../../../../../../utils/const/enums/character_races_list.dart';
+import '../../../../../../utils/const/character_class_list.dart';
+import '../../../../../../utils/const/character_levels_list.dart';
+import '../../../../../../utils/const/character_races_list.dart';
+import '../../../../../../utils/dnd_rules/dnd_rules.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../../widgets/texts/describer_of_textfield.dart';
@@ -46,10 +45,10 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
   bool pictureChanged = false;
   TextEditingController characterNameController = TextEditingController();
   //Basic Info
-  String levelStringValue = characterLevelsList.first;
+  String levelStringValue = InGameLevels.characterLevelsList.first;
   int levelIntValue = 1;
-  String classValue = characterClassesList.first;
-  String raceValue = characterRacesList.first;
+  String classValue = InGameClasses.characterClassesList.first;
+  String raceValue = InGameRaces.characterRacesList.first;
   TextEditingController currHpController = TextEditingController();
   TextEditingController maxHpController = TextEditingController();
   TextEditingController profBonusController = TextEditingController();
@@ -268,7 +267,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                 }
                                 if (getIt<CurrentCharacterId>().state != null) {
                                   //edit
-                                  getIt<CreateCharactersApi>().updateCharacter(
+                                  getIt<CharactersApi>().updateCharacter(
                                     getIt<CurrentCharacterId>().state.toString(),
                                     pictureValue,
                                     pictureChanged,
@@ -320,7 +319,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                   );
                                 } else {
                                   //save
-                                  getIt<CreateCharactersApi>().createCharacter(
+                                  getIt<CharactersApi>().createCharacter(
                                     pictureValue,
                                     pictureChanged,
                                     characterNameController.text,
@@ -460,11 +459,12 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                           icon: Icons.arrow_upward_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: characterLevelsList,
+                                          listItem: InGameLevels.characterLevelsList,
                                           onChanged: (value) {
                                             levelStringValue = value;
-                                            levelIntValue = levelReturnIntFromString(value);
-                                            profBonusController.text = levelAndProficiencyMap[levelReturnIntFromString(value)].toString();
+                                            levelIntValue = InGameLevels.levelReturnIntFromString(value);
+                                            profBonusController.text =
+                                                DndRules.levelAndProficiencyMap[InGameLevels.levelReturnIntFromString(value)].toString();
                                             setState(() {});
                                           },
                                           initialValue: levelStringValue,
@@ -475,7 +475,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                           icon: Icons.boy_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: characterClassesList,
+                                          listItem: InGameClasses.characterClassesList,
                                           onChanged: (value) {
                                             classValue = value;
                                           },
@@ -487,7 +487,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                           icon: Icons.group_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: characterRacesList,
+                                          listItem: InGameRaces.characterRacesList,
                                           onChanged: (value) {
                                             raceValue = value;
                                           },
@@ -506,7 +506,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                               controller: profBonusController,
                                               description: 'Prof. Bonus',
                                               descriptionColor: AppColors.white,
-                                              defValueIfNotCorrect: levelAndProficiencyMap[levelIntValue].toString(),
+                                              defValueIfNotCorrect: DndRules.levelAndProficiencyMap[levelIntValue].toString(),
                                             ),
                                             TextfieldAndDescription(
                                               controller: walkingSpeedController,
@@ -518,14 +518,14 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                               controller: initiativeController,
                                               description: 'Initiative',
                                               descriptionColor: AppColors.white,
-                                              defValueIfNotCorrect: attributeToModifier(int.parse(dexAttController.text)).toString(),
+                                              defValueIfNotCorrect: DndRules.attributeToModifier(int.parse(dexAttController.text)).toString(),
                                             ),
                                             TextfieldAndDescription(
                                               controller: armorClassController,
                                               description: 'Armor Class',
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect:
-                                                  '${10 + int.parse(attributeToModifier(int.parse(dexAttController.text)).toString())}',
+                                                  '${10 + int.parse(DndRules.attributeToModifier(int.parse(dexAttController.text)).toString())}',
                                             ),
                                           ],
                                         ),
@@ -544,9 +544,9 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                             ),
                                             Focus(
                                               onFocusChange: (hasFocus) {
-                                                initiativeController.text = attributeToModifier(int.parse(dexAttController.text)).toString();
+                                                initiativeController.text = DndRules.attributeToModifier(int.parse(dexAttController.text)).toString();
                                                 armorClassController.text =
-                                                    '${10 + int.parse(attributeToModifier(int.parse(dexAttController.text)).toString())}';
+                                                    '${10 + int.parse(DndRules.attributeToModifier(int.parse(dexAttController.text)).toString())}';
                                                 setState(() {});
                                               },
                                               child: AttAndModEditable(
@@ -628,7 +628,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Athletics',
                                           profController: athleticsProfController,
-                                          skillMod: attributeToModifier(int.parse(strAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(strAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             athleticsProfController = value;
@@ -638,7 +638,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Acrobatics',
                                           profController: acrobaticsProfController,
-                                          skillMod: attributeToModifier(int.parse(dexAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             acrobaticsProfController = value;
@@ -648,7 +648,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Sleight of hands',
                                           profController: sleightOfHandsProfController,
-                                          skillMod: attributeToModifier(int.parse(dexAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             sleightOfHandsProfController = value;
@@ -658,7 +658,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Stealth',
                                           profController: stealthProfController,
-                                          skillMod: attributeToModifier(int.parse(dexAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             stealthProfController = value;
@@ -668,7 +668,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Arcana',
                                           profController: arcanaProfController,
-                                          skillMod: attributeToModifier(int.parse(intAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             arcanaProfController = value;
@@ -678,7 +678,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'History',
                                           profController: historyProfController,
-                                          skillMod: attributeToModifier(int.parse(intAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             historyProfController = value;
@@ -688,7 +688,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Investigation',
                                           profController: investigationProfController,
-                                          skillMod: attributeToModifier(int.parse(intAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             investigationProfController = value;
@@ -698,7 +698,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Nature',
                                           profController: natureProfController,
-                                          skillMod: attributeToModifier(int.parse(intAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             natureProfController = value;
@@ -708,7 +708,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Religion',
                                           profController: religionProfController,
-                                          skillMod: attributeToModifier(int.parse(intAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             religionProfController = value;
@@ -718,7 +718,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Animal handling',
                                           profController: animalHandlingProfController,
-                                          skillMod: attributeToModifier(int.parse(wisAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             animalHandlingProfController = value;
@@ -728,7 +728,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Insight',
                                           profController: insightProfController,
-                                          skillMod: attributeToModifier(int.parse(wisAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             insightProfController = value;
@@ -738,7 +738,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Medicine',
                                           profController: medicineProfController,
-                                          skillMod: attributeToModifier(int.parse(wisAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             medicineProfController = value;
@@ -748,7 +748,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Perception',
                                           profController: perceptionProfController,
-                                          skillMod: attributeToModifier(int.parse(wisAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             perceptionProfController = value;
@@ -758,7 +758,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Survival',
                                           profController: survivalProfController,
-                                          skillMod: attributeToModifier(int.parse(wisAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             survivalProfController = value;
@@ -768,7 +768,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Deception',
                                           profController: deceptionProfController,
-                                          skillMod: attributeToModifier(int.parse(chaAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             deceptionProfController = value;
@@ -778,7 +778,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Intimidation',
                                           profController: intimidationProfController,
-                                          skillMod: attributeToModifier(int.parse(chaAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             intimidationProfController = value;
@@ -788,7 +788,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Performance',
                                           profController: performanceProfController,
-                                          skillMod: attributeToModifier(int.parse(chaAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             performanceProfController = value;
@@ -798,7 +798,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                         ProfControllerRow(
                                           skillName: 'Persuasion',
                                           profController: persuasionProfController,
-                                          skillMod: attributeToModifier(int.parse(chaAttController.text)),
+                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
                                           profMod: int.parse(profBonusController.text),
                                           handleControllerChange: (value) {
                                             persuasionProfController = value;

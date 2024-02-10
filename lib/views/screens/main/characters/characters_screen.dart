@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
@@ -16,6 +15,7 @@ import 'package:flutter/material.dart';
 import '../../../../settings/injection.dart';
 import '../../../../settings/routes/app_router.dart';
 import '../../../../settings/routes/app_router.gr.dart';
+import '../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 @RoutePage()
 class CharactersScreen extends StatefulWidget {
@@ -116,8 +116,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   onTap: () async {
                                     try {
                                       getIt<CurrentCharacterCubit>().delete();
-                                      await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
-                                      getIt<AppRouter>().navigate(const ViewCharacterRoute());
+                                      await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
+                                      getIt<AppRouter>().navigate(ViewCharacterRoute(canEdit: true));
                                     } catch (e) {
                                       showSnackBar("Error occured");
                                     }

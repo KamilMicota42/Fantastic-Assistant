@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
@@ -15,6 +14,7 @@ import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 @RoutePage()
 class SceneInGameScreen extends StatefulWidget {

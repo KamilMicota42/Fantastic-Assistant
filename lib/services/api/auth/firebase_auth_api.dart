@@ -1,5 +1,4 @@
-import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/settings/user_data_api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,11 +6,12 @@ import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
 import '../../../utils/methods/show_snack_bar.dart';
+import '../../../views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 // METHODS RELATED TO FIREBASE AUTH FUNCTIONALITY
-class FirebaseAuthMethods {
+class FirebaseAuthApi {
   final FirebaseAuth _auth;
-  FirebaseAuthMethods(this._auth);
+  FirebaseAuthApi(this._auth);
 
   // EMAIL SIGN UP FUNCTION
   Future<void> signUpWithEmail({
@@ -28,7 +28,7 @@ class FirebaseAuthMethods {
       context.mounted ? await sendEmailVerification(context, email) : null;
       await _auth.currentUser?.updateDisplayName(displayName);
       if (context.mounted) {
-        getIt<FirebaseUserData>().createUserAdditionalData(
+        getIt<UserDataApi>().createUserAdditionalData(
           context,
           _auth.currentUser!.uid,
           email,
@@ -64,7 +64,7 @@ class FirebaseAuthMethods {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
+        await getIt<UserDataApi>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {

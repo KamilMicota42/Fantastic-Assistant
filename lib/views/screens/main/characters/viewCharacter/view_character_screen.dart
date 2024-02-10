@@ -22,10 +22,10 @@ import 'widgets/save_checks_container.dart';
 
 @RoutePage()
 class ViewCharacterScreen extends StatefulWidget {
-  final bool? asDm;
+  final bool? canEdit;
   const ViewCharacterScreen({
     super.key,
-    this.asDm,
+    this.canEdit,
   });
 
   @override
@@ -55,9 +55,8 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                             popFunction: () {
                               getIt<AppRouter>().pop();
                             },
-                            rightSideWidget: widget.asDm == true
-                                ? null
-                                : IconButton(
+                            rightSideWidget: widget.canEdit == true
+                                ? IconButton(
                                     onPressed: () {
                                       getIt<AppRouter>().navigate(const EditCharacterRoute());
                                     },
@@ -65,7 +64,8 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                                       Icons.edit_sharp,
                                       color: AppColors.white,
                                     ),
-                                  ),
+                                  )
+                                : null,
                           ),
                         ],
                       ),

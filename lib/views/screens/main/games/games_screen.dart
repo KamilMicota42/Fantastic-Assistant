@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
+import 'package:fantastic_assistant/services/api/games/games_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
@@ -8,11 +8,11 @@ import 'package:fantastic_assistant/views/screens/main/games/widgets/scene_pictu
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../../../../utils/const/app_colors.dart';
 import '../../../../utils/global_var/default_text_theme.dart';
 import '../../../../widgets/buttons/default_button.dart';
 import '../../../../widgets/buttons/title_row.dart';
+import '../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 @RoutePage()
 class GamesScreen extends StatefulWidget {
@@ -88,7 +88,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                     ),
                                   ),
                                   onTap: () async {
-                                    await getIt<CreateGamesApi>().setGameIntoCubits(documentSnapshot.id);
+                                    await getIt<GamesApi>().setGameIntoCubits(documentSnapshot.id);
                                     getIt<AppRouter>().navigate(
                                       JoinGameRoute(isUserDm: documentSnapshot['dm_id'] == getIt<CurrentUserAdditionalData>().state?.accountId),
                                     );

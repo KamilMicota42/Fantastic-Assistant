@@ -6,12 +6,12 @@ class CurrentUserAdditionalData extends Cubit<UserAdditionalData?> {
   CurrentUserAdditionalData() : super(null);
 
   void set(UserAdditionalData? newUid) {
-    addStringToSP('user_uid', newUid?.accountId);
+    SharedPrefMethods.addStringToSP('user_uid', newUid?.accountId);
     emit(newUid);
   }
 
   void remove() {
-    removeValueToSP('user_uid');
+    SharedPrefMethods.removeValueToSP('user_uid');
     emit(null);
   }
 }

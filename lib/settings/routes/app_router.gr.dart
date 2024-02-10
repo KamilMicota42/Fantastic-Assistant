@@ -207,9 +207,14 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       );
     },
     ViewCharacterRoute.name: (routeData) {
+      final args = routeData.argsAs<ViewCharacterRouteArgs>(
+          orElse: () => const ViewCharacterRouteArgs());
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i24.ViewCharacterScreen(),
+        child: _i24.ViewCharacterScreen(
+          key: args.key,
+          canEdit: args.canEdit,
+        ),
       );
     },
   };
@@ -563,14 +568,38 @@ class UsersRoute extends _i25.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i24.ViewCharacterScreen]
-class ViewCharacterRoute extends _i25.PageRouteInfo<void> {
-  const ViewCharacterRoute({List<_i25.PageRouteInfo>? children})
-      : super(
+class ViewCharacterRoute extends _i25.PageRouteInfo<ViewCharacterRouteArgs> {
+  ViewCharacterRoute({
+    _i26.Key? key,
+    bool? canEdit,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
           ViewCharacterRoute.name,
+          args: ViewCharacterRouteArgs(
+            key: key,
+            canEdit: canEdit,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ViewCharacterRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+  static const _i25.PageInfo<ViewCharacterRouteArgs> page =
+      _i25.PageInfo<ViewCharacterRouteArgs>(name);
+}
+
+class ViewCharacterRouteArgs {
+  const ViewCharacterRouteArgs({
+    this.key,
+    this.canEdit,
+  });
+
+  final _i26.Key? key;
+
+  final bool? canEdit;
+
+  @override
+  String toString() {
+    return 'ViewCharacterRouteArgs{key: $key, canEdit: $canEdit}';
+  }
 }

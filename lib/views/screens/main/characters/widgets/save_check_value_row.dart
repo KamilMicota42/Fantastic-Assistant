@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/const/app_colors.dart';
+import '../../../../../utils/dnd_rules/dnd_rules.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
-import '../../../../../utils/methods/format_att_to_save_check.dart';
 
 class SaveCheckValueRow extends StatelessWidget {
   final String name;
@@ -28,7 +28,7 @@ class SaveCheckValueRow extends StatelessWidget {
         ),
         const Expanded(child: SizedBox()),
         Text(
-          '${formatAttributeToSaveCheck(attValue, profValue, boolValue)}',
+          '${DndRules.formatAttributeToSaveCheck(attValue, profValue, boolValue)}',
           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
         ),
         Checkbox(

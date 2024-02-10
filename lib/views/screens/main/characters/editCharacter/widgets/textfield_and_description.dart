@@ -34,7 +34,7 @@ class TextfieldAndDescription extends StatelessWidget {
               Focus(
                 child: DefaultTextFieldWLabel(
                   onChanged: (value) {
-                    if (isIntable(value)) {
+                    if (DataValidatin.isIntable(value)) {
                       controller.text = value;
                     }
                   },
@@ -47,7 +47,7 @@ class TextfieldAndDescription extends StatelessWidget {
                   keyboardType: TextInputType.number,
                 ),
                 onFocusChange: (hasFocus) {
-                  if (!isIntable(controller.text) && defValueIfNotCorrect != null) {
+                  if (!DataValidatin.isIntable(controller.text) && defValueIfNotCorrect != null) {
                     controller.text = defValueIfNotCorrect!;
                   }
                 },

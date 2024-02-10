@@ -52,7 +52,7 @@ class _ValueFieldState extends State<ValueField> {
                 onChanged: (value) {
                   setState(
                     () {
-                      if (isIntable(value)) {
+                      if (DataValidatin.isIntable(value)) {
                         widget.valueController.text = int.parse(value).toString();
                       } else {
                         widget.valueController.text = "0";

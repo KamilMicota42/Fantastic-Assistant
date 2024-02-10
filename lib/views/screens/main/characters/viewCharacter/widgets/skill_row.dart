@@ -1,7 +1,7 @@
-import 'package:fantastic_assistant/utils/dnd_rules/attribute_to_modifier.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../utils/const/app_colors.dart';
+import '../../../../../../utils/dnd_rules/dnd_rules.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 
 class SkillRow extends StatelessWidget {
@@ -27,7 +27,7 @@ class SkillRow extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            '${attributeToModifier(characterAttribute ?? 0) + (isCharacterProfInSkill ? characterProficiency ?? 0 : 0)}',
+            '${DndRules.attributeToModifier(characterAttribute ?? 0) + (isCharacterProfInSkill ? characterProficiency ?? 0 : 0)}',
             style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
             textAlign: TextAlign.end,
           ),

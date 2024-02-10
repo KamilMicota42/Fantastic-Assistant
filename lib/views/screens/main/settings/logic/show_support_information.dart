@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../../settings/injection.dart';
 import '../../../../../widgets/buttons/default_button.dart';
-import '../../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import '../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 void showSupportInformation(BuildContext context) async {
   String? systemName;

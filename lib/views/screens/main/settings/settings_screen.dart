@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/settings/user_data_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
@@ -14,9 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../models/user/user_additional_data.dart';
-import '../../../../services/api/auth/firebase_auth_methods.dart';
+import '../../../../services/api/auth/firebase_auth_api.dart';
 import '../../../../widgets/buttons/title_row.dart';
 import '../../../../widgets/others/default_divider.dart';
+import '../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import 'logic/send_support_email_request.dart';
 import 'logic/show_support_information.dart';
 import 'widgets/setting_row.dart';
@@ -31,7 +31,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   void logUserOut() {
-    FirebaseAuthMethods(FirebaseAuth.instance).signOut(
+    FirebaseAuthApi(FirebaseAuth.instance).signOut(
       context: context,
     );
   }
@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingRow(
                   text: 'Friends',
                   onTap: () async {
-                    await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRoute());
                   },
                 ),
@@ -80,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingRow(
                   text: 'Friends requests',
                   onTap: () async {
-                    await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRequestsRoute());
                   },
                 ),

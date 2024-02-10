@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../services/api/settings/firebase_database_user_data.dart';
+import '../../../services/api/settings/user_data_api.dart';
 import '../../../settings/routes/app_router.dart';
 
 @RoutePage()
@@ -37,7 +37,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
         const Duration(seconds: 1),
         () async {
           try {
-            await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(userUid);
+            await getIt<UserDataApi>().getUserAdditionalDataToGetIt(userUid);
           } catch (e) {
             context.mounted ? showSnackBar(e.toString()) : null;
           }

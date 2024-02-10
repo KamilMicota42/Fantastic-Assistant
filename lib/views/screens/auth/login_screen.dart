@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/services/api/auth/firebase_auth_api.dart';
 import 'package:fantastic_assistant/views/screens/auth/widgets/text_and_clickable_text_row.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() {
-    FirebaseAuthMethods(FirebaseAuth.instance).loginWEmailAndPassword(
+    FirebaseAuthApi(FirebaseAuth.instance).loginWEmailAndPassword(
       email: emailController.text,
       password: passwordController.text,
       context: context,

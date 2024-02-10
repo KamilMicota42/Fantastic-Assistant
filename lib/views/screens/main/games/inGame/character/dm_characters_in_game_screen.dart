@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/utils/const/app_colors.dart';
 import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
+import 'package:fantastic_assistant/views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../services/api/characters/firebase_characters_api.dart';
+import '../../../../../../services/api/characters/characters_api.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../settings/routes/app_router.gr.dart';
@@ -137,8 +138,12 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                   onTap: () async {
                                                     try {
                                                       getIt<CurrentCharacterCubit>().delete();
-                                                      await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshotCharacters.id);
-                                                      getIt<AppRouter>().navigate(const ViewCharacterRoute());
+                                                      await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshotCharacters.id);
+                                                      getIt<AppRouter>().navigate(
+                                                        ViewCharacterRoute(
+                                                            canEdit: documentSnapshotCharacters['account_id'] ==
+                                                                getIt<CurrentUserAdditionalData>().state?.accountId),
+                                                      );
                                                     } catch (e) {
                                                       showSnackBar("Error occured");
                                                     }

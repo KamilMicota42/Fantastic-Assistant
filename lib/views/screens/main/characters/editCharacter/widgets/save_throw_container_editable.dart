@@ -1,9 +1,9 @@
+import 'package:fantastic_assistant/utils/dnd_rules/dnd_rules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
-import '../../../../../../utils/methods/format_att_to_save_check.dart';
 
 class SaveThrowContainerEditable extends StatefulWidget {
   final int profValue;
@@ -92,7 +92,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.strAtt, widget.profValue, widget.strSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.strAtt, widget.profValue, widget.strSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(
@@ -115,7 +115,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.dexAtt, widget.profValue, widget.dexSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.dexAtt, widget.profValue, widget.dexSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(
@@ -138,7 +138,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.conAtt, widget.profValue, widget.conSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.conAtt, widget.profValue, widget.conSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(
@@ -161,7 +161,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.intAtt, widget.profValue, widget.intSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.intAtt, widget.profValue, widget.intSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(
@@ -184,7 +184,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.wisAtt, widget.profValue, widget.wisSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.wisAtt, widget.profValue, widget.wisSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(
@@ -207,7 +207,7 @@ class _SaveThrowContainerEditableState extends State<SaveThrowContainerEditable>
                         ),
                         const Expanded(child: SizedBox()),
                         Text(
-                          '${formatAttributeToSaveCheck(widget.chaAtt, widget.profValue, widget.chaSavingThrow)}',
+                          '${DndRules.formatAttributeToSaveCheck(widget.chaAtt, widget.profValue, widget.chaSavingThrow)}',
                           style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
                         ),
                         Checkbox(

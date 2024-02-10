@@ -12,14 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../models/user/user_additional_data.dart';
-import '../../../../../../services/api/games/fierbase_games_api.dart';
-import '../../../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import '../../../../../../services/api/games/games_api.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 @RoutePage()
 class DmEditSceneInGameScreen extends StatefulWidget {
@@ -93,7 +93,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                         color: AppColors.white,
                                       ),
                                       onPressed: () {
-                                        getIt<CreateGamesApi>().editGame(
+                                        getIt<GamesApi>().editGame(
                                           getIt<CurrentGameId>().state!,
                                           pictureValue,
                                           hasPictureChanged,

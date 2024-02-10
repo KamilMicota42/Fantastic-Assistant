@@ -1,7 +1,8 @@
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 
 void deleteAccountEmailRequest() async {
   try {

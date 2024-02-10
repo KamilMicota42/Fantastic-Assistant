@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/const/app_colors.dart';
-import '../../utils/dnd_rules/attribute_to_modifier.dart';
+import '../../utils/dnd_rules/dnd_rules.dart';
 
 class AttAndModEditable extends StatefulWidget {
   final String attributeName;
@@ -25,8 +25,8 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
 
   @override
   void initState() {
-    if (isAttributeValid(widget.controller.text)) {
-      modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+    if (DataValidatin.isAttributeValid(widget.controller.text)) {
+      modValue = int.parse(DndRules.attributeToModifier(int.parse(widget.controller.text.toString())).toString());
     }
     super.initState();
   }
@@ -65,7 +65,7 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                       child: Focus(
                         onFocusChange: (hasFocus) {
                           if (!hasFocus) {
-                            if (!isAttributeValid(widget.controller.text)) {
+                            if (!DataValidatin.isAttributeValid(widget.controller.text)) {
                               widget.controller.text = '10';
                             }
                             setState(() {});
@@ -85,8 +85,8 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                           ),
                           controller: widget.controller,
                           onChanged: (v) {
-                            if (isAttributeValid(v)) {
-                              modValue = int.parse(attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+                            if (DataValidatin.isAttributeValid(v)) {
+                              modValue = int.parse(DndRules.attributeToModifier(int.parse(widget.controller.text.toString())).toString());
                             } else {
                               modValue = 0;
                             }

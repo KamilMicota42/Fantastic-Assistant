@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/games/games_api.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
@@ -18,6 +17,7 @@ import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import 'widgets/dice_button.dart';
 
 @RoutePage()
@@ -232,7 +232,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
     showRandomNumberRoll(context, randoms, 'd$dice');
     if (!isPrivate) {
       await Future.delayed(const Duration(seconds: 2));
-      await getIt<CreateGamesApi>().addRollToHistoryRoll(
+      await getIt<GamesApi>().addRollToHistoryRoll(
         getIt<CurrentGameId>().state!,
         getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId
             ? 'DM'

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
+import 'package:fantastic_assistant/services/api/games/games_api.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/others/default_divider.dart';
@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../models/user/user_additional_data.dart';
-import '../../../../../services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../settings/routes/app_router.dart';
 import '../../../../../utils/const/app_colors.dart';
@@ -18,6 +17,7 @@ import '../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../widgets/buttons/add_photo_icon_button.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
 import '../../../../../widgets/input/default_text_field_w_label.dart';
+import '../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../../characters/widgets/character_picture.dart';
 import '../../characters/widgets/title_left.dart';
 
@@ -61,7 +61,7 @@ class _EditGameScreenState extends State<EditGameScreen> {
                         },
                         rightSideWidget: IconButton(
                           onPressed: () {
-                            getIt<CreateGamesApi>().createGame(pictureValue, gametableNameController.text, listOfInvitedFriends);
+                            getIt<GamesApi>().createGame(pictureValue, gametableNameController.text, listOfInvitedFriends);
                             getIt<AppRouter>().navigate(const GamesRoute());
                           },
                           icon: const Icon(

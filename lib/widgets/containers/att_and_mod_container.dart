@@ -3,7 +3,7 @@ import 'package:fantastic_assistant/utils/global_var/default_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../utils/dnd_rules/attribute_to_modifier.dart';
+import '../../utils/dnd_rules/dnd_rules.dart';
 
 class AttAndModContainer extends StatelessWidget {
   final String attributeName;
@@ -33,7 +33,7 @@ class AttAndModContainer extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  attributeToModifier(int.parse(attributeValue.toString())).toString(),
+                  DndRules.attributeToModifier(int.parse(attributeValue.toString())).toString(),
                   style: DefaultTextTheme.titilliumWebRegular16(context),
                 ),
               ),

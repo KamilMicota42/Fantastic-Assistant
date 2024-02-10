@@ -4,7 +4,7 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../services/api/auth/firebase_auth_methods.dart';
+import '../../../services/api/auth/firebase_auth_api.dart';
 import '../../../settings/injection.dart';
 import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
@@ -18,12 +18,10 @@ class ResendTheVerificationScreen extends StatefulWidget {
   const ResendTheVerificationScreen({super.key});
 
   @override
-  State<ResendTheVerificationScreen> createState() =>
-      _ResendTheVerificationScreenState();
+  State<ResendTheVerificationScreen> createState() => _ResendTheVerificationScreenState();
 }
 
-class _ResendTheVerificationScreenState
-    extends State<ResendTheVerificationScreen> {
+class _ResendTheVerificationScreenState extends State<ResendTheVerificationScreen> {
   TextEditingController emailController = TextEditingController();
 
   @override
@@ -33,7 +31,7 @@ class _ResendTheVerificationScreenState
   }
 
   void resendTheVerificationMessage() async {
-    FirebaseAuthMethods(FirebaseAuth.instance).sendEmailVerification(
+    FirebaseAuthApi(FirebaseAuth.instance).sendEmailVerification(
       context,
       emailController.text,
     );

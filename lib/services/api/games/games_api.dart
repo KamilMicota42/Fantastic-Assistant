@@ -2,18 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/game_model/game_model.dart';
 import '../../../settings/injection.dart';
 import '../../../utils/methods/show_snack_bar.dart';
+import '../../../views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../../../views/screens/main/games/cubits/current_game.dart';
-import '../../cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
 import '../firebase_storage_api.dart';
 
-class CreateGamesApi {
+class GamesApi {
   final CollectionReference _games = FirebaseFirestore.instance.collection('games');
 
   Future<void> createGame(
@@ -96,7 +96,7 @@ class CreateGamesApi {
             'characters_id': charactersInGame,
           },
         );
-        await getIt<CreateCharactersApi>().setCharacterIntoCubits(newCharacterId);
+        await getIt<CharactersApi>().setCharacterIntoCubits(newCharacterId);
       }
     } catch (e) {
       debugPrint(e.toString());

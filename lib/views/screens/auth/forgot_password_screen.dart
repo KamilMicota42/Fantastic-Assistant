@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/services/api/auth/firebase_auth_api.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
 import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
@@ -30,7 +30,7 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
   }
 
   void loginUser() {
-    FirebaseAuthMethods(FirebaseAuth.instance).resetPassword(
+    FirebaseAuthApi(FirebaseAuth.instance).resetPassword(
       email: emailController.text,
       context: context,
     );

@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/models/user/user_additional_data.dart';
-import 'package:fantastic_assistant/services/api/settings/firebase_database_user_data.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/settings/user_data_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../../characters/widgets/character_picture.dart';
 
 @RoutePage()
@@ -40,7 +40,7 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                     child: GoBackTitleRow(
                       screenTitle: "Friends Requests",
                       popFunction: () async {
-                        await getIt<FirebaseUserData>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                        await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
                         getIt<AppRouter>().pop();
                       },
                     ),
@@ -116,7 +116,7 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                                 children: [
                                                   IconButton(
                                                     onPressed: () {
-                                                      getIt<FirebaseUserData>().declineFriendRequest(documentSnapshot.id);
+                                                      getIt<UserDataApi>().declineFriendRequest(documentSnapshot.id);
                                                     },
                                                     icon: const Icon(
                                                       Icons.cancel_outlined,
@@ -125,7 +125,7 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                                   ),
                                                   IconButton(
                                                     onPressed: () {
-                                                      getIt<FirebaseUserData>().acceptFriendRequest(documentSnapshot.id);
+                                                      getIt<UserDataApi>().acceptFriendRequest(documentSnapshot.id);
                                                     },
                                                     icon: const Icon(
                                                       Icons.check_circle_outline,

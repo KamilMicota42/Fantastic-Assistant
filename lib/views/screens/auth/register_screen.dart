@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fantastic_assistant/services/api/auth/firebase_auth_methods.dart';
+import 'package:fantastic_assistant/services/api/auth/firebase_auth_api.dart';
 import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/buttons/default_button.dart';
@@ -49,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showSnackBar('Display name can not be empty');
     }
     isDataValid
-        ? FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+        ? FirebaseAuthApi(FirebaseAuth.instance).signUpWithEmail(
             email: emailController.text,
             displayName: displayNameController.text,
             password: passwordController.text,

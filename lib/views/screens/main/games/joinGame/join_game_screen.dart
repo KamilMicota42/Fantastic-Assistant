@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/services/api/characters/firebase_characters_api.dart';
-import 'package:fantastic_assistant/services/api/games/fierbase_games_api.dart';
-import 'package:fantastic_assistant/services/cubits/user_related_cubits/firebase_auth_current_user_uid.dart';
+import 'package:fantastic_assistant/services/api/characters/characters_api.dart';
+import 'package:fantastic_assistant/services/api/games/games_api.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
@@ -18,6 +17,7 @@ import '../../../../../settings/routes/app_router.dart';
 import '../../../../../utils/const/app_colors.dart';
 import '../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../widgets/buttons/go_back_title_row.dart';
+import '../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../../characters/widgets/character_picture.dart';
 import '../../characters/widgets/title_left.dart';
 
@@ -153,9 +153,9 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                           ),
                                           onTap: () async {
                                             if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
-                                              await getIt<CreateGamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
+                                              await getIt<GamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
                                             }
-                                            await getIt<CreateCharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
+                                            await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
                                             getIt<AppRouter>().push(const MainGameRoute());
                                           },
                                         );
