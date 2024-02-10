@@ -60,7 +60,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      gameNameController.text = snapshot.data?['game_name'] ?? '';
+                      initBuild ? (gameNameController.text = snapshot.data?['game_name'] ?? '') : null;
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance

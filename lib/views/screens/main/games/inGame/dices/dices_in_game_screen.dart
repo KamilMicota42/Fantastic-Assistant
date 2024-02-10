@@ -33,6 +33,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
   bool isPrivate = false;
   List<TypewriterAnimatedText> randoms = [];
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
+  ScrollController sc = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +137,25 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Roll history',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Roll history',
+                        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
+                      ),
+                      SizedBox(
+                        height: 24,
+                        child: IconButton(
+                          onPressed: () {
+                            sc.animateTo(sc.position.maxScrollExtent, duration: const Duration(milliseconds: 200), curve: Curves.ease);
+                          },
+                          icon: const Icon(Icons.refresh_sharp),
+                          padding: EdgeInsets.zero,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ],
                   ),
                   const Divider(),
                   const SizedBox(height: 6),
@@ -164,53 +178,58 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                           height: MediaQuery.of(context).size.width,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                            child: StreamBuilder<Object>(
-                              stream: game,
-                              builder: (context, AsyncSnapshot snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  return snapshot.data['dice_history'].length > 0
-                                      ? ListView.builder(
-                                          shrinkWrap: true,
-                                          padding: EdgeInsets.zero,
-                                          itemCount: snapshot.data['dice_history'].length,
-                                          itemBuilder: (context, index) {
-                                            return Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        "${snapshot.data['dice_history']['$index'][0]}:",
-                                                        style: DefaultTextTheme.titilliumWebRegular16(context),
-                                                        overflow: TextOverflow.ellipsis,
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: StreamBuilder<Object>(
+                                stream: game,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return snapshot.data['dice_history'].length > 0
+                                        ? ListView.builder(
+                                            shrinkWrap: true,
+                                            reverse: true,
+                                            padding: EdgeInsets.zero,
+                                            itemCount: snapshot.data['dice_history'].length,
+                                            controller: sc,
+                                            itemBuilder: (context, index) {
+                                              return Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          "${snapshot.data['dice_history']['$index'][0]}:",
+                                                          style: DefaultTextTheme.titilliumWebRegular16(context),
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      "${snapshot.data['dice_history']['$index'][1]}",
-                                                      style: snapshot.data['dice_history']['$index'][1] == 20
-                                                          ? DefaultTextTheme.titilliumWebBold16(context)
-                                                          : DefaultTextTheme.titilliumWebRegular16(context),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const Divider()
-                                              ],
-                                            );
-                                          },
-                                        )
-                                      : Center(
-                                          child: Text(
-                                            "No rolls yet",
-                                            style: DefaultTextTheme.titilliumWebRegular16(context),
-                                          ),
-                                        );
-                                }
-                              },
+                                                      Text(
+                                                        "${snapshot.data['dice_history']['$index'][1]}",
+                                                        style: snapshot.data['dice_history']['$index'][1] == 20
+                                                            ? DefaultTextTheme.titilliumWebBold16(context)
+                                                            : DefaultTextTheme.titilliumWebRegular16(context),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Divider()
+                                                ],
+                                              );
+                                            },
+                                          )
+                                        : Center(
+                                            child: Text(
+                                              "No rolls yet",
+                                              style: DefaultTextTheme.titilliumWebRegular16(context),
+                                            ),
+                                          );
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ),
