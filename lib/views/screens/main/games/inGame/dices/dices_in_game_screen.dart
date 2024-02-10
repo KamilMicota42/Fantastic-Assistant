@@ -150,7 +150,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                           onPressed: () {
                             sc.animateTo(sc.position.maxScrollExtent, duration: const Duration(milliseconds: 200), curve: Curves.ease);
                           },
-                          icon: const Icon(Icons.refresh_sharp),
+                          icon: const Icon(Icons.arrow_drop_up_sharp),
                           padding: EdgeInsets.zero,
                           color: AppColors.white,
                         ),
