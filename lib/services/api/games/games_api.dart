@@ -140,15 +140,14 @@ class GamesApi {
       try {
         currentCharacters.removeWhere((item) => charactersToRemove.contains(item));
         await _games.doc(gameId).update(
-          {
-            'game_name': gameName,
-            'characters_id': currentCharacters,
-            'players_id': currentPlayes,
-          },
+          {'game_name': gameName, 'characters_id': currentCharacters, 'players_id': currentPlayes},
         );
 
         if (hasPictureChanged && gamePicture != null) {
           await getIt<FirebaseStorageApi>().addGamePicture(gameId, gamePicture);
+        }
+        if (hasPictureChanged && gamePicture == null) {
+          await setGamePictureUrl(gameId, null);
         }
 
         showSnackBar('Successfully updated game');
