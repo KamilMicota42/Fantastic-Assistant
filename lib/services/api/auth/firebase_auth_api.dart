@@ -1,4 +1,3 @@
-import 'package:fantastic_assistant/services/api/settings/user_data_api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,6 +6,7 @@ import '../../../settings/routes/app_router.dart';
 import '../../../settings/routes/app_router.gr.dart';
 import '../../../utils/methods/show_snack_bar.dart';
 import '../../../views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
+import '../users/user_data_api.dart';
 
 // METHODS RELATED TO FIREBASE AUTH FUNCTIONALITY
 class FirebaseAuthApi {
@@ -28,12 +28,7 @@ class FirebaseAuthApi {
       context.mounted ? await sendEmailVerification(context, email) : null;
       await _auth.currentUser?.updateDisplayName(displayName);
       if (context.mounted) {
-        getIt<UserDataApi>().createUserAdditionalData(
-          context,
-          _auth.currentUser!.uid,
-          email,
-          displayName,
-        );
+        getIt<UserDataApi>().createUserAdditionalData(context, _auth.currentUser!.uid, email, displayName);
       }
     } on FirebaseAuthException catch (e) {
       showSnackBar(e.message!);

@@ -13,7 +13,7 @@ import 'package:fantastic_assistant/services/api/characters/characters_api.dart'
 import 'package:fantastic_assistant/services/api/firebase_storage_api.dart'
     as _i10;
 import 'package:fantastic_assistant/services/api/games/games_api.dart' as _i11;
-import 'package:fantastic_assistant/services/api/settings/user_data_api.dart'
+import 'package:fantastic_assistant/services/api/users/user_data_api.dart'
     as _i12;
 import 'package:fantastic_assistant/settings/injectable_modules.dart' as _i13;
 import 'package:fantastic_assistant/settings/routes/app_router.dart' as _i3;

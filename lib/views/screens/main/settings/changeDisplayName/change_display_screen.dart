@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../services/api/auth/firebase_auth_api.dart';
-import '../../../../../services/api/settings/user_data_api.dart';
+import '../../../../../services/api/users/user_data_api.dart';
 import '../../../../../settings/injection.dart';
 import '../../../../../widgets/background/auth_background_container.dart';
 import '../../../../../widgets/buttons/default_button.dart';

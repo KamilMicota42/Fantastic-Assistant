@@ -8,10 +8,10 @@ import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../services/api/settings/user_data_api.dart';
+import '../../../services/api/users/user_data_api.dart';
 import '../../../settings/routes/app_router.dart';
+import '../../../utils/methods/shared_pref_methods.dart';
 
 @RoutePage()
 class InitialLoadingScreen extends StatefulWidget {
@@ -29,8 +29,7 @@ class _InitialLoadingScreen extends State<InitialLoadingScreen> {
   }
 
   void isLogin() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    String? userUid = sp.getString('user_uid');
+    String? userUid = await SharedPrefMethods.readValueFromSP('user_uid');
 
     if (userUid != null) {
       Timer(

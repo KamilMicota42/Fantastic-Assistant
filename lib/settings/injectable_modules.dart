@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../services/api/characters/characters_api.dart';
 import '../services/api/firebase_storage_api.dart';
 import '../services/api/games/games_api.dart';
-import '../services/api/settings/user_data_api.dart';
+import '../services/api/users/user_data_api.dart';
 import '../views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import '../views/screens/main/characters/cubits/current_character.dart';
 import '../views/screens/main/characters/cubits/current_character_id.dart';

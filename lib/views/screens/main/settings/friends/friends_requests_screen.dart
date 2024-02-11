@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/models/user/user_additional_data.dart';
-import 'package:fantastic_assistant/services/api/settings/user_data_api.dart';
+import 'package:fantastic_assistant/services/api/users/user_data_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
