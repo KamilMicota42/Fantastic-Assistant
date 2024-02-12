@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/models/characters/character_model/character_model.dart';
+import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
 import 'package:flutter/material.dart';
 
@@ -65,6 +66,7 @@ class CharactersApi {
         }
         await setCharacterIntoCubits(newCharacterId.id);
         showSnackBar('Successfully added character');
+        getIt<AppRouter>().pop();
       } catch (e) {
         debugPrint(e.toString());
         showSnackBar(e.toString());
