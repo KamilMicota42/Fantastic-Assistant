@@ -58,7 +58,8 @@ class _UsersScreenState extends State<UsersScreen> {
                         users = FirebaseFirestore.instance
                             .collection('userAdditionalData')
                             .orderBy('account_display_name')
-                            .where('account_display_name', isGreaterThanOrEqualTo: value);
+                            .where('account_display_name', isGreaterThanOrEqualTo: value)
+                            .where('account_display_name', isLessThan: value + 'z');
                         setState(() {});
                       },
                     ),
