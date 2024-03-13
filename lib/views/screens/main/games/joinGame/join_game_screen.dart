@@ -111,6 +111,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(6),
                                                       child: SizedBox(
+                                                        height: 100,
                                                         child: CharacterPicture(
                                                           pathToPicture: documentSnapshot['character_path_to_picture'],
                                                         ),

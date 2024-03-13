@@ -83,7 +83,9 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                               SizedBox(
                                 height: MediaQuery.of(context).size.width - 100,
                                 width: MediaQuery.of(context).size.width - 100,
-                                child: CharacterPicture(pathToPicture: state?.characterPathToPicture),
+                                child: Hero(
+                                    tag: 'character_picture_${widget.characterId}',
+                                    child: CharacterPicture(pathToPicture: state?.characterPathToPicture)),
                               ),
                               const SizedBox(height: 20),
                               TitleLeft(

@@ -95,8 +95,11 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                               padding: const EdgeInsets.all(6),
                                                               child: SizedBox(
                                                                 height: 100,
-                                                                child: CharacterPicture(
-                                                                  pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
+                                                                child: Hero(
+                                                                  tag: 'character_picture_${documentSnapshotCharacters.id}',
+                                                                  child: CharacterPicture(
+                                                                    pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),

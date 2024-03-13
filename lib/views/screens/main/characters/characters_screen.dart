@@ -70,8 +70,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                               padding: const EdgeInsets.all(6),
                                               child: SizedBox(
                                                 height: 100,
-                                                child: CharacterPicture(
-                                                  pathToPicture: documentSnapshot['character_path_to_picture'],
+                                                child: Hero(
+                                                  tag: 'character_picture_${documentSnapshot.id}',
+                                                  child: CharacterPicture(
+                                                    pathToPicture: documentSnapshot['character_path_to_picture'],
+                                                  ),
                                                 ),
                                               ),
                                             ),
