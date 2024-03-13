@@ -31,7 +31,7 @@ class GoBackTitleRow extends StatelessWidget {
             child: IconButton(
               onPressed: () {
                 if (popFunction == null) {
-                  getIt<AppRouter>().pop();
+                  getIt<AppRouter>().maybePop();
                 } else {
                   popFunction!();
                 }

@@ -13,6 +13,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
   final TextInputType? keyboardType;
   final Function? onChanged;
   final List<TextInputFormatter>? inputFormatters;
+  final Icon? suffixIcon;
   const DefaultTextFieldWLabel({
     super.key,
     this.textController,
@@ -23,6 +24,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
     this.keyboardType,
     this.onChanged,
     this.inputFormatters,
+    this.suffixIcon,
   });
 
   @override
@@ -52,6 +54,7 @@ class DefaultTextFieldWLabel extends StatelessWidget {
             color: AppColors.white,
           ),
         ),
+        suffixIcon: suffixIcon,
       ),
       inputFormatters: inputFormatters,
     );

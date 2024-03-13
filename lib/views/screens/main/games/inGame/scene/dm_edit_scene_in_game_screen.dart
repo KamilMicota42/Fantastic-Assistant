@@ -85,7 +85,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                   GoBackTitleRow(
                                     screenTitle: "SCENE",
                                     popFunction: () {
-                                      getIt<AppRouter>().pop();
+                                      getIt<AppRouter>().maybePop();
                                     },
                                     rightSideWidget: IconButton(
                                       icon: const Icon(
@@ -102,7 +102,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           snapshot.data?['characters_id'],
                                           listOfPlayersId,
                                         );
-                                        getIt<AppRouter>().pop();
+                                        getIt<AppRouter>().maybePop();
                                       },
                                     ),
                                   ),

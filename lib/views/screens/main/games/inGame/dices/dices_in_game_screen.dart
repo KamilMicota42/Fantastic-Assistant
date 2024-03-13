@@ -49,7 +49,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                     screenTitle: "DICES",
                     isX: true,
                     popFunction: () {
-                      getIt<AppRouter>().pop();
+                      getIt<AppRouter>().maybePop();
                     },
                   ),
                   SizedBox(

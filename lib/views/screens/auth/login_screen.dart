@@ -76,9 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           contentText: '',
                           clickableContentText: 'Forgot password',
                           function: () {
-                            getIt<AppRouter>().navigate(
-                              const ForgotPasswordRoute(),
-                            );
+                            getIt<AppRouter>().navigate(const ForgotPasswordRoute());
                           },
                         ),
                       ],
@@ -100,9 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       contentText: "Don't have account?",
                       clickableContentText: 'Register now',
                       function: () {
-                        getIt<AppRouter>().navigate(
-                          const RegisterRoute(),
-                        );
+                        getIt<AppRouter>().navigate(const RegisterRoute());
                       },
                     ),
                     const SizedBox(height: 50),

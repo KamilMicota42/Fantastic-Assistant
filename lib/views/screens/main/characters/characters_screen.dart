@@ -114,7 +114,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                     try {
                                       getIt<CurrentCharacterCubit>().delete();
                                       await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
-                                      getIt<AppRouter>().navigate(ViewCharacterRoute(canEdit: true));
+                                      getIt<AppRouter>().navigate(ViewCharacterRoute(characterId: documentSnapshot.id, canEdit: true));
                                     } catch (e) {
                                       showSnackBar("Error occured");
                                     }

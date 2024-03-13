@@ -5,6 +5,7 @@ import 'package:fantastic_assistant/services/api/users/user_data_api.dart';
 import 'package:fantastic_assistant/settings/injection.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
+import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,11 +27,6 @@ class _UsersScreenState extends State<UsersScreen> {
   var users = FirebaseFirestore.instance.collection('userAdditionalData').orderBy('account_display_name');
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthBackgroundContainer(
@@ -45,7 +41,25 @@ class _UsersScreenState extends State<UsersScreen> {
                     child: GoBackTitleRow(
                       screenTitle: "Users",
                       popFunction: () {
-                        getIt<AppRouter>().pop();
+                        getIt<AppRouter>().maybePop();
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: DefaultTextFieldWLabel(
+                      labelText: 'FindUser',
+                      labelColor: AppColors.white,
+                      suffixIcon: const Icon(
+                        Icons.search_sharp,
+                        color: AppColors.white,
+                      ),
+                      onChanged: (value) {
+                        users = FirebaseFirestore.instance
+                            .collection('userAdditionalData')
+                            .orderBy('account_display_name')
+                            .where('account_display_name', isGreaterThanOrEqualTo: value);
+                        setState(() {});
                       },
                     ),
                   ),

@@ -41,7 +41,7 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                       screenTitle: "Friends Requests",
                       popFunction: () async {
                         await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
-                        getIt<AppRouter>().pop();
+                        getIt<AppRouter>().maybePop();
                       },
                     ),
                   ),

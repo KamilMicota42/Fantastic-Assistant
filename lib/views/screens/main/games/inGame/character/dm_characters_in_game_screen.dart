@@ -62,7 +62,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                 screenTitle: "CHARACTERS",
                                 isX: true,
                                 popFunction: () {
-                                  getIt<AppRouter>().pop();
+                                  getIt<AppRouter>().maybePop();
                                 },
                               ),
                             ),
@@ -141,6 +141,7 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                       await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshotCharacters.id);
                                                       getIt<AppRouter>().navigate(
                                                         ViewCharacterRoute(
+                                                            characterId: documentSnapshotCharacters.id,
                                                             canEdit: documentSnapshotCharacters['account_id'] ==
                                                                 getIt<CurrentUserAdditionalData>().state?.accountId),
                                                       );

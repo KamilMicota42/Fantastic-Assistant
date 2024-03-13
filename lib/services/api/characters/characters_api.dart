@@ -66,7 +66,7 @@ class CharactersApi {
         }
         await setCharacterIntoCubits(newCharacterId.id);
         showSnackBar('Successfully added character');
-        getIt<AppRouter>().pop();
+        getIt<AppRouter>().maybePop();
       } catch (e) {
         debugPrint(e.toString());
         showSnackBar(e.toString());

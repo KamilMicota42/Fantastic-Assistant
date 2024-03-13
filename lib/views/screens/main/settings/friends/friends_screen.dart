@@ -33,103 +33,99 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Center(
-          child: Stack(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: GoBackTitleRow(
-                      screenTitle: "Friends",
-                      popFunction: () {
-                        getIt<AppRouter>().pop();
-                      },
-                      rightSideWidget: IconButton(
-                        onPressed: () {
-                          getIt<AppRouter>().navigate(const UsersRoute());
-                        },
-                        icon: const Icon(
-                          Icons.add_box_sharp,
-                          color: AppColors.white,
-                        ),
-                      ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: GoBackTitleRow(
+                  screenTitle: "Friends",
+                  popFunction: () {
+                    getIt<AppRouter>().maybePop();
+                  },
+                  rightSideWidget: IconButton(
+                    onPressed: () {
+                      getIt<AppRouter>().navigate(const UsersRoute());
+                    },
+                    icon: const Icon(
+                      Icons.add_box_sharp,
+                      color: AppColors.white,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
-                    bloc: getIt<CurrentUserAdditionalData>(),
-                    builder: (context, state) {
-                      return StreamBuilder(
-                        stream: friends.snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          if (streamSnapshot.hasData) {
-                            if (streamSnapshot.data!.docs.isEmpty) {
-                              return Expanded(
-                                child: Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    "No friends yet",
-                                    style: DefaultTextTheme.titilliumWebRegular16(context),
-                                  ),
-                                ),
-                              );
-                            }
-                            return Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: ListView.builder(
-                                  padding: const EdgeInsets.only(bottom: 200),
-                                  shrinkWrap: true,
-                                  itemCount: streamSnapshot.data!.docs.length,
-                                  itemBuilder: (context, index) {
-                                    final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                    return Card(
-                                      elevation: 5,
-                                      color: AppColors.darkerGrey.withOpacity(0.5),
-                                      child: SizedBox(
-                                        height: 100,
-                                        child: Row(
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
-                                              child: SizedBox(
-                                                height: 100,
-                                                child: CharacterPicture(
-                                                  pathToPicture: null,
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    documentSnapshot['account_display_name'],
-                                                    style: DefaultTextTheme.titilliumWebBold16(context),
-                                                  ),
-                                                  Text(
-                                                    documentSnapshot['account_email'],
-                                                    style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                bloc: getIt<CurrentUserAdditionalData>(),
+                builder: (context, state) {
+                  return StreamBuilder(
+                    stream: friends.snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      if (streamSnapshot.hasData) {
+                        if (streamSnapshot.data!.docs.isEmpty) {
+                          return Expanded(
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                "No friends yet",
+                                style: DefaultTextTheme.titilliumWebRegular16(context),
                               ),
-                            );
-                          }
-                          return const CircularProgressIndicator();
-                        },
-                      );
+                            ),
+                          );
+                        }
+                        return Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 200),
+                              shrinkWrap: true,
+                              itemCount: streamSnapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                return Card(
+                                  elevation: 5,
+                                  color: AppColors.darkerGrey.withOpacity(0.5),
+                                  child: SizedBox(
+                                    height: 100,
+                                    child: Row(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                          child: SizedBox(
+                                            height: 100,
+                                            child: CharacterPicture(
+                                              pathToPicture: null,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                documentSnapshot['account_display_name'],
+                                                style: DefaultTextTheme.titilliumWebBold16(context),
+                                              ),
+                                              Text(
+                                                documentSnapshot['account_email'],
+                                                style: DefaultTextTheme.titilliumWebRegular13(context),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                      return const CircularProgressIndicator();
                     },
-                  ),
-                ],
+                  );
+                },
               ),
             ],
           ),

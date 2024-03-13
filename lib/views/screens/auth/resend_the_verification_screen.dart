@@ -78,9 +78,7 @@ class _ResendTheVerificationScreenState extends State<ResendTheVerificationScree
                       contentText: "You remember password?",
                       clickableContentText: 'Log in',
                       function: () {
-                        getIt<AppRouter>().navigate(
-                          const LoginRoute(),
-                        );
+                        getIt<AppRouter>().navigate(const LoginRoute());
                       },
                     ),
                     const SizedBox(height: 50),

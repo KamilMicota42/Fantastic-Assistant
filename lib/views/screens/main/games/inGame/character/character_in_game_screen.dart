@@ -256,7 +256,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                           GoBackTitleRow(
                             screenTitle: "Edit character",
                             popFunction: () {
-                              getIt<AppRouter>().pop();
+                              getIt<AppRouter>().maybePop();
                             },
                             isX: true,
                             rightSideWidget: IconButton(

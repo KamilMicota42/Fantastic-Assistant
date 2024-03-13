@@ -64,7 +64,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     screenTitle: "SCENE",
                                     isX: true,
                                     popFunction: () {
-                                      getIt<AppRouter>().pop();
+                                      getIt<AppRouter>().maybePop();
                                     },
                                     rightSideWidget: getIt<CurrentUserAdditionalData>().state!.accountId == getIt<CurrentGameCubit>().state?.dmId
                                         ? IconButton(

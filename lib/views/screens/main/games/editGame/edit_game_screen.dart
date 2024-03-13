@@ -57,7 +57,7 @@ class _EditGameScreenState extends State<EditGameScreen> {
                       GoBackTitleRow(
                         screenTitle: "Create game",
                         popFunction: () {
-                          getIt<AppRouter>().pop();
+                          getIt<AppRouter>().maybePop();
                         },
                         rightSideWidget: IconButton(
                           onPressed: () {

@@ -56,7 +56,7 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                       GoBackTitleRow(
                         screenTitle: "Join game",
                         popFunction: () {
-                          getIt<AppRouter>().pop();
+                          getIt<AppRouter>().maybePop();
                         },
                       ),
                       const SizedBox(height: 6),

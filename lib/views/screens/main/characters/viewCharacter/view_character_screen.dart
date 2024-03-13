@@ -22,9 +22,11 @@ import 'widgets/save_checks_container.dart';
 
 @RoutePage()
 class ViewCharacterScreen extends StatefulWidget {
+  final String characterId;
   final bool? canEdit;
   const ViewCharacterScreen({
     super.key,
+    required this.characterId,
     this.canEdit,
   });
 
@@ -53,7 +55,7 @@ class _ViewCharacterScreenState extends State<ViewCharacterScreen> {
                           GoBackTitleRow(
                             screenTitle: "View character",
                             popFunction: () {
-                              getIt<AppRouter>().pop();
+                              getIt<AppRouter>().maybePop();
                             },
                             rightSideWidget: widget.canEdit == true
                                 ? IconButton(

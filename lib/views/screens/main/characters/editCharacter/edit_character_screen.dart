@@ -274,7 +274,7 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                           GoBackTitleRow(
                             screenTitle: "Edit character",
                             popFunction: () {
-                              getIt<AppRouter>().pop();
+                              getIt<AppRouter>().maybePop();
                             },
                             rightSideWidget: IconButton(
                               onPressed: () {
