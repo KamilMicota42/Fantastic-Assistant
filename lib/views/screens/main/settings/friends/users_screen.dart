@@ -48,7 +48,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: DefaultTextFieldWLabel(
-                      labelText: 'FindUser',
+                      labelText: 'Find user',
                       labelColor: AppColors.white,
                       suffixIcon: const Icon(
                         Icons.search_sharp,
