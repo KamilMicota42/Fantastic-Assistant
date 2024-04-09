@@ -1,5 +1,7 @@
 # Fantastic Assistant
 
+![fa_logo](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/13155178-d2b5-4b59-a17d-5bdfd67f3d96)
+
 ## Summary
 Fantastic Assistant - a mobile application supporting creation and management of the games and characters in the D&D 5e system.
 The main work has been concerned on the creation of a mobile application that would be used as management tool by D&D players. Idea of the project was born by observing the growing popularity of the paper RPG game and the lack of the popular and optimal solution. Created system allows users to create characters and games that their friends can join. Besides that, basic functionalities, the app is friendly to new players with its in-game hints about the game system, rolling dice simulator and intuitive UI.
