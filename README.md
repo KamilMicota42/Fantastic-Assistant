@@ -1,6 +1,6 @@
 # Fantastic Assistant
 
-![fa_logo](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/13155178-d2b5-4b59-a17d-5bdfd67f3d96)
+![logo_wo_background](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/0fe6448c-3153-4e64-b2f2-078a50e79251)
 
 ## Summary
 Fantastic Assistant - a mobile application supporting creation and management of the games and characters in the D&D 5e system.
