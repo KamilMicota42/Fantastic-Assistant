@@ -48,7 +48,7 @@ Logged in user (player):
 Dart, Flutter, Cubit, GetIt, AutoRoute, Shared preferences, Firebase – Authentication, Database, Storage
 
 ## User interface
-###Authentication flow
+##Authentication flow
 
 ![Screenshot 2024-04-09 at 18 55 29](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/696ba39f-5263-4497-afe6-982927230f19)
 ![Screenshot 2024-04-09 at 18 56 54](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/91b74a7b-6a98-413b-8b80-13f1969b5c39)
@@ -56,14 +56,14 @@ Dart, Flutter, Cubit, GetIt, AutoRoute, Shared preferences, Firebase – Authent
 ![Screenshot 2024-04-09 at 18 57 22](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/a044442a-f93b-4cd9-8c08-12a6d2d29c56)
 ![Screenshot 2024-04-09 at 18 57 35](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/63354d83-de0c-4e25-95e9-8329ef8d01e9)
 
-###Settings flow
+##Settings flow
 
 ![Screenshot 2024-04-09 at 18 57 44](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/66b14eb1-9bf3-4c1d-92d4-ed41aec3d8c3)
 ![Screenshot 2024-04-09 at 18 57 55](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/2a3563f9-0c0e-4c11-85de-58468078b2a8)
 ![Screenshot 2024-04-09 at 18 58 07](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/8091c457-3581-4a04-a01e-e82afbd1bcda)
 ![Screenshot 2024-04-09 at 18 58 22](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/00e2726c-53db-4922-9130-a6297f61a7a5)
 
-###Characters flow
+##Characters flow
 
 ![Screenshot 2024-04-09 at 18 58 43](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/6e6cc942-24f0-4f55-b065-136df93b3b9a)
 ![Screenshot 2024-04-09 at 18 58 56](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/ba6e3fa8-05ab-4f44-b059-ef8fb3f09d33)
@@ -73,7 +73,7 @@ Dart, Flutter, Cubit, GetIt, AutoRoute, Shared preferences, Firebase – Authent
 ![Screenshot 2024-04-09 at 18 59 51](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/a25da44e-5512-462c-9144-c5fcaaa512a2)
 ![Screenshot 2024-04-09 at 19 00 07](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/0ca3a280-f0a6-4b63-a8ff-93b6531bf861)
 
-###Games flow
+##Games flow
 
 ![Screenshot 2024-04-09 at 19 00 18](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/8e6a6c0b-f0d7-4d93-9d41-97fa1585b323)
 ![Screenshot 2024-04-09 at 19 00 30](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/03352413-3f61-49be-a7a2-6d25d9ec08e2)
