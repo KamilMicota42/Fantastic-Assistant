@@ -1,16 +1,7 @@
-# fantastic_assistant
+# Fantastic Assistant
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## SUMMARY
+Fantastic Assistant - a mobile application supporting creation and management of the games and characters in the D&D 5e system.
+The main work has been concerned on the creation of a mobile application that would be used as management tool by D&D players. Idea of the project was born by observing the growing popularity of the paper RPG game and the lack of the popular and optimal solution. Created system allows users to create characters and games that their friends can join. Besides that, basic functionalities, the app is friendly to new players with its in-game hints about the game system, rolling dice simulator and intuitive UI.
+The thesis was prepared in seven chapters. First chapter was devoted to introduction of the thesis topic and the requirements of the application. The second chapter introduce the reader to the current mobile applications market and history of Dungeons and Dragons. Third chapter focuses on functional requirements, non-functional requirements and some selected use cases. Fourth chapter describes the system architecture and database. The fifth chapter describe all the useful information about the user interface. The sixth chapter presents contained information about the used technology, the programming environment and the implementation of functionalities. Finally, the last chapter we are summarizing the thesis and the achieved results.
+The basic part of the project was made with the Dart and Flutter, app was prepared for both iOS and Android mobile system. The state management was implemented using BLoC/Cubit and GetIt. The database was created with the use of Google tools like Firebase Firestore Database or Firebase Storage.
