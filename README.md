@@ -7,17 +7,17 @@ The thesis was prepared in seven chapters. First chapter was devoted to introduc
 The basic part of the project was made with the Dart and Flutter, app was prepared for both iOS and Android mobile system. The state management was implemented using BLoC/Cubit and GetIt. The database was created with the use of Google tools like Firebase Firestore Database or Firebase Storage.
 
 ## USE CASE
-In order for the application to meet the assumptions resulting from the analysis of similar solutions, the author decided to isolate the requirements that the system meets:
+In order for the application to meet the results, the author decided to isolate the requirements that the system meets:
 • User authorization for easier management of data associated with the account
-• A system that binds users in a relationship
+• A system that binds users in a relationship ("friendship system")
 • Character management in the D&D 5e system
-  - Facilitating the management of statistics as values ​​that are dependent on each other should be overwritten when they are changed, while allowing for a lot of freedom
-• Facilitating the organization of games
+  - Facilitating the management of statistics as values ​​that are dependent on each other should be overwritten when they are changed, while still allowing for a lot of freedom
+• Supporting organization of games in real life
   - Creating games while giving the user the rights of a game master so that only this user has the right to edit game settings
   - Possibility to join the game as a game master or as a character in a dependency from user rights
 • Dice rolling simulator
 
-In the project to distinguish only two actors: an unlogged user and a logged in user. Differences between actors mainly assume changes in access to given resources and application functions. Below is the use case diagram in Figure 3.1 as well as descriptions of the requirements for each actor
+In the project only two actors were recognized: an unlogged user and logged in user. Differences between actors mainly assume changes in access to given resources and application functions. Below is descriptions of the requirements for each actor.
 User not logged in:
 • Registration to the system
 • Password reminder
