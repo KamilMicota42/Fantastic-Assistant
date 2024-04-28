@@ -1,7 +1,7 @@
 # Fantastic Assistant
 
 <p align="center" width="100%">
-    <img width="33%" src="[https://i.stack.imgur.com/RJj4x.png](https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/0fe6448c-3153-4e64-b2f2-078a50e79251)">
+    <img width="33%" src="https://github.com/KamilMicota42/Fantastic-Assistant/assets/85360923/0fe6448c-3153-4e64-b2f2-078a50e79251">
 </p>
 
 
