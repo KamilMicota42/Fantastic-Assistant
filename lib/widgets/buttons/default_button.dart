@@ -44,8 +44,10 @@ class _DefaultButtonState extends State<DefaultButton> {
         style: ButtonStyle(
           backgroundColor: const MaterialStatePropertyAll(AppColors.black),
           shadowColor: const MaterialStatePropertyAll(AppColors.greenNeonLight),
-          surfaceTintColor: const MaterialStatePropertyAll(AppColors.greenNeonLight),
-          overlayColor: MaterialStatePropertyAll(AppColors.greenNeon.withOpacity(0.5)),
+          surfaceTintColor:
+              const MaterialStatePropertyAll(AppColors.greenNeonLight),
+          overlayColor:
+              MaterialStatePropertyAll(AppColors.greenNeon.withOpacity(0.5)),
         ),
         onPressed: () {
           widget.function();
@@ -55,7 +57,9 @@ class _DefaultButtonState extends State<DefaultButton> {
           children: [
             Text(
               widget.text,
-              style: widget.textStyle ?? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.white),
+              style: widget.textStyle ??
+                  DefaultTextTheme.titilliumWebBold16(context)!
+                      .copyWith(color: AppColors.white),
             ),
             widget.icon != null
                 ? Icon(

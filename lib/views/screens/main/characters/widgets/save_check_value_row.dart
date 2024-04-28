@@ -24,12 +24,14 @@ class SaveCheckValueRow extends StatelessWidget {
       children: [
         Text(
           name,
-          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!
+              .copyWith(color: AppColors.white),
         ),
         const Expanded(child: SizedBox()),
         Text(
           '${DndRules.formatAttributeToSaveCheck(attValue, profValue, boolValue)}',
-          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!
+              .copyWith(color: AppColors.white),
         ),
         Checkbox(
           value: boolValue ?? false,

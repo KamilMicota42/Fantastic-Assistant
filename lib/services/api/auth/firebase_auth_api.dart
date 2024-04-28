@@ -28,7 +28,8 @@ class FirebaseAuthApi {
       context.mounted ? await sendEmailVerification(context, email) : null;
       await _auth.currentUser?.updateDisplayName(displayName);
       if (context.mounted) {
-        getIt<UserDataApi>().createUserAdditionalData(context, _auth.currentUser!.uid, email, displayName);
+        getIt<UserDataApi>().createUserAdditionalData(
+            context, _auth.currentUser!.uid, email, displayName);
       }
     } on FirebaseAuthException catch (e) {
       showSnackBar(e.message!);
@@ -59,7 +60,8 @@ class FirebaseAuthApi {
       if (!_auth.currentUser!.emailVerified) {
         getIt<AppRouter>().navigate(const ResendTheVerificationRoute());
       } else if (_auth.currentUser!.emailVerified) {
-        await getIt<UserDataApi>().getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
+        await getIt<UserDataApi>()
+            .getUserAdditionalDataToGetIt(_auth.currentUser!.uid);
         getIt<AppRouter>().replace(const MainRoute());
       }
     } on FirebaseAuthException catch (e) {

@@ -98,135 +98,343 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
   @override
   void initState() {
     initialImageUrl =
-        getIt<CurrentCharacterCubit>().state?.characterPathToPicture != null ? getIt<CurrentCharacterCubit>().state!.characterPathToPicture : null;
+        getIt<CurrentCharacterCubit>().state?.characterPathToPicture != null
+            ? getIt<CurrentCharacterCubit>().state!.characterPathToPicture
+            : null;
     //Basic Info
     characterNameController.text =
-        getIt<CurrentCharacterCubit>().state?.characterName != null ? getIt<CurrentCharacterCubit>().state!.characterName! : '';
+        getIt<CurrentCharacterCubit>().state?.characterName != null
+            ? getIt<CurrentCharacterCubit>().state!.characterName!
+            : '';
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
-      levelStringValue = "Level ${getIt<CurrentCharacterCubit>().state?.characterLevel}";
+      levelStringValue =
+          "Level ${getIt<CurrentCharacterCubit>().state?.characterLevel}";
     }
     if (getIt<CurrentCharacterCubit>().state?.characterLevel != null) {
       levelIntValue = getIt<CurrentCharacterCubit>().state!.characterLevel!;
     }
     if (getIt<CurrentCharacterCubit>().state?.characterClass != null) {
-      classValue = getIt<CurrentCharacterCubit>().state!.characterClass.toString();
+      classValue =
+          getIt<CurrentCharacterCubit>().state!.characterClass.toString();
     }
     if (getIt<CurrentCharacterCubit>().state?.characterRace != null) {
-      raceValue = getIt<CurrentCharacterCubit>().state!.characterRace.toString();
+      raceValue =
+          getIt<CurrentCharacterCubit>().state!.characterRace.toString();
     }
-    currHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.currentHp.toString() ?? '0';
-    maxHpController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.maxHp.toString() ?? '0';
-    profBonusController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.proficiency != null
-        ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.proficiency.toString()
-        : '2';
-    walkingSpeedController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.speed != null
-        ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.speed.toString()
-        : '30';
-    initiativeController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.initiative != null
-        ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.initiative.toString()
-        : '0';
-    armorClassController.text = getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.armorClass != null
-        ? getIt<CurrentCharacterCubit>().state!.characterBasicInfo!.armorClass.toString()
-        : '10';
+    currHpController.text = getIt<CurrentCharacterCubit>()
+            .state
+            ?.characterBasicInfo
+            ?.currentHp
+            .toString() ??
+        '0';
+    maxHpController.text = getIt<CurrentCharacterCubit>()
+            .state
+            ?.characterBasicInfo
+            ?.maxHp
+            .toString() ??
+        '0';
+    profBonusController.text =
+        getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.proficiency !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterBasicInfo!
+                .proficiency
+                .toString()
+            : '2';
+    walkingSpeedController.text =
+        getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.speed != null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterBasicInfo!
+                .speed
+                .toString()
+            : '30';
+    initiativeController.text =
+        getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.initiative !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterBasicInfo!
+                .initiative
+                .toString()
+            : '0';
+    armorClassController.text =
+        getIt<CurrentCharacterCubit>().state?.characterBasicInfo?.armorClass !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterBasicInfo!
+                .armorClass
+                .toString()
+            : '10';
     //Attributes
-    strAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.strength != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.strength.toString()
+    strAttController.text =
+        getIt<CurrentCharacterCubit>().state?.characterAttributes?.strength !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterAttributes!
+                .strength
+                .toString()
+            : '10';
+    dexAttController.text =
+        getIt<CurrentCharacterCubit>().state?.characterAttributes?.dexterity !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterAttributes!
+                .dexterity
+                .toString()
+            : '10';
+    conAttController.text = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterAttributes
+                ?.constitution !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterAttributes!
+            .constitution
+            .toString()
         : '10';
-    dexAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.dexterity != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.dexterity.toString()
+    intAttController.text = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterAttributes
+                ?.intelligence !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterAttributes!
+            .intelligence
+            .toString()
         : '10';
-    conAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.constitution != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.constitution.toString()
-        : '10';
-    intAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.intelligence != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.intelligence.toString()
-        : '10';
-    wisAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.wisdom != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.wisdom.toString()
-        : '10';
-    chaAttController.text = getIt<CurrentCharacterCubit>().state?.characterAttributes?.charisma != null
-        ? getIt<CurrentCharacterCubit>().state!.characterAttributes!.charisma.toString()
-        : '10';
+    wisAttController.text =
+        getIt<CurrentCharacterCubit>().state?.characterAttributes?.wisdom !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterAttributes!
+                .wisdom
+                .toString()
+            : '10';
+    chaAttController.text =
+        getIt<CurrentCharacterCubit>().state?.characterAttributes?.charisma !=
+                null
+            ? getIt<CurrentCharacterCubit>()
+                .state!
+                .characterAttributes!
+                .charisma
+                .toString()
+            : '10';
 
     //Saving throw
-    strSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveStrength != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveStrength!
+    strSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveStrength !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveStrength!
         : false;
-    dexSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveDexterity != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveDexterity!
+    dexSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveDexterity !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveDexterity!
         : false;
-    conSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveConstitution != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveConstitution!
+    conSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveConstitution !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveConstitution!
         : false;
-    intSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveIntelligence != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveIntelligence!
+    intSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveIntelligence !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveIntelligence!
         : false;
-    wisSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveWisdom != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveWisdom!
+    wisSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveWisdom !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveWisdom!
         : false;
-    chaSavingThrowProf = getIt<CurrentCharacterCubit>().state?.characterProfSaveChecks?.saveCharisma != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSaveChecks!.saveCharisma!
+    chaSavingThrowProf = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSaveChecks
+                ?.saveCharisma !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSaveChecks!
+            .saveCharisma!
         : false;
 
-    athleticsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.athletics != null
+    athleticsProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.athletics !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.athletics!
         : false;
-    acrobaticsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.acrobatics != null
+    acrobaticsProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.acrobatics !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.acrobatics!
         : false;
-    sleightOfHandsProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.sleightOfHand != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.sleightOfHand!
+    sleightOfHandsProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.sleightOfHand !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSkills!
+            .sleightOfHand!
         : false;
-    stealthProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.stealth != null
+    stealthProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.stealth !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.stealth!
         : false;
-    arcanaProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.arcana != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.arcana!
-        : false;
-    historyProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.history != null
+    arcanaProfController =
+        getIt<CurrentCharacterCubit>().state?.characterProfSkills?.arcana !=
+                null
+            ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.arcana!
+            : false;
+    historyProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.history !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.history!
         : false;
-    investigationProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.investigation != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.investigation!
+    investigationProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.investigation !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSkills!
+            .investigation!
         : false;
-    natureProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.nature != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.nature!
-        : false;
-    religionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.religion != null
+    natureProfController =
+        getIt<CurrentCharacterCubit>().state?.characterProfSkills?.nature !=
+                null
+            ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.nature!
+            : false;
+    religionProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.religion !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.religion!
         : false;
-    animalHandlingProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.animalHandling != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.animalHandling!
+    animalHandlingProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.animalHandling !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSkills!
+            .animalHandling!
         : false;
-    insightProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.insight != null
+    insightProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.insight !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.insight!
         : false;
-    medicineProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.medicine != null
+    medicineProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.medicine !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.medicine!
         : false;
-    perceptionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.perception != null
+    perceptionProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.perception !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.perception!
         : false;
-    survivalProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.survival != null
+    survivalProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.survival !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.survival!
         : false;
-    deceptionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.deception != null
+    deceptionProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.deception !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.deception!
         : false;
-    intimidationProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.intimidation != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.intimidation!
+    intimidationProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.intimidation !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSkills!
+            .intimidation!
         : false;
-    performanceProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.performance != null
-        ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.performance!
+    performanceProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.performance !=
+            null
+        ? getIt<CurrentCharacterCubit>()
+            .state!
+            .characterProfSkills!
+            .performance!
         : false;
-    persuasionProfController = getIt<CurrentCharacterCubit>().state?.characterProfSkills?.persuasion != null
+    persuasionProfController = getIt<CurrentCharacterCubit>()
+                .state
+                ?.characterProfSkills
+                ?.persuasion !=
+            null
         ? getIt<CurrentCharacterCubit>().state!.characterProfSkills!.persuasion!
         : false;
 
     //Notes
     if (getIt<CurrentCharacterCubit>().state?.characterNotes != null) {
-      for (var i = 0; i < getIt<CurrentCharacterCubit>().state!.characterNotes!.length; i++) {
-        notesControllers.add(TextEditingController(text: getIt<CurrentCharacterCubit>().state!.characterNotes![i]));
+      for (var i = 0;
+          i < getIt<CurrentCharacterCubit>().state!.characterNotes!.length;
+          i++) {
+        notesControllers.add(TextEditingController(
+            text: getIt<CurrentCharacterCubit>().state!.characterNotes![i]));
       }
     }
 
@@ -234,7 +442,13 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
   }
 
   int mainIndex = 0;
-  List<String> mainTabs = ['Basic Info', 'Attrbutes', 'Saving Throw', 'Skills', 'Notes'];
+  List<String> mainTabs = [
+    'Basic Info',
+    'Attrbutes',
+    'Saving Throw',
+    'Skills',
+    'Notes'
+  ];
 
   @override
   void dispose() {
@@ -279,13 +493,16 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                             rightSideWidget: IconButton(
                               onPressed: () {
                                 notesValues = [];
-                                for (TextEditingController controller in notesControllers) {
+                                for (TextEditingController controller
+                                    in notesControllers) {
                                   notesValues.add(controller.text);
                                 }
                                 if (getIt<CurrentCharacterId>().state != null) {
                                   //edit
                                   getIt<CharactersApi>().updateCharacter(
-                                    getIt<CurrentCharacterId>().state.toString(),
+                                    getIt<CurrentCharacterId>()
+                                        .state
+                                        .toString(),
                                     pictureValue,
                                     pictureChanged,
                                     characterNameController.text,
@@ -293,20 +510,31 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                     classValue,
                                     raceValue,
                                     {
-                                      'proficiency': int.parse(profBonusController.text),
-                                      'armor_class': int.parse(armorClassController.text),
-                                      'initiative': int.parse(initiativeController.text),
-                                      'speed': int.parse(walkingSpeedController.text),
-                                      'current_hp': int.parse(currHpController.text),
+                                      'proficiency':
+                                          int.parse(profBonusController.text),
+                                      'armor_class':
+                                          int.parse(armorClassController.text),
+                                      'initiative':
+                                          int.parse(initiativeController.text),
+                                      'speed': int.parse(
+                                          walkingSpeedController.text),
+                                      'current_hp':
+                                          int.parse(currHpController.text),
                                       'max_hp': int.parse(maxHpController.text),
                                     },
                                     {
-                                      'strength': int.parse(strAttController.text),
-                                      'dexterity': int.parse(dexAttController.text),
-                                      'constitution': int.parse(conAttController.text),
-                                      'intelligence': int.parse(intAttController.text),
-                                      'wisdom': int.parse(wisAttController.text),
-                                      'charisma': int.parse(chaAttController.text),
+                                      'strength':
+                                          int.parse(strAttController.text),
+                                      'dexterity':
+                                          int.parse(dexAttController.text),
+                                      'constitution':
+                                          int.parse(conAttController.text),
+                                      'intelligence':
+                                          int.parse(intAttController.text),
+                                      'wisdom':
+                                          int.parse(wisAttController.text),
+                                      'charisma':
+                                          int.parse(chaAttController.text),
                                     },
                                     {
                                       "save_charisma": chaSavingThrowProf,
@@ -318,21 +546,25 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                     },
                                     {
                                       "acrobatics": acrobaticsProfController,
-                                      "animal_handling": animalHandlingProfController,
+                                      "animal_handling":
+                                          animalHandlingProfController,
                                       "arcana": arcanaProfController,
                                       "athletics": athleticsProfController,
                                       "deception": deceptionProfController,
                                       "history": historyProfController,
                                       "insight": insightProfController,
-                                      "intimidation": intimidationProfController,
-                                      "investigation": investigationProfController,
+                                      "intimidation":
+                                          intimidationProfController,
+                                      "investigation":
+                                          investigationProfController,
                                       "medicine": medicineProfController,
                                       "nature": natureProfController,
                                       "perception": perceptionProfController,
                                       "performance": performanceProfController,
                                       "persuasion": persuasionProfController,
                                       "religion": religionProfController,
-                                      "sleight_of_hand": sleightOfHandsProfController,
+                                      "sleight_of_hand":
+                                          sleightOfHandsProfController,
                                       "stealth": stealthProfController,
                                       "survival": survivalProfController
                                     },
@@ -348,20 +580,31 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                     classValue,
                                     raceValue,
                                     {
-                                      'proficiency': int.parse(profBonusController.text),
-                                      'armor_class': int.parse(armorClassController.text),
-                                      'initiative': int.parse(initiativeController.text),
-                                      'speed': int.parse(walkingSpeedController.text),
-                                      'current_hp': int.parse(currHpController.text),
+                                      'proficiency':
+                                          int.parse(profBonusController.text),
+                                      'armor_class':
+                                          int.parse(armorClassController.text),
+                                      'initiative':
+                                          int.parse(initiativeController.text),
+                                      'speed': int.parse(
+                                          walkingSpeedController.text),
+                                      'current_hp':
+                                          int.parse(currHpController.text),
                                       'max_hp': int.parse(maxHpController.text),
                                     },
                                     {
-                                      'strength': int.parse(strAttController.text),
-                                      'dexterity': int.parse(dexAttController.text),
-                                      'constitution': int.parse(conAttController.text),
-                                      'intelligence': int.parse(intAttController.text),
-                                      'wisdom': int.parse(wisAttController.text),
-                                      'charisma': int.parse(chaAttController.text),
+                                      'strength':
+                                          int.parse(strAttController.text),
+                                      'dexterity':
+                                          int.parse(dexAttController.text),
+                                      'constitution':
+                                          int.parse(conAttController.text),
+                                      'intelligence':
+                                          int.parse(intAttController.text),
+                                      'wisdom':
+                                          int.parse(wisAttController.text),
+                                      'charisma':
+                                          int.parse(chaAttController.text),
                                     },
                                     {
                                       "save_charisma": chaSavingThrowProf,
@@ -373,21 +616,25 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                     },
                                     {
                                       "acrobatics": acrobaticsProfController,
-                                      "animal_handling": animalHandlingProfController,
+                                      "animal_handling":
+                                          animalHandlingProfController,
                                       "arcana": arcanaProfController,
                                       "athletics": athleticsProfController,
                                       "deception": deceptionProfController,
                                       "history": historyProfController,
                                       "insight": insightProfController,
-                                      "intimidation": intimidationProfController,
-                                      "investigation": investigationProfController,
+                                      "intimidation":
+                                          intimidationProfController,
+                                      "investigation":
+                                          investigationProfController,
                                       "medicine": medicineProfController,
                                       "nature": natureProfController,
                                       "perception": perceptionProfController,
                                       "performance": performanceProfController,
                                       "persuasion": persuasionProfController,
                                       "religion": religionProfController,
-                                      "sleight_of_hand": sleightOfHandsProfController,
+                                      "sleight_of_hand":
+                                          sleightOfHandsProfController,
                                       "stealth": stealthProfController,
                                       "survival": survivalProfController
                                     },
@@ -445,24 +692,38 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         itemCount: mainTabs.length,
                                         itemBuilder: (context, index) {
                                           return Padding(
-                                            padding: const EdgeInsets.only(right: 20),
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
                                             child: SizedBox(
                                               child: TextButton(
                                                 onPressed: () {
                                                   mainIndex = index;
                                                   setState(() {});
                                                 },
-                                                style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                                                style: const ButtonStyle(
+                                                    padding:
+                                                        MaterialStatePropertyAll(
+                                                            EdgeInsets.zero)),
                                                 child: Text(
                                                   mainTabs[index],
                                                   style: mainIndex == index
-                                                      ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(
-                                                          overflow: TextOverflow.ellipsis,
-                                                          color: AppColors.greenNeon,
+                                                      ? DefaultTextTheme
+                                                              .titilliumWebBold16(
+                                                                  context)!
+                                                          .copyWith(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          color: AppColors
+                                                              .greenNeon,
                                                         )
-                                                      : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(
-                                                          overflow: TextOverflow.ellipsis,
-                                                          color: AppColors.greenWhite,
+                                                      : DefaultTextTheme
+                                                              .titilliumWebRegular16(
+                                                                  context)!
+                                                          .copyWith(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          color: AppColors
+                                                              .greenWhite,
                                                         ),
                                                 ),
                                               ),
@@ -484,12 +745,19 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                           icon: Icons.arrow_upward_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: InGameLevels.characterLevelsList,
+                                          listItem:
+                                              InGameLevels.characterLevelsList,
                                           onChanged: (value) {
                                             levelStringValue = value;
-                                            levelIntValue = InGameLevels.levelReturnIntFromString(value);
-                                            profBonusController.text =
-                                                DndRules.levelAndProficiencyMap[InGameLevels.levelReturnIntFromString(value)].toString();
+                                            levelIntValue = InGameLevels
+                                                .levelReturnIntFromString(
+                                                    value);
+                                            profBonusController.text = DndRules
+                                                .levelAndProficiencyMap[
+                                                    InGameLevels
+                                                        .levelReturnIntFromString(
+                                                            value)]
+                                                .toString();
                                             setState(() {});
                                           },
                                           initialValue: levelStringValue,
@@ -500,7 +768,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                           icon: Icons.boy_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: InGameClasses.characterClassesList,
+                                          listItem: InGameClasses
+                                              .characterClassesList,
                                           onChanged: (value) {
                                             classValue = value;
                                           },
@@ -512,7 +781,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                           icon: Icons.group_sharp,
                                         ),
                                         CustomDropdownMenu(
-                                          listItem: InGameRaces.characterRacesList,
+                                          listItem:
+                                              InGameRaces.characterRacesList,
                                           onChanged: (value) {
                                             raceValue = value;
                                           },
@@ -525,28 +795,41 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         const SizedBox(height: 20),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             TextfieldAndDescription(
                                               controller: profBonusController,
                                               description: 'Prof. Bonus',
                                               descriptionColor: AppColors.white,
-                                              defValueIfNotCorrect: DndRules.levelAndProficiencyMap[levelIntValue].toString(),
-                                              hintText: DndRules.hintsList["proficiency"],
+                                              defValueIfNotCorrect: DndRules
+                                                  .levelAndProficiencyMap[
+                                                      levelIntValue]
+                                                  .toString(),
+                                              hintText: DndRules
+                                                  .hintsList["proficiency"],
                                             ),
                                             TextfieldAndDescription(
-                                              controller: walkingSpeedController,
+                                              controller:
+                                                  walkingSpeedController,
                                               description: 'Wlk. Speed',
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect: '30',
-                                              hintText: DndRules.hintsList["speed"],
+                                              hintText:
+                                                  DndRules.hintsList["speed"],
                                             ),
                                             TextfieldAndDescription(
                                               controller: initiativeController,
                                               description: 'Initiative',
                                               descriptionColor: AppColors.white,
-                                              defValueIfNotCorrect: DndRules.attributeToModifier(int.parse(dexAttController.text)).toString(),
-                                              hintText: DndRules.hintsList["initiative"],
+                                              defValueIfNotCorrect:
+                                                  DndRules.attributeToModifier(
+                                                          int.parse(
+                                                              dexAttController
+                                                                  .text))
+                                                      .toString(),
+                                              hintText: DndRules
+                                                  .hintsList["initiative"],
                                             ),
                                             TextfieldAndDescription(
                                               controller: armorClassController,
@@ -554,7 +837,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                               descriptionColor: AppColors.white,
                                               defValueIfNotCorrect:
                                                   '${10 + int.parse(DndRules.attributeToModifier(int.parse(dexAttController.text)).toString())}',
-                                              hintText: DndRules.hintsList["armorClass"],
+                                              hintText: DndRules
+                                                  .hintsList["armorClass"],
                                             ),
                                           ],
                                         ),
@@ -565,7 +849,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                   ? Column(
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             AttAndModEditable(
                                               attributeName: 'Strength',
@@ -573,7 +858,13 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                             ),
                                             Focus(
                                               onFocusChange: (hasFocus) {
-                                                initiativeController.text = DndRules.attributeToModifier(int.parse(dexAttController.text)).toString();
+                                                initiativeController
+                                                    .text = DndRules
+                                                        .attributeToModifier(
+                                                            int.parse(
+                                                                dexAttController
+                                                                    .text))
+                                                    .toString();
                                                 armorClassController.text =
                                                     '${10 + int.parse(DndRules.attributeToModifier(int.parse(dexAttController.text)).toString())}';
                                                 setState(() {});
@@ -591,7 +882,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         const SizedBox(height: 6),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             AttAndModEditable(
                                               attributeName: 'Intelligence',
@@ -612,7 +904,8 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                   : const SizedBox(),
                               mainIndex == 2
                                   ? SaveThrowContainerEditable(
-                                      profValue: int.parse(profBonusController.text),
+                                      profValue:
+                                          int.parse(profBonusController.text),
                                       strAtt: int.parse(strAttController.text),
                                       strSavingThrow: strSavingThrowProf,
                                       swapStrSavingThrow: (value) {
@@ -656,9 +949,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                       children: [
                                         ProfControllerRow(
                                           skillName: 'Athletics',
-                                          profController: athleticsProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(strAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              athleticsProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      strAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             athleticsProfController = value;
                                             setState(() {});
@@ -666,9 +964,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Acrobatics',
-                                          profController: acrobaticsProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              acrobaticsProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      dexAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             acrobaticsProfController = value;
                                             setState(() {});
@@ -676,19 +979,29 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Sleight of hands',
-                                          profController: sleightOfHandsProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              sleightOfHandsProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      dexAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
-                                            sleightOfHandsProfController = value;
+                                            sleightOfHandsProfController =
+                                                value;
                                             setState(() {});
                                           },
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Stealth',
                                           profController: stealthProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(dexAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      dexAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             stealthProfController = value;
                                             setState(() {});
@@ -697,8 +1010,12 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ProfControllerRow(
                                           skillName: 'Arcana',
                                           profController: arcanaProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      intAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             arcanaProfController = value;
                                             setState(() {});
@@ -707,8 +1024,12 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ProfControllerRow(
                                           skillName: 'History',
                                           profController: historyProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      intAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             historyProfController = value;
                                             setState(() {});
@@ -716,9 +1037,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Investigation',
-                                          profController: investigationProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              investigationProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      intAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             investigationProfController = value;
                                             setState(() {});
@@ -727,8 +1053,12 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ProfControllerRow(
                                           skillName: 'Nature',
                                           profController: natureProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      intAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             natureProfController = value;
                                             setState(() {});
@@ -736,9 +1066,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Religion',
-                                          profController: religionProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(intAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              religionProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      intAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             religionProfController = value;
                                             setState(() {});
@@ -746,19 +1081,29 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Animal handling',
-                                          profController: animalHandlingProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              animalHandlingProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      wisAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
-                                            animalHandlingProfController = value;
+                                            animalHandlingProfController =
+                                                value;
                                             setState(() {});
                                           },
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Insight',
                                           profController: insightProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      wisAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             insightProfController = value;
                                             setState(() {});
@@ -766,9 +1111,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Medicine',
-                                          profController: medicineProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              medicineProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      wisAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             medicineProfController = value;
                                             setState(() {});
@@ -776,9 +1126,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Perception',
-                                          profController: perceptionProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              perceptionProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      wisAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             perceptionProfController = value;
                                             setState(() {});
@@ -786,9 +1141,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Survival',
-                                          profController: survivalProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(wisAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              survivalProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      wisAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             survivalProfController = value;
                                             setState(() {});
@@ -796,9 +1156,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Deception',
-                                          profController: deceptionProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              deceptionProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      chaAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             deceptionProfController = value;
                                             setState(() {});
@@ -806,9 +1171,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Intimidation',
-                                          profController: intimidationProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              intimidationProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      chaAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             intimidationProfController = value;
                                             setState(() {});
@@ -816,9 +1186,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Performance',
-                                          profController: performanceProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              performanceProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      chaAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             performanceProfController = value;
                                             setState(() {});
@@ -826,9 +1201,14 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                         ),
                                         ProfControllerRow(
                                           skillName: 'Persuasion',
-                                          profController: persuasionProfController,
-                                          skillMod: DndRules.attributeToModifier(int.parse(chaAttController.text)),
-                                          profMod: int.parse(profBonusController.text),
+                                          profController:
+                                              persuasionProfController,
+                                          skillMod:
+                                              DndRules.attributeToModifier(
+                                                  int.parse(
+                                                      chaAttController.text)),
+                                          profMod: int.parse(
+                                              profBonusController.text),
                                           handleControllerChange: (value) {
                                             persuasionProfController = value;
                                             setState(() {});
@@ -854,11 +1234,16 @@ class _EditCharacterScreenState extends State<EditCharacterScreen> {
                                       },
                                       addNote: () {
                                         if (notesControllers.length < 20) {
-                                          notesControllers.add(TextEditingController(text: 'Note ${notesControllers.length + 1}'));
-                                          notesIndex = notesControllers.length - 1;
+                                          notesControllers.add(
+                                              TextEditingController(
+                                                  text:
+                                                      'Note ${notesControllers.length + 1}'));
+                                          notesIndex =
+                                              notesControllers.length - 1;
                                           setState(() {});
                                         } else {
-                                          showSnackBar("Each character can have only 20 notes");
+                                          showSnackBar(
+                                              "Each character can have only 20 notes");
                                         }
                                       },
                                     )

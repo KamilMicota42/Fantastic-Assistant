@@ -17,7 +17,8 @@ abstract class InjectableModule {
   AppRouter get router => AppRouter();
 
   @lazySingleton
-  CurrentUserAdditionalData get currentUserAdditionalData => CurrentUserAdditionalData();
+  CurrentUserAdditionalData get currentUserAdditionalData =>
+      CurrentUserAdditionalData();
 
   @lazySingleton
   UserDataApi get userDataApi => UserDataApi();

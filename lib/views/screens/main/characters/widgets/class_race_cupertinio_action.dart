@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 class ClassRaceCupertionioAction extends StatefulWidget {
   final String regionString;
   final Function changeRegion;
-  const ClassRaceCupertionioAction({super.key, required this.regionString, required this.changeRegion});
+  const ClassRaceCupertionioAction(
+      {super.key, required this.regionString, required this.changeRegion});
 
   @override
-  State<ClassRaceCupertionioAction> createState() => _ClassRaceCupertionioActionState();
+  State<ClassRaceCupertionioAction> createState() =>
+      _ClassRaceCupertionioActionState();
 }
 
-class _ClassRaceCupertionioActionState extends State<ClassRaceCupertionioAction> {
+class _ClassRaceCupertionioActionState
+    extends State<ClassRaceCupertionioAction> {
   @override
   Widget build(BuildContext context) {
     return Column(

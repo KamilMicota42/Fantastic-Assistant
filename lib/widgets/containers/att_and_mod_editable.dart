@@ -26,7 +26,9 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
   @override
   void initState() {
     if (DataValidatin.isAttributeValid(widget.controller.text)) {
-      modValue = int.parse(DndRules.attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+      modValue = int.parse(DndRules.attributeToModifier(
+              int.parse(widget.controller.text.toString()))
+          .toString());
     }
     super.initState();
   }
@@ -46,7 +48,8 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
             children: [
               SvgPicture.asset(
                 'assets/images/att_mod_background.svg',
-                colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+                colorFilter:
+                    const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
               ),
               Center(
                 child: Text(
@@ -65,7 +68,8 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                       child: Focus(
                         onFocusChange: (hasFocus) {
                           if (!hasFocus) {
-                            if (!DataValidatin.isAttributeValid(widget.controller.text)) {
+                            if (!DataValidatin.isAttributeValid(
+                                widget.controller.text)) {
                               widget.controller.text = '10';
                             }
                             setState(() {});
@@ -73,7 +77,8 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                         },
                         child: TextField(
                           textAlign: TextAlign.center,
-                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                          style:
+                              DefaultTextTheme.titilliumWebRegular13(context),
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             enabledBorder: UnderlineInputBorder(
@@ -86,14 +91,18 @@ class _AttAndModEditableState extends State<AttAndModEditable> {
                           controller: widget.controller,
                           onChanged: (v) {
                             if (DataValidatin.isAttributeValid(v)) {
-                              modValue = int.parse(DndRules.attributeToModifier(int.parse(widget.controller.text.toString())).toString());
+                              modValue = int.parse(DndRules.attributeToModifier(
+                                      int.parse(
+                                          widget.controller.text.toString()))
+                                  .toString());
                             } else {
                               modValue = 0;
                             }
                             setState(() {});
                           },
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\-?\d*')),
                           ],
                           keyboardType: TextInputType.number,
                         ),

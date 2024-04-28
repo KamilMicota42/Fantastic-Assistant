@@ -59,20 +59,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   builder: (context, state) {
                     return Text(
                       '${state?.accountDisplayName}',
-                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite),
+                      style: DefaultTextTheme.titilliumWebBold20(context)!
+                          .copyWith(color: AppColors.semiWhite),
                     );
                   },
                 ),
                 Text(
                   '${getIt<CurrentUserAdditionalData>().state?.accountEmail}',
-                  style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite),
+                  style: DefaultTextTheme.titilliumWebBold20(context)!
+                      .copyWith(color: AppColors.semiWhite),
                 ),
                 const SizedBox(height: 10),
                 const DefaultDivider(),
                 SettingRow(
                   text: 'Friends',
                   onTap: () async {
-                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(
+                        getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRoute());
                   },
                 ),
@@ -80,7 +83,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingRow(
                   text: 'Friends requests',
                   onTap: () async {
-                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                    await getIt<UserDataApi>().getUserAdditionalDataToGetIt(
+                        getIt<CurrentUserAdditionalData>().state!.accountId);
                     getIt<AppRouter>().navigate(const FriendsRequestsRoute());
                   },
                 ),

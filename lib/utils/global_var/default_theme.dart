@@ -35,7 +35,8 @@ class DefaultTheme {
   );
 
   static ThemeData theme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenNeonLight).copyWith(background: Colors.white),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenNeonLight)
+        .copyWith(background: Colors.white),
     useMaterial3: true,
     textTheme: _textTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(

@@ -24,7 +24,8 @@ class TextAndClickableTextRow extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             contentText,
-            style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.semiWhite),
+            style: DefaultTextTheme.titilliumWebRegular16(context)!
+                .copyWith(color: AppColors.semiWhite),
           ),
         ),
         Align(

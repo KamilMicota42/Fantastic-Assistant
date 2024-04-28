@@ -47,14 +47,16 @@ class TextfieldAndDescription extends StatelessWidget {
                   keyboardType: TextInputType.number,
                 ),
                 onFocusChange: (hasFocus) {
-                  if (!DataValidatin.isIntable(controller.text) && defValueIfNotCorrect != null) {
+                  if (!DataValidatin.isIntable(controller.text) &&
+                      defValueIfNotCorrect != null) {
                     controller.text = defValueIfNotCorrect!;
                   }
                 },
               ),
               Text(
                 description,
-                style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: descriptionColor ?? AppColors.greenWhite),
+                style: DefaultTextTheme.titilliumWebRegular16(context)!
+                    .copyWith(color: descriptionColor ?? AppColors.greenWhite),
               ),
             ],
           ),

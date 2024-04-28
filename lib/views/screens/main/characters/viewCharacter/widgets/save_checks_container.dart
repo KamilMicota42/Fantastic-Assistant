@@ -34,37 +34,45 @@ class SaveChecksContainer extends StatelessWidget {
                       name: 'Strength',
                       attValue: characterModel.characterAttributes?.strength,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveStrength,
+                      boolValue:
+                          characterModel.characterProfSaveChecks?.saveStrength,
                     ),
                     SaveCheckValueRow(
                       name: 'Dexterity',
                       attValue: characterModel.characterAttributes?.dexterity,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveDexterity,
+                      boolValue:
+                          characterModel.characterProfSaveChecks?.saveDexterity,
                     ),
                     SaveCheckValueRow(
                       name: 'Constitution',
-                      attValue: characterModel.characterAttributes?.constitution,
+                      attValue:
+                          characterModel.characterAttributes?.constitution,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveConstitution,
+                      boolValue: characterModel
+                          .characterProfSaveChecks?.saveConstitution,
                     ),
                     SaveCheckValueRow(
                       name: 'Intelligence',
-                      attValue: characterModel.characterAttributes?.intelligence,
+                      attValue:
+                          characterModel.characterAttributes?.intelligence,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveIntelligence,
+                      boolValue: characterModel
+                          .characterProfSaveChecks?.saveIntelligence,
                     ),
                     SaveCheckValueRow(
                       name: 'Wisdom',
                       attValue: characterModel.characterAttributes?.wisdom,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveWisdom,
+                      boolValue:
+                          characterModel.characterProfSaveChecks?.saveWisdom,
                     ),
                     SaveCheckValueRow(
                       name: 'Charisma',
                       attValue: characterModel.characterAttributes?.charisma,
                       profValue: characterModel.characterBasicInfo?.proficiency,
-                      boolValue: characterModel.characterProfSaveChecks?.saveCharisma,
+                      boolValue:
+                          characterModel.characterProfSaveChecks?.saveCharisma,
                     ),
                   ],
                 ),

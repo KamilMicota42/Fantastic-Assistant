@@ -14,7 +14,8 @@ import '../../../views/screens/main/characters/cubits/current_character_id.dart'
 import '../firebase_storage_api.dart';
 
 class CharactersApi {
-  final CollectionReference _characters = FirebaseFirestore.instance.collection('characters');
+  final CollectionReference _characters =
+      FirebaseFirestore.instance.collection('characters');
 
   Future<void> createCharacter(
     //picture
@@ -155,7 +156,8 @@ class CharactersApi {
   ) async {
     try {
       var characterData = await _characters.doc(characterId).get();
-      getIt<CurrentCharacterCubit>().set(CharacterModel.fromJson(jsonEncode(characterData.data()).toString()));
+      getIt<CurrentCharacterCubit>().set(
+          CharacterModel.fromJson(jsonEncode(characterData.data()).toString()));
       getIt<CurrentCharacterId>().set(characterId);
     } catch (e) {
       debugPrint(e.toString());

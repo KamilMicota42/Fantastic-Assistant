@@ -28,8 +28,12 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
 
   @override
   void initState() {
-    widget.currentHpController.text != '' ? currValueText = widget.currentHpController.text : null;
-    widget.maxHpController.text != '' ? maxValueText = widget.maxHpController.text : null;
+    widget.currentHpController.text != ''
+        ? currValueText = widget.currentHpController.text
+        : null;
+    widget.maxHpController.text != ''
+        ? maxValueText = widget.maxHpController.text
+        : null;
     super.initState();
   }
 
@@ -52,7 +56,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                         ),
                         child: Focus(
                           onFocusChange: (hasFocus) {
-                            if (!DataValidatin.isIntable(widget.currentHpController.text)) {
+                            if (!DataValidatin.isIntable(
+                                widget.currentHpController.text)) {
                               widget.currentHpController.text = '0';
                             }
                           },
@@ -74,7 +79,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                               );
                             },
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\-?\d*')),
                             ],
                             keyboardType: TextInputType.number,
                           ),
@@ -89,7 +95,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                         ),
                         child: Focus(
                           onFocusChange: (hasFocus) {
-                            if (!DataValidatin.isIntable(widget.maxHpController.text)) {
+                            if (!DataValidatin.isIntable(
+                                widget.maxHpController.text)) {
                               widget.maxHpController.text = '0';
                             }
                           },
@@ -111,7 +118,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                               );
                             },
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\-?\d*')),
                             ],
                             keyboardType: TextInputType.number,
                           ),
@@ -127,7 +135,8 @@ class _CurrHpMaxHpTextFieldState extends State<CurrHpMaxHpTextField> {
                     child: Center(
                       child: Text(
                         '$currValueText / $maxValueText',
-                        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.clip),
+                        style: DefaultTextTheme.titilliumWebBold16(context)!
+                            .copyWith(overflow: TextOverflow.clip),
                       ),
                     ),
                   ),

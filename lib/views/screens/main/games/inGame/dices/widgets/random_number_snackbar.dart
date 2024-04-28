@@ -6,7 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../../utils/const/app_colors.dart';
 import '../../../../../../../widgets/buttons/default_button.dart';
 
-void showRandomNumberRoll(BuildContext context, List<AnimatedText> randoms, String diceName) async {
+void showRandomNumberRoll(
+    BuildContext context, List<AnimatedText> randoms, String diceName) async {
   context.mounted
       ? showDialog(
           context: context,
@@ -60,7 +61,8 @@ Widget _randomNumberRollPopup(
         function: () {
           Navigator.of(context).pop();
         },
-        textStyle: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
+        textStyle: DefaultTextTheme.titilliumWebBold16(context)!
+            .copyWith(color: AppColors.lighterGrey),
       ),
     ],
   );

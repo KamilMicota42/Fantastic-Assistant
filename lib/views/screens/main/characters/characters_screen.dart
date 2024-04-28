@@ -28,7 +28,8 @@ class CharactersScreen extends StatefulWidget {
 class _CharactersScreenState extends State<CharactersScreen> {
   final _characters = FirebaseFirestore.instance
       .collection('characters')
-      .where('account_id', isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId)
+      .where('account_id',
+          isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId)
       .snapshots();
 
   @override
@@ -47,21 +48,24 @@ class _CharactersScreenState extends State<CharactersScreen> {
                     const TitleRow(screenTitle: 'CHARACTERS'),
                     StreamBuilder(
                       stream: _characters,
-                      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
                           return Expanded(
                             child: ListView.builder(
                               padding: const EdgeInsets.only(bottom: 200),
                               itemCount: streamSnapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                final DocumentSnapshot documentSnapshot =
+                                    streamSnapshot.data!.docs[index];
 
                                 return InkWell(
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
                                       elevation: 5,
-                                      color: AppColors.darkerGrey.withOpacity(0.5),
+                                      color:
+                                          AppColors.darkerGrey.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -71,9 +75,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                               child: SizedBox(
                                                 height: 100,
                                                 child: Hero(
-                                                  tag: 'character_picture_${documentSnapshot.id}',
+                                                  tag:
+                                                      'character_picture_${documentSnapshot.id}',
                                                   child: CharacterPicture(
-                                                    pathToPicture: documentSnapshot['character_path_to_picture'],
+                                                    pathToPicture: documentSnapshot[
+                                                        'character_path_to_picture'],
                                                   ),
                                                 ),
                                               ),
@@ -82,9 +88,13 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                           Expanded(
                                             flex: 2,
                                             child: Text(
-                                              documentSnapshot['character_name'],
+                                              documentSnapshot[
+                                                  'character_name'],
                                               textAlign: TextAlign.center,
-                                              style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
+                                              style: DefaultTextTheme
+                                                      .titilliumWebBold20(
+                                                          context)!
+                                                  .copyWith(
                                                 color: AppColors.semiWhite,
                                               ),
                                             ),
@@ -92,19 +102,29 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                           Expanded(
                                             flex: 1,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "Level ${documentSnapshot['character_level']}".toString(),
-                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                  "Level ${documentSnapshot['character_level']}"
+                                                      .toString(),
+                                                  style: DefaultTextTheme
+                                                      .titilliumWebRegular13(
+                                                          context),
                                                 ),
                                                 Text(
-                                                  documentSnapshot['character_class'],
-                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                  documentSnapshot[
+                                                      'character_class'],
+                                                  style: DefaultTextTheme
+                                                      .titilliumWebRegular13(
+                                                          context),
                                                 ),
                                                 Text(
-                                                  documentSnapshot['character_race'],
-                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                  documentSnapshot[
+                                                      'character_race'],
+                                                  style: DefaultTextTheme
+                                                      .titilliumWebRegular13(
+                                                          context),
                                                 ),
                                               ],
                                             ),
@@ -116,8 +136,13 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   onTap: () async {
                                     try {
                                       getIt<CurrentCharacterCubit>().delete();
-                                      await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
-                                      getIt<AppRouter>().navigate(ViewCharacterRoute(characterId: documentSnapshot.id, canEdit: true));
+                                      await getIt<CharactersApi>()
+                                          .setCharacterIntoCubits(
+                                              documentSnapshot.id);
+                                      getIt<AppRouter>().navigate(
+                                          ViewCharacterRoute(
+                                              characterId: documentSnapshot.id,
+                                              canEdit: true));
                                     } catch (e) {
                                       showSnackBar("Error occured");
                                     }

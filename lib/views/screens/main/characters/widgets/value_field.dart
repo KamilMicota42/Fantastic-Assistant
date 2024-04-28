@@ -53,7 +53,8 @@ class _ValueFieldState extends State<ValueField> {
                   setState(
                     () {
                       if (DataValidatin.isIntable(value)) {
-                        widget.valueController.text = int.parse(value).toString();
+                        widget.valueController.text =
+                            int.parse(value).toString();
                       } else {
                         widget.valueController.text = "0";
                       }

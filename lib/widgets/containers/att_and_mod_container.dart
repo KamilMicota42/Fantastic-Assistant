@@ -29,11 +29,14 @@ class AttAndModContainer extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 'assets/images/att_mod_background.svg',
-                colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+                colorFilter:
+                    const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
               ),
               Center(
                 child: Text(
-                  DndRules.attributeToModifier(int.parse(attributeValue.toString())).toString(),
+                  DndRules.attributeToModifier(
+                          int.parse(attributeValue.toString()))
+                      .toString(),
                   style: DefaultTextTheme.titilliumWebRegular16(context),
                 ),
               ),

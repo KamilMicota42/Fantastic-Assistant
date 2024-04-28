@@ -24,7 +24,9 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  var users = FirebaseFirestore.instance.collection('userAdditionalData').orderBy('account_display_name');
+  var users = FirebaseFirestore.instance
+      .collection('userAdditionalData')
+      .orderBy('account_display_name');
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +60,10 @@ class _UsersScreenState extends State<UsersScreen> {
                         users = FirebaseFirestore.instance
                             .collection('userAdditionalData')
                             .orderBy('account_display_name')
-                            .where('account_display_name', isGreaterThanOrEqualTo: value)
-                            .where('account_display_name', isLessThan: value + 'z');
+                            .where('account_display_name',
+                                isGreaterThanOrEqualTo: value)
+                            .where('account_display_name',
+                                isLessThan: value + 'z');
                         setState(() {});
                       },
                     ),
@@ -70,21 +74,28 @@ class _UsersScreenState extends State<UsersScreen> {
                     builder: (context, state) {
                       return StreamBuilder(
                         stream: users.snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
                             return Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 child: ListView.builder(
                                   padding: const EdgeInsets.only(bottom: 200),
                                   shrinkWrap: true,
                                   itemCount: streamSnapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
-                                    final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                    if (documentSnapshot.id != state!.accountId && !state.friends!.contains(documentSnapshot.id)) {
+                                    final DocumentSnapshot documentSnapshot =
+                                        streamSnapshot.data!.docs[index];
+                                    if (documentSnapshot.id !=
+                                            state!.accountId &&
+                                        !state.friends!
+                                            .contains(documentSnapshot.id)) {
                                       return Card(
                                         elevation: 5,
-                                        color: AppColors.darkerGrey.withOpacity(0.5),
+                                        color: AppColors.darkerGrey
+                                            .withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(
@@ -100,22 +111,31 @@ class _UsersScreenState extends State<UsersScreen> {
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      documentSnapshot['account_display_name'],
-                                                      style: DefaultTextTheme.titilliumWebBold16(context),
+                                                      documentSnapshot[
+                                                          'account_display_name'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebBold16(
+                                                              context),
                                                     ),
                                                     Text(
-                                                      documentSnapshot['account_email'],
-                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                      documentSnapshot[
+                                                          'account_email'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebRegular13(
+                                                              context),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               IconButton(
                                                 onPressed: () {
-                                                  getIt<UserDataApi>().sendFriendRequest(documentSnapshot.id);
+                                                  getIt<UserDataApi>()
+                                                      .sendFriendRequest(
+                                                          documentSnapshot.id);
                                                 },
                                                 icon: const Icon(
                                                   Icons.add_sharp,

@@ -16,7 +16,8 @@ class DescriptionLeft extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white, overflow: TextOverflow.visible),
+        style: DefaultTextTheme.titilliumWebRegular16(context)!
+            .copyWith(color: AppColors.white, overflow: TextOverflow.visible),
       ),
     );
   }

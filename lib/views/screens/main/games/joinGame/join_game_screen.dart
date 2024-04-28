@@ -64,14 +64,16 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                           ? Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
                                   child: DefaultButton(
                                     text: 'As dungeon master',
                                     height: 50,
                                     function: () {
                                       getIt<CurrentCharacterCubit>().delete();
                                       getIt<CurrentCharacterId>().delete();
-                                      getIt<AppRouter>().navigate(const MainGameRoute());
+                                      getIt<AppRouter>()
+                                          .navigate(const MainGameRoute());
                                     },
                                   ),
                                 ),
@@ -90,30 +92,40 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                             const SizedBox(height: 6),
                             StreamBuilder(
                               stream: _characters.snapshots(),
-                              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                              builder: (context,
+                                  AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                                 if (streamSnapshot.hasData) {
                                   return Expanded(
                                     child: ListView.builder(
-                                      padding: const EdgeInsets.only(bottom: 200),
-                                      itemCount: streamSnapshot.data!.docs.length,
+                                      padding:
+                                          const EdgeInsets.only(bottom: 200),
+                                      itemCount:
+                                          streamSnapshot.data!.docs.length,
                                       itemBuilder: (context, index) {
-                                        final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                        final DocumentSnapshot
+                                            documentSnapshot =
+                                            streamSnapshot.data!.docs[index];
                                         return InkWell(
                                           child: SizedBox(
                                             height: 100,
                                             child: Card(
                                               elevation: 5,
-                                              color: AppColors.darkerGrey.withOpacity(0.5),
+                                              color: AppColors.darkerGrey
+                                                  .withOpacity(0.5),
                                               child: Row(
                                                 children: [
                                                   Expanded(
                                                     flex: 1,
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(6),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              6),
                                                       child: SizedBox(
                                                         height: 100,
                                                         child: CharacterPicture(
-                                                          pathToPicture: documentSnapshot['character_path_to_picture'],
+                                                          pathToPicture:
+                                                              documentSnapshot[
+                                                                  'character_path_to_picture'],
                                                         ),
                                                       ),
                                                     ),
@@ -121,29 +133,46 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                                   Expanded(
                                                     flex: 2,
                                                     child: Text(
-                                                      documentSnapshot['character_name'],
-                                                      textAlign: TextAlign.center,
-                                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                        color: AppColors.semiWhite,
+                                                      documentSnapshot[
+                                                          'character_name'],
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: DefaultTextTheme
+                                                              .titilliumWebBold20(
+                                                                  context)!
+                                                          .copyWith(
+                                                        color:
+                                                            AppColors.semiWhite,
                                                       ),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     flex: 1,
                                                     child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
-                                                          "Level ${documentSnapshot['character_level']}".toString(),
-                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                          "Level ${documentSnapshot['character_level']}"
+                                                              .toString(),
+                                                          style: DefaultTextTheme
+                                                              .titilliumWebRegular13(
+                                                                  context),
                                                         ),
                                                         Text(
-                                                          documentSnapshot['character_class'],
-                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                          documentSnapshot[
+                                                              'character_class'],
+                                                          style: DefaultTextTheme
+                                                              .titilliumWebRegular13(
+                                                                  context),
                                                         ),
                                                         Text(
-                                                          documentSnapshot['character_race'],
-                                                          style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                          documentSnapshot[
+                                                              'character_race'],
+                                                          style: DefaultTextTheme
+                                                              .titilliumWebRegular13(
+                                                                  context),
                                                         ),
                                                       ],
                                                     ),
@@ -153,11 +182,22 @@ class _JoinGameScreenState extends State<JoinGameScreen> {
                                             ),
                                           ),
                                           onTap: () async {
-                                            if (!getIt<CurrentGameCubit>().state!.charactersId!.contains(documentSnapshot.id)) {
-                                              await getIt<GamesApi>().addCharacterToTable(getIt<CurrentGameId>().state!, documentSnapshot.id);
+                                            if (!getIt<CurrentGameCubit>()
+                                                .state!
+                                                .charactersId!
+                                                .contains(
+                                                    documentSnapshot.id)) {
+                                              await getIt<GamesApi>()
+                                                  .addCharacterToTable(
+                                                      getIt<CurrentGameId>()
+                                                          .state!,
+                                                      documentSnapshot.id);
                                             }
-                                            await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshot.id);
-                                            getIt<AppRouter>().push(const MainGameRoute());
+                                            await getIt<CharactersApi>()
+                                                .setCharacterIntoCubits(
+                                                    documentSnapshot.id);
+                                            getIt<AppRouter>()
+                                                .push(const MainGameRoute());
                                           },
                                         );
                                       },

@@ -32,7 +32,10 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
   Random random = Random();
   bool isPrivate = false;
   List<TypewriterAnimatedText> randoms = [];
-  var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
+  var game = FirebaseFirestore.instance
+      .collection('games')
+      .doc(getIt<CurrentGameId>().state)
+      .snapshots();
   ScrollController sc = ScrollController();
 
   @override
@@ -59,13 +62,16 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                       children: [
                         Text(
                           'Roll the dice',
-                          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
+                          style: DefaultTextTheme.titilliumWebBold20(context)!
+                              .copyWith(color: AppColors.greenWhite),
                         ),
                         Row(
                           children: [
                             Text(
                               isPrivate ? 'private' : 'public',
-                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+                              style: DefaultTextTheme.titilliumWebRegular16(
+                                      context)!
+                                  .copyWith(color: AppColors.white),
                             ),
                             const SizedBox(width: 6),
                             Switch(
@@ -142,13 +148,16 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                     children: [
                       Text(
                         'Roll history',
-                        style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
+                        style: DefaultTextTheme.titilliumWebBold20(context)!
+                            .copyWith(color: AppColors.greenWhite),
                       ),
                       SizedBox(
                         height: 24,
                         child: IconButton(
                           onPressed: () {
-                            sc.animateTo(sc.position.maxScrollExtent, duration: const Duration(milliseconds: 200), curve: Curves.ease);
+                            sc.animateTo(sc.position.maxScrollExtent,
+                                duration: const Duration(milliseconds: 200),
+                                curve: Curves.ease);
                           },
                           icon: const Icon(Icons.arrow_drop_up_sharp),
                           padding: EdgeInsets.zero,
@@ -169,7 +178,8 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                           height: MediaQuery.of(context).size.width,
                           child: SvgPicture.asset(
                             'assets/images/save_throw_background.svg',
-                            colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+                            colorFilter: const ColorFilter.mode(
+                                AppColors.white, BlendMode.srcIn),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -177,7 +187,8 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 25),
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: StreamBuilder<Object>(
@@ -188,31 +199,48 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                                       child: CircularProgressIndicator(),
                                     );
                                   } else {
-                                    return snapshot.data['dice_history'].length > 0
+                                    return snapshot
+                                                .data['dice_history'].length >
+                                            0
                                         ? ListView.builder(
                                             shrinkWrap: true,
                                             reverse: true,
                                             padding: EdgeInsets.zero,
-                                            itemCount: snapshot.data['dice_history'].length,
+                                            itemCount: snapshot
+                                                .data['dice_history'].length,
                                             controller: sc,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
                                                   Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Expanded(
                                                         child: Text(
                                                           "${snapshot.data['dice_history']['$index'][0]}:",
-                                                          style: DefaultTextTheme.titilliumWebRegular16(context),
-                                                          overflow: TextOverflow.ellipsis,
+                                                          style: DefaultTextTheme
+                                                              .titilliumWebRegular16(
+                                                                  context),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ),
                                                       Text(
                                                         "${snapshot.data['dice_history']['$index'][1]}",
-                                                        style: snapshot.data['dice_history']['$index'][1] == 20
-                                                            ? DefaultTextTheme.titilliumWebBold16(context)
-                                                            : DefaultTextTheme.titilliumWebRegular16(context),
+                                                        style: snapshot.data[
+                                                                            'dice_history']
+                                                                        [
+                                                                        '$index']
+                                                                    [1] ==
+                                                                20
+                                                            ? DefaultTextTheme
+                                                                .titilliumWebBold16(
+                                                                    context)
+                                                            : DefaultTextTheme
+                                                                .titilliumWebRegular16(
+                                                                    context),
                                                       ),
                                                     ],
                                                   ),
@@ -224,7 +252,9 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                                         : Center(
                                             child: Text(
                                               "No rolls yet",
-                                              style: DefaultTextTheme.titilliumWebRegular16(context),
+                                              style: DefaultTextTheme
+                                                  .titilliumWebRegular16(
+                                                      context),
                                             ),
                                           );
                                   }
@@ -253,7 +283,8 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
       await Future.delayed(const Duration(seconds: 2));
       await getIt<GamesApi>().addRollToHistoryRoll(
         getIt<CurrentGameId>().state!,
-        getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId
+        getIt<CurrentUserAdditionalData>().state?.accountId ==
+                getIt<CurrentGameCubit>().state?.dmId
             ? 'DM'
             : getIt<CurrentCharacterCubit>().state!.characterName!,
         int.parse(randoms.last.text),
@@ -268,7 +299,8 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
       randoms.add(
         TypewriterAnimatedText(
           (random.nextInt(dice) + 1).toString(),
-          textStyle: DefaultTextTheme.titilliumWebBold22(context)!.copyWith(fontSize: 32),
+          textStyle: DefaultTextTheme.titilliumWebBold22(context)!
+              .copyWith(fontSize: 32),
           speed: Duration(milliseconds: i),
           cursor: '',
         ),

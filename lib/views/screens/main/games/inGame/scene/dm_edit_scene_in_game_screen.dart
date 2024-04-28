@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantastic_assistant/models/character_token/character_token.dart';
+import 'package:fantastic_assistant/models/coordinates_on_map/coordinates_on_map.dart';
+import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/title_left.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
@@ -9,6 +12,7 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../models/user/user_additional_data.dart';
@@ -43,9 +47,15 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
       );
   List<dynamic> listOfPlayersId = [];
   bool initBuild = true;
+  bool isMap = false;
+  TextEditingController mapWidthGrid = TextEditingController(text: "2");
+  TextEditingController mapHeightGrid = TextEditingController(text: "2");
+  CharacterToken? currToken;
+  Map<CoordinatesOnMap, CharacterToken?> tokensOnMap = {};
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Center(
@@ -79,7 +89,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
                               child: Column(
                                 children: [
                                   GoBackTitleRow(
@@ -115,16 +125,171 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                   ),
                                   const SizedBox(height: 12),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width - 32,
-                                    height: MediaQuery.of(context).size.width - 32,
-                                    child: AddPhotoIconButton(
-                                      onTapFunction: (var value) {
-                                        pictureValue = value;
-                                      },
-                                      onChange: () {
-                                        hasPictureChanged = true;
-                                      },
-                                      initialImageUrl: snapshot.data?['game_path_to_picture'],
+                                    height: 26,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Board',
+                                          style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              isMap ? 'map' : 'image',
+                                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Switch(
+                                              value: isMap,
+                                              onChanged: (value) {
+                                                isMap = value;
+                                                setState(() {});
+                                              },
+                                              activeColor: AppColors.greenWhite,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  isMap
+                                      ? Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 24),
+                                              child: SizedBox(
+                                                width: 100,
+                                                child: DefaultTextFieldWLabel(
+                                                  labelText: "width",
+                                                  labelColor: AppColors.white,
+                                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
+                                                  keyboardType: TextInputType.number,
+                                                  textController: mapWidthGrid,
+                                                  onChanged: (mapWidth) {
+                                                    try {
+                                                      if (mapWidth.toString() == "" ||
+                                                          int.parse(mapWidth.toString()) > 32 ||
+                                                          int.parse(mapWidth.toString()) < 1) {
+                                                        throw Exception();
+                                                      }
+                                                      mapWidthGrid.text = int.parse(mapWidth).toString();
+                                                      tokensOnMap = {};
+                                                      setState(() {});
+                                                    } catch (e) {
+                                                      showSnackBar("Value invalid");
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 12),
+                                              child: SizedBox(
+                                                width: 100,
+                                                child: DefaultTextFieldWLabel(
+                                                  labelText: "height",
+                                                  labelColor: AppColors.white,
+                                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
+                                                  keyboardType: TextInputType.number,
+                                                  textController: mapHeightGrid,
+                                                  onChanged: (mapHeight) {
+                                                    try {
+                                                      if (mapHeight.toString() == "" ||
+                                                          int.parse(mapHeight.toString()) > 32 ||
+                                                          int.parse(mapHeight.toString()) < 1) {
+                                                        throw Exception();
+                                                      }
+                                                      mapHeightGrid.text = int.parse(mapHeight).toString();
+                                                      tokensOnMap = {};
+                                                      setState(() {});
+                                                    } catch (e) {
+                                                      showSnackBar("Value invalid");
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                  const SizedBox(height: 12),
+                                  SizedBox(
+                                    width: screenWidth - 32,
+                                    height: screenWidth - 32,
+                                    child: Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth - 32,
+                                          height: screenWidth - 32,
+                                          child: AddPhotoIconButton(
+                                            onTapFunction: (var value) {
+                                              pictureValue = value;
+                                            },
+                                            onChange: () {
+                                              hasPictureChanged = true;
+                                            },
+                                            initialImageUrl: snapshot.data?['game_path_to_picture'],
+                                          ),
+                                        ),
+                                        isMap
+                                            ? ListView.builder(
+                                                itemCount: int.parse(mapHeightGrid.text),
+                                                scrollDirection: Axis.vertical,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, widthIndex) {
+                                                  return SizedBox(
+                                                    height: (screenWidth - 32) / int.parse(mapHeightGrid.text),
+                                                    child: ListView.builder(
+                                                      itemCount: int.parse(mapWidthGrid.text),
+                                                      scrollDirection: Axis.horizontal,
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      padding: EdgeInsets.zero,
+                                                      itemBuilder: (context, heightIndex) {
+                                                        return InkWell(
+                                                          onTap: () {
+                                                            CoordinatesOnMap currCoordinates = CoordinatesOnMap(
+                                                              width: widthIndex,
+                                                              height: heightIndex,
+                                                            );
+                                                            if (currToken == null) {
+                                                              tokensOnMap.removeWhere((key, value) => key == currCoordinates);
+                                                            } else {
+                                                              tokensOnMap[currCoordinates] = currToken;
+                                                              currToken = null;
+                                                            }
+                                                            setState(() {});
+                                                          },
+                                                          child: Container(
+                                                            width: (screenWidth - 32) / int.parse(mapWidthGrid.text),
+                                                            height: (screenWidth - 32) / int.parse(mapHeightGrid.text),
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.transparent,
+                                                              border: Border.all(
+                                                                color: AppColors.white.withOpacity(0.5),
+                                                              ),
+                                                            ),
+                                                            child: tokensOnMap.containsKey(CoordinatesOnMap(width: widthIndex, height: heightIndex))
+                                                                ? SizedBox(
+                                                                    width: ((screenWidth - 32) / int.parse(mapWidthGrid.text) / 2),
+                                                                    child: CharacterPicture(
+                                                                      pathToPicture:
+                                                                          tokensOnMap[CoordinatesOnMap(width: widthIndex, height: heightIndex)]!
+                                                                              .pathToPicture,
+                                                                    ),
+                                                                  )
+                                                                : const SizedBox(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : const SizedBox(),
+                                      ],
                                     ),
                                   ),
                                   const SizedBox(height: 20),
@@ -148,7 +313,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                               padding: EdgeInsets.zero,
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final DocumentSnapshot documentSnapshotCharacters = streamSnapshotCharacters.data!.docs[index];
+                                                final DocumentSnapshot documentSnapshotCharacter = streamSnapshotCharacters.data!.docs[index];
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
@@ -158,20 +323,33 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                       children: [
                                                         Expanded(
                                                           flex: 1,
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(6),
-                                                            child: SizedBox(
-                                                              height: 100,
-                                                              child: CharacterPicture(
-                                                                pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
+                                                          child: InkWell(
+                                                            customBorder: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(6),
+                                                            ),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.all(6),
+                                                                child: SizedBox(
+                                                                  height: 100,
+                                                                  child: CharacterPicture(
+                                                                    pathToPicture: documentSnapshotCharacter['character_path_to_picture'],
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
+                                                            onTap: () {
+                                                              currToken = CharacterToken(
+                                                                  id: documentSnapshotCharacter.id,
+                                                                  pathToPicture: documentSnapshotCharacter['character_path_to_picture']);
+                                                            },
                                                           ),
                                                         ),
                                                         Expanded(
                                                           flex: 2,
                                                           child: Text(
-                                                            documentSnapshotCharacters['character_name'],
+                                                            documentSnapshotCharacter['character_name'],
                                                             textAlign: TextAlign.center,
                                                             style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
                                                               color: AppColors.semiWhite,
@@ -180,14 +358,14 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         ),
                                                         Expanded(
                                                           flex: 1,
-                                                          child: charactersToRemove.contains(documentSnapshotCharacters.id)
+                                                          child: charactersToRemove.contains(documentSnapshotCharacter.id)
                                                               ? IconButton(
                                                                   icon: const Icon(
                                                                     Icons.replay_sharp,
                                                                     color: AppColors.white,
                                                                   ),
                                                                   onPressed: () {
-                                                                    charactersToRemove.remove(documentSnapshotCharacters.id);
+                                                                    charactersToRemove.remove(documentSnapshotCharacter.id);
                                                                     setState(() {});
                                                                   },
                                                                 )
@@ -197,7 +375,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                                     color: AppColors.white,
                                                                   ),
                                                                   onPressed: () {
-                                                                    charactersToRemove.add(documentSnapshotCharacters.id);
+                                                                    charactersToRemove.add(documentSnapshotCharacter.id);
                                                                     setState(() {});
                                                                   },
                                                                 ),

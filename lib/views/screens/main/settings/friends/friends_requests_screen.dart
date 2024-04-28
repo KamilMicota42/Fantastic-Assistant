@@ -23,7 +23,9 @@ class FriendsRequestsScreen extends StatefulWidget {
 }
 
 class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
-  var users = FirebaseFirestore.instance.collection('userAdditionalData').orderBy('account_display_name');
+  var users = FirebaseFirestore.instance
+      .collection('userAdditionalData')
+      .orderBy('account_display_name');
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,10 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                     child: GoBackTitleRow(
                       screenTitle: "Friends Requests",
                       popFunction: () async {
-                        await getIt<UserDataApi>().getUserAdditionalDataToGetIt(getIt<CurrentUserAdditionalData>().state!.accountId);
+                        await getIt<UserDataApi>().getUserAdditionalDataToGetIt(
+                            getIt<CurrentUserAdditionalData>()
+                                .state!
+                                .accountId);
                         getIt<AppRouter>().maybePop();
                       },
                     ),
@@ -51,11 +56,15 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                     builder: (context, state) {
                       return StreamBuilder(
                         stream: users.snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
                             bool anyFriend = false;
-                            for (var i = 0; i < streamSnapshot.data!.docs.length; i++) {
-                              if (state!.friendsRequests!.contains(streamSnapshot.data!.docs[i].id)) {
+                            for (var i = 0;
+                                i < streamSnapshot.data!.docs.length;
+                                i++) {
+                              if (state!.friendsRequests!
+                                  .contains(streamSnapshot.data!.docs[i].id)) {
                                 anyFriend = true;
                               }
                             }
@@ -65,30 +74,37 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                   alignment: Alignment.topCenter,
                                   child: Text(
                                     "No friends requests yet",
-                                    style: DefaultTextTheme.titilliumWebRegular16(context),
+                                    style:
+                                        DefaultTextTheme.titilliumWebRegular16(
+                                            context),
                                   ),
                                 ),
                               );
                             }
                             return Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 child: ListView.builder(
                                   padding: const EdgeInsets.only(bottom: 200),
                                   shrinkWrap: true,
                                   itemCount: streamSnapshot.data!.docs.length,
                                   itemBuilder: (context, index) {
-                                    final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                    if (state!.friendsRequests!.contains(documentSnapshot.id)) {
+                                    final DocumentSnapshot documentSnapshot =
+                                        streamSnapshot.data!.docs[index];
+                                    if (state!.friendsRequests!
+                                        .contains(documentSnapshot.id)) {
                                       return Card(
                                         elevation: 5,
-                                        color: AppColors.darkerGrey.withOpacity(0.5),
+                                        color: AppColors.darkerGrey
+                                            .withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                                padding: EdgeInsets.only(
+                                                    left: 6, top: 6, bottom: 6),
                                                 child: SizedBox(
                                                   height: 100,
                                                   child: CharacterPicture(
@@ -98,38 +114,55 @@ class _FriendsRequestsScreenState extends State<FriendsRequestsScreen> {
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      documentSnapshot['account_display_name'],
-                                                      style: DefaultTextTheme.titilliumWebBold16(context),
+                                                      documentSnapshot[
+                                                          'account_display_name'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebBold16(
+                                                              context),
                                                     ),
                                                     Text(
-                                                      documentSnapshot['account_email'],
-                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                      documentSnapshot[
+                                                          'account_email'],
+                                                      style: DefaultTextTheme
+                                                          .titilliumWebRegular13(
+                                                              context),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   IconButton(
                                                     onPressed: () {
-                                                      getIt<UserDataApi>().declineFriendRequest(documentSnapshot.id);
+                                                      getIt<UserDataApi>()
+                                                          .declineFriendRequest(
+                                                              documentSnapshot
+                                                                  .id);
                                                     },
                                                     icon: const Icon(
                                                       Icons.cancel_outlined,
-                                                      color: AppColors.semiWhite,
+                                                      color:
+                                                          AppColors.semiWhite,
                                                     ),
                                                   ),
                                                   IconButton(
                                                     onPressed: () {
-                                                      getIt<UserDataApi>().acceptFriendRequest(documentSnapshot.id);
+                                                      getIt<UserDataApi>()
+                                                          .acceptFriendRequest(
+                                                              documentSnapshot
+                                                                  .id);
                                                     },
                                                     icon: const Icon(
-                                                      Icons.check_circle_outline,
-                                                      color: AppColors.semiWhite,
+                                                      Icons
+                                                          .check_circle_outline,
+                                                      color:
+                                                          AppColors.semiWhite,
                                                     ),
                                                   ),
                                                 ],

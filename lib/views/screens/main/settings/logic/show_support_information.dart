@@ -19,7 +19,8 @@ void showSupportInformation(BuildContext context) async {
   if (Platform.isAndroid) {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
     systemName = 'Android';
-    systemVersion = '${androidInfo.version.release} (SDK ${androidInfo.version.sdkInt})';
+    systemVersion =
+        '${androidInfo.version.release} (SDK ${androidInfo.version.sdkInt})';
     deviceName = androidInfo.manufacturer;
     deviceModel = androidInfo.model;
   }
@@ -103,7 +104,8 @@ Widget _supportInformationPopUp(
         function: () {
           Navigator.of(context).pop();
         },
-        textStyle: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
+        textStyle: DefaultTextTheme.titilliumWebBold16(context)!
+            .copyWith(color: AppColors.lighterGrey),
       ),
     ],
   );

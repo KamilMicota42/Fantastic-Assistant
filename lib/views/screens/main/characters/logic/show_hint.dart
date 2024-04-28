@@ -30,7 +30,8 @@ Widget _hintPopUp(
     content: SingleChildScrollView(
       child: Text(
         hintText,
-        style: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
+        style: DefaultTextTheme.titilliumWebBold16(context)!
+            .copyWith(color: AppColors.lighterGrey),
       ),
     ),
     actions: <Widget>[

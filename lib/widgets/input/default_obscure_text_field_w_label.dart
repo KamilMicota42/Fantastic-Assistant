@@ -18,18 +18,22 @@ class DefaultObscureTextFieldWLabel extends StatefulWidget {
   final Function onPressedFunction;
 
   @override
-  State<DefaultObscureTextFieldWLabel> createState() => _DefaultObscureTextFieldWLabelState();
+  State<DefaultObscureTextFieldWLabel> createState() =>
+      _DefaultObscureTextFieldWLabelState();
 }
 
-class _DefaultObscureTextFieldWLabelState extends State<DefaultObscureTextFieldWLabel> {
+class _DefaultObscureTextFieldWLabelState
+    extends State<DefaultObscureTextFieldWLabel> {
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.textController,
-      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.semiWhite, fontWeight: FontWeight.bold),
+      style: DefaultTextTheme.titilliumWebBold20(context)!
+          .copyWith(color: AppColors.semiWhite, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         labelText: widget.labelText,
-        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
+        labelStyle: DefaultTextTheme.titilliumWebBold20(context)!
+            .copyWith(color: AppColors.greenWhite),
         suffixIcon: IconButton(
           alignment: Alignment.bottomCenter,
           onPressed: () {

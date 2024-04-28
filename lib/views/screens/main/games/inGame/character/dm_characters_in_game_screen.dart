@@ -25,7 +25,10 @@ class DmCharactersScreen extends StatefulWidget {
 }
 
 class _DmCharactersScreenState extends State<DmCharactersScreen> {
-  var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
+  var game = FirebaseFirestore.instance
+      .collection('games')
+      .doc(getIt<CurrentGameId>().state)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,8 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
                               child: GoBackTitleRow(
                                 screenTitle: "CHARACTERS",
                                 isX: true,
@@ -69,36 +73,54 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                             (snapshot.data?['characters_id'].isNotEmpty)
                                 ? StreamBuilder(
                                     stream: characters,
-                                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshotCharacters) {
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot>
+                                            streamSnapshotCharacters) {
                                       if (streamSnapshotCharacters.hasData) {
-                                        if (streamSnapshotCharacters.data!.docs.isNotEmpty) {
+                                        if (streamSnapshotCharacters
+                                            .data!.docs.isNotEmpty) {
                                           return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
                                             child: ListView.builder(
-                                              itemCount: streamSnapshotCharacters.data!.docs.length,
+                                              itemCount:
+                                                  streamSnapshotCharacters
+                                                      .data!.docs.length,
                                               shrinkWrap: true,
                                               padding: EdgeInsets.zero,
-                                              physics: const NeverScrollableScrollPhysics(),
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final DocumentSnapshot documentSnapshotCharacters = streamSnapshotCharacters.data!.docs[index];
+                                                final DocumentSnapshot
+                                                    documentSnapshotCharacters =
+                                                    streamSnapshotCharacters
+                                                        .data!.docs[index];
                                                 return InkWell(
                                                   child: SizedBox(
                                                     height: 100,
                                                     child: Card(
                                                       elevation: 5,
-                                                      color: AppColors.darkerGrey.withOpacity(0.5),
+                                                      color: AppColors
+                                                          .darkerGrey
+                                                          .withOpacity(0.5),
                                                       child: Row(
                                                         children: [
                                                           Expanded(
                                                             flex: 1,
                                                             child: Padding(
-                                                              padding: const EdgeInsets.all(6),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(6),
                                                               child: SizedBox(
                                                                 height: 100,
                                                                 child: Hero(
-                                                                  tag: 'character_picture_${documentSnapshotCharacters.id}',
-                                                                  child: CharacterPicture(
-                                                                    pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
+                                                                  tag:
+                                                                      'character_picture_${documentSnapshotCharacters.id}',
+                                                                  child:
+                                                                      CharacterPicture(
+                                                                    pathToPicture:
+                                                                        documentSnapshotCharacters[
+                                                                            'character_path_to_picture'],
                                                                   ),
                                                                 ),
                                                               ),
@@ -107,29 +129,47 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                           Expanded(
                                                             flex: 2,
                                                             child: Text(
-                                                              documentSnapshotCharacters['character_name'],
-                                                              textAlign: TextAlign.center,
-                                                              style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
-                                                                color: AppColors.semiWhite,
+                                                              documentSnapshotCharacters[
+                                                                  'character_name'],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: DefaultTextTheme
+                                                                      .titilliumWebBold20(
+                                                                          context)!
+                                                                  .copyWith(
+                                                                color: AppColors
+                                                                    .semiWhite,
                                                               ),
                                                             ),
                                                           ),
                                                           Expanded(
                                                             flex: 1,
                                                             child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
                                                               children: [
                                                                 Text(
-                                                                  "Level ${documentSnapshotCharacters['character_level']}".toString(),
-                                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                                  "Level ${documentSnapshotCharacters['character_level']}"
+                                                                      .toString(),
+                                                                  style: DefaultTextTheme
+                                                                      .titilliumWebRegular13(
+                                                                          context),
                                                                 ),
                                                                 Text(
-                                                                  documentSnapshotCharacters['character_class'],
-                                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                                  documentSnapshotCharacters[
+                                                                      'character_class'],
+                                                                  style: DefaultTextTheme
+                                                                      .titilliumWebRegular13(
+                                                                          context),
                                                                 ),
                                                                 Text(
-                                                                  documentSnapshotCharacters['character_race'],
-                                                                  style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                                  documentSnapshotCharacters[
+                                                                      'character_race'],
+                                                                  style: DefaultTextTheme
+                                                                      .titilliumWebRegular13(
+                                                                          context),
                                                                 ),
                                                               ],
                                                             ),
@@ -140,16 +180,28 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                                   ),
                                                   onTap: () async {
                                                     try {
-                                                      getIt<CurrentCharacterCubit>().delete();
-                                                      await getIt<CharactersApi>().setCharacterIntoCubits(documentSnapshotCharacters.id);
-                                                      getIt<AppRouter>().navigate(
+                                                      getIt<CurrentCharacterCubit>()
+                                                          .delete();
+                                                      await getIt<
+                                                              CharactersApi>()
+                                                          .setCharacterIntoCubits(
+                                                              documentSnapshotCharacters
+                                                                  .id);
+                                                      getIt<AppRouter>()
+                                                          .navigate(
                                                         ViewCharacterRoute(
-                                                            characterId: documentSnapshotCharacters.id,
-                                                            canEdit: documentSnapshotCharacters['account_id'] ==
-                                                                getIt<CurrentUserAdditionalData>().state?.accountId),
+                                                            characterId:
+                                                                documentSnapshotCharacters
+                                                                    .id,
+                                                            canEdit: documentSnapshotCharacters[
+                                                                    'account_id'] ==
+                                                                getIt<CurrentUserAdditionalData>()
+                                                                    .state
+                                                                    ?.accountId),
                                                       );
                                                     } catch (e) {
-                                                      showSnackBar("Error occured");
+                                                      showSnackBar(
+                                                          "Error occured");
                                                     }
                                                   },
                                                 );
@@ -164,7 +216,8 @@ class _DmCharactersScreenState extends State<DmCharactersScreen> {
                                 : Center(
                                     child: Text(
                                       "No characters yet",
-                                      style: DefaultTextTheme.titilliumWebRegular16(context),
+                                      style: DefaultTextTheme
+                                          .titilliumWebRegular16(context),
                                     ),
                                   ),
                             const SizedBox(height: 120),

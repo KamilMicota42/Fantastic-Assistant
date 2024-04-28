@@ -76,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           contentText: '',
                           clickableContentText: 'Forgot password',
                           function: () {
-                            getIt<AppRouter>().navigate(const ForgotPasswordRoute());
+                            getIt<AppRouter>()
+                                .navigate(const ForgotPasswordRoute());
                           },
                         ),
                       ],

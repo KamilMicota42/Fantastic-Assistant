@@ -44,12 +44,25 @@ class NotesEditableTab extends StatelessWidget {
                                     onPressed: () {
                                       changeNotesIndex(index);
                                     },
-                                    style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                                    style: const ButtonStyle(
+                                        padding: MaterialStatePropertyAll(
+                                            EdgeInsets.zero)),
                                     child: Text(
-                                      notesControllers[index].text != '' ? notesControllers[index].text : "Note $index",
+                                      notesControllers[index].text != ''
+                                          ? notesControllers[index].text
+                                          : "Note $index",
                                       style: notesIndex == index
-                                          ? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(overflow: TextOverflow.ellipsis)
-                                          : DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(overflow: TextOverflow.ellipsis),
+                                          ? DefaultTextTheme.titilliumWebBold16(
+                                                  context)!
+                                              .copyWith(
+                                                  overflow:
+                                                      TextOverflow.ellipsis)
+                                          : DefaultTextTheme
+                                                  .titilliumWebRegular16(
+                                                      context)!
+                                              .copyWith(
+                                                  overflow:
+                                                      TextOverflow.ellipsis),
                                     ),
                                   ),
                                 ),
@@ -62,7 +75,8 @@ class NotesEditableTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    decoration: const InputDecoration(border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     style: DefaultTextTheme.titilliumWebRegular16(
                       context,
                     ),

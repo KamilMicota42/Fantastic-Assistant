@@ -26,11 +26,13 @@ class ScenePictureInGame extends StatelessWidget {
         child: pathToPicture != null
             ? CachedNetworkImage(
                 imageUrl: pathToPicture!,
-                progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(
                   strokeWidth: 2,
                   value: downloadProgress.progress,
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.games_rounded),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.games_rounded),
                 fit: BoxFit.fill,
               )
             : Container(

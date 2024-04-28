@@ -67,7 +67,8 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
                             alignment: Alignment.center,
                             child: Text(
                               titlesList[i],
-                              style: DefaultTextTheme.titilliumWebBold20(context),
+                              style:
+                                  DefaultTextTheme.titilliumWebBold20(context),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -76,7 +77,9 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
                             child: Text(
                               descriptionList[i],
                               textAlign: TextAlign.center,
-                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.semiWhite),
+                              style: DefaultTextTheme.titilliumWebRegular16(
+                                      context)!
+                                  .copyWith(color: AppColors.semiWhite),
                             ),
                           ),
                         ],

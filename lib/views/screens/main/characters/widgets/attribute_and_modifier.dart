@@ -49,7 +49,8 @@ class _AttributeAndModifierState extends State<AttributeAndModifier> {
             onChanged: (value) {
               setState(() {
                 if (DataValidatin.isAttributeValid(value)) {
-                  valueModifier = DndRules.attributeToModifier(int.parse(value)).toString();
+                  valueModifier =
+                      DndRules.attributeToModifier(int.parse(value)).toString();
                 } else {
                   valueModifier = "0";
                 }

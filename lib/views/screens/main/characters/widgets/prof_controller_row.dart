@@ -45,7 +45,9 @@ class _ProfControllerRowState extends State<ProfControllerRow> {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  widget.profController == false ? '${widget.skillMod}' : '${(widget.skillMod + widget.profMod)}',
+                  widget.profController == false
+                      ? '${widget.skillMod}'
+                      : '${(widget.skillMod + widget.profMod)}',
                   style: DefaultTextTheme.titilliumWebRegular16(context),
                 ),
               ),

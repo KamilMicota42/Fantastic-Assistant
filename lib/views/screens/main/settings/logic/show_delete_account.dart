@@ -40,7 +40,8 @@ void showDeleteAccount(BuildContext context) {
             function: () {
               Navigator.of(context).pop();
             },
-            textStyle: DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.lighterGrey),
+            textStyle: DefaultTextTheme.titilliumWebBold16(context)!
+                .copyWith(color: AppColors.lighterGrey),
           ),
         ],
       );

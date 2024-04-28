@@ -23,10 +23,11 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
-        'friends',
-        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
-      );
+  final friends =
+      FirebaseFirestore.instance.collection('userAdditionalData').where(
+            'friends',
+            arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+          );
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 builder: (context, state) {
                   return StreamBuilder(
                     stream: friends.snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    builder:
+                        (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                       if (streamSnapshot.hasData) {
                         if (streamSnapshot.data!.docs.isEmpty) {
                           return Expanded(
@@ -68,7 +70,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
                               alignment: Alignment.topCenter,
                               child: Text(
                                 "No friends yet",
-                                style: DefaultTextTheme.titilliumWebRegular16(context),
+                                style: DefaultTextTheme.titilliumWebRegular16(
+                                    context),
                               ),
                             ),
                           );
@@ -81,7 +84,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
                               shrinkWrap: true,
                               itemCount: streamSnapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                final DocumentSnapshot documentSnapshot =
+                                    streamSnapshot.data!.docs[index];
                                 return Card(
                                   elevation: 5,
                                   color: AppColors.darkerGrey.withOpacity(0.5),
@@ -90,7 +94,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                     child: Row(
                                       children: [
                                         const Padding(
-                                          padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                          padding: EdgeInsets.only(
+                                              left: 6, top: 6, bottom: 6),
                                           child: SizedBox(
                                             height: 100,
                                             child: CharacterPicture(
@@ -100,15 +105,22 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                         ),
                                         Expanded(
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                documentSnapshot['account_display_name'],
-                                                style: DefaultTextTheme.titilliumWebBold16(context),
+                                                documentSnapshot[
+                                                    'account_display_name'],
+                                                style: DefaultTextTheme
+                                                    .titilliumWebBold16(
+                                                        context),
                                               ),
                                               Text(
-                                                documentSnapshot['account_email'],
-                                                style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                documentSnapshot[
+                                                    'account_email'],
+                                                style: DefaultTextTheme
+                                                    .titilliumWebRegular13(
+                                                        context),
                                               ),
                                             ],
                                           ),

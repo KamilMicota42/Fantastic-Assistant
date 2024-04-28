@@ -18,10 +18,12 @@ class ResendTheVerificationScreen extends StatefulWidget {
   const ResendTheVerificationScreen({super.key});
 
   @override
-  State<ResendTheVerificationScreen> createState() => _ResendTheVerificationScreenState();
+  State<ResendTheVerificationScreen> createState() =>
+      _ResendTheVerificationScreenState();
 }
 
-class _ResendTheVerificationScreenState extends State<ResendTheVerificationScreen> {
+class _ResendTheVerificationScreenState
+    extends State<ResendTheVerificationScreen> {
   TextEditingController emailController = TextEditingController();
 
   @override

@@ -20,11 +20,13 @@ class ValueAndDescription extends StatelessWidget {
       children: [
         Text(
           value ?? ifNoValue!,
-          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!
+              .copyWith(color: AppColors.white),
         ),
         Text(
           description,
-          style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
+          style: DefaultTextTheme.titilliumWebRegular16(context)!
+              .copyWith(color: AppColors.white),
         ),
       ],
     );
