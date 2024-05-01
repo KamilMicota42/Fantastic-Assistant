@@ -140,17 +140,24 @@ class GamesApi {
     List<dynamic> charactersToRemove,
     List<dynamic> currentCharacters,
     List<dynamic> currentPlayes,
+    bool isMap,
+    int mapWidthGrid,
+    int mapHeightGrid,
   ) async {
     if (hasPictureChanged && gamePicture != null) {}
     if (gameName != '') {
       try {
         currentCharacters
             .removeWhere((item) => charactersToRemove.contains(item));
+
         await _games.doc(gameId).update(
           {
             'game_name': gameName,
             'characters_id': currentCharacters,
-            'players_id': currentPlayes
+            'players_id': currentPlayes,
+            'is_map': isMap,
+            'map_width_grid': mapWidthGrid,
+            'map_height_grid': mapHeightGrid,
           },
         );
 

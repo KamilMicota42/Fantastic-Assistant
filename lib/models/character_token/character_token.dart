@@ -3,21 +3,32 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class CharacterToken extends Equatable {
-  final String? id;
-  final String? pathToPicture;
+  final int? width;
+  final int? height;
+  final String? characterId;
+  final String? characterPicture;
 
-  const CharacterToken({this.id, this.pathToPicture});
+  const CharacterToken({
+    this.width,
+    this.height,
+    this.characterId,
+    this.characterPicture,
+  });
 
   factory CharacterToken.fromMap(Map<String, dynamic> data) {
     return CharacterToken(
-      id: data['id'] as String?,
-      pathToPicture: data['pathToPicture'] as String?,
+      width: data['width'] as int?,
+      height: data['height'] as int?,
+      characterId: data['characterId'] as String?,
+      characterPicture: data['characterPicture'] as String?,
     );
   }
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'pathToPicture': pathToPicture,
+        'width': width,
+        'height': height,
+        'characterId': characterId,
+        'characterPicture': characterPicture,
       };
 
   /// `dart:convert`
@@ -33,12 +44,16 @@ class CharacterToken extends Equatable {
   String toJson() => json.encode(toMap());
 
   CharacterToken copyWith({
-    String? id,
-    String? pathToPicture,
+    int? width,
+    int? height,
+    String? characterId,
+    String? characterPicture,
   }) {
     return CharacterToken(
-      id: id ?? this.id,
-      pathToPicture: pathToPicture ?? this.pathToPicture,
+      width: width ?? this.width,
+      height: height ?? this.height,
+      characterId: characterId ?? this.characterId,
+      characterPicture: characterPicture ?? this.characterPicture,
     );
   }
 
@@ -46,5 +61,12 @@ class CharacterToken extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [id, pathToPicture];
+  List<Object?> get props {
+    return [
+      width,
+      height,
+      characterId,
+      characterPicture,
+    ];
+  }
 }
