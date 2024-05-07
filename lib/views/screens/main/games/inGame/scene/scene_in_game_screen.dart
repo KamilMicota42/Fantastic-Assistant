@@ -25,10 +25,7 @@ class SceneInGameScreen extends StatefulWidget {
 }
 
 class _SceneInGameScreenState extends State<SceneInGameScreen> {
-  var game = FirebaseFirestore.instance
-      .collection('games')
-      .doc(getIt<CurrentGameId>().state)
-      .snapshots();
+  var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +57,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: Column(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
+                              padding: const EdgeInsets.symmetric(horizontal: 25),
                               child: Column(
                                 children: [
                                   GoBackTitleRow(
@@ -70,56 +66,38 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     popFunction: () {
                                       getIt<AppRouter>().maybePop();
                                     },
-                                    rightSideWidget:
-                                        getIt<CurrentUserAdditionalData>()
-                                                    .state!
-                                                    .accountId ==
-                                                getIt<CurrentGameCubit>()
-                                                    .state
-                                                    ?.dmId
-                                            ? IconButton(
-                                                onPressed: () {
-                                                  getIt<AppRouter>().navigate(
-                                                      const DmEditSceneInGameRoute());
-                                                },
-                                                icon: const Icon(
-                                                  Icons.settings_sharp,
-                                                  color: AppColors.white,
-                                                ),
-                                              )
-                                            : null,
+                                    rightSideWidget: getIt<CurrentUserAdditionalData>().state!.accountId == getIt<CurrentGameCubit>().state?.dmId
+                                        ? IconButton(
+                                            onPressed: () {
+                                              getIt<AppRouter>().navigate(const DmEditSceneInGameRoute());
+                                            },
+                                            icon: const Icon(
+                                              Icons.settings_sharp,
+                                              color: AppColors.white,
+                                            ),
+                                          )
+                                        : null,
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       '${snapshot.data?['game_name'] ?? 'Game title'}',
-                                      style:
-                                          DefaultTextTheme.titilliumWebBold20(
-                                                  context)!
-                                              .copyWith(
-                                                  color: AppColors.greenWhite),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                                     ),
                                   ),
                                   const DefaultDivider(),
                                   const SizedBox(height: 12),
                                   ScenePictureInGame(
-                                    pathToPicture:
-                                        snapshot.data?['game_path_to_picture'],
-                                    width:
-                                        MediaQuery.of(context).size.width - 32,
-                                    height:
-                                        MediaQuery.of(context).size.width - 32,
+                                    pathToPicture: snapshot.data?['game_path_to_picture'],
+                                    width: MediaQuery.of(context).size.width - 32,
+                                    height: MediaQuery.of(context).size.width - 32,
                                   ),
                                   const SizedBox(height: 20),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Characters',
-                                      style:
-                                          DefaultTextTheme.titilliumWebBold20(
-                                                  context)!
-                                              .copyWith(
-                                                  color: AppColors.greenWhite),
+                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                                     ),
                                   ),
                                   const DefaultDivider(),
@@ -130,49 +108,33 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                             (snapshot.data?['characters_id'].isNotEmpty)
                                 ? StreamBuilder(
                                     stream: characters,
-                                    builder: (context,
-                                        AsyncSnapshot<QuerySnapshot>
-                                            streamSnapshotCharacters) {
+                                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshotCharacters) {
                                       if (streamSnapshotCharacters.hasData) {
-                                        if (streamSnapshotCharacters
-                                            .data!.docs.isNotEmpty) {
+                                        if (streamSnapshotCharacters.data!.docs.isNotEmpty) {
                                           return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8),
                                             child: ListView.builder(
-                                              itemCount:
-                                                  streamSnapshotCharacters
-                                                      .data!.docs.length,
+                                              itemCount: streamSnapshotCharacters.data!.docs.length,
                                               shrinkWrap: true,
                                               padding: EdgeInsets.zero,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
+                                              physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                final DocumentSnapshot
-                                                    documentSnapshotCharacters =
-                                                    streamSnapshotCharacters
-                                                        .data!.docs[index];
+                                                final DocumentSnapshot documentSnapshotCharacters = streamSnapshotCharacters.data!.docs[index];
                                                 return SizedBox(
                                                   height: 100,
                                                   child: Card(
                                                     elevation: 5,
-                                                    color: AppColors.darkerGrey
-                                                        .withOpacity(0.5),
+                                                    color: AppColors.darkerGrey.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
                                                           flex: 1,
                                                           child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(6),
+                                                            padding: const EdgeInsets.all(6),
                                                             child: SizedBox(
                                                               height: 100,
-                                                              child:
-                                                                  CharacterPicture(
-                                                                pathToPicture:
-                                                                    documentSnapshotCharacters[
-                                                                        'character_path_to_picture'],
+                                                              child: CharacterPicture(
+                                                                pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
                                                               ),
                                                             ),
                                                           ),
@@ -180,46 +142,29 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                         Expanded(
                                                           flex: 2,
                                                           child: Text(
-                                                            documentSnapshotCharacters[
-                                                                'character_name'],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: DefaultTextTheme
-                                                                    .titilliumWebBold20(
-                                                                        context)!
-                                                                .copyWith(
-                                                              color: AppColors
-                                                                  .semiWhite,
+                                                            documentSnapshotCharacters['character_name'],
+                                                            textAlign: TextAlign.center,
+                                                            style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
+                                                              color: AppColors.semiWhite,
                                                             ),
                                                           ),
                                                         ),
                                                         Expanded(
                                                           flex: 1,
                                                           child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
+                                                            mainAxisAlignment: MainAxisAlignment.center,
                                                             children: [
                                                               Text(
-                                                                "Level ${documentSnapshotCharacters['character_level']}"
-                                                                    .toString(),
-                                                                style: DefaultTextTheme
-                                                                    .titilliumWebRegular13(
-                                                                        context),
+                                                                "Level ${documentSnapshotCharacters['character_level']}".toString(),
+                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
                                                               ),
                                                               Text(
-                                                                documentSnapshotCharacters[
-                                                                    'character_class'],
-                                                                style: DefaultTextTheme
-                                                                    .titilliumWebRegular13(
-                                                                        context),
+                                                                documentSnapshotCharacters['character_class'],
+                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
                                                               ),
                                                               Text(
-                                                                documentSnapshotCharacters[
-                                                                    'character_race'],
-                                                                style: DefaultTextTheme
-                                                                    .titilliumWebRegular13(
-                                                                        context),
+                                                                documentSnapshotCharacters['character_race'],
+                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
                                                               ),
                                                             ],
                                                           ),
@@ -239,8 +184,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                 : Center(
                                     child: Text(
                                       "No characters yet",
-                                      style: DefaultTextTheme
-                                          .titilliumWebRegular16(context),
+                                      style: DefaultTextTheme.titilliumWebRegular16(context),
                                     ),
                                   ),
                             const SizedBox(height: 120),

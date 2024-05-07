@@ -14,8 +14,7 @@ import '../../../views/screens/main/games/cubits/current_game.dart';
 import '../firebase_storage_api.dart';
 
 class GamesApi {
-  final CollectionReference _games =
-      FirebaseFirestore.instance.collection('games');
+  final CollectionReference _games = FirebaseFirestore.instance.collection('games');
 
   Future<void> createGame(
     //picture
@@ -75,8 +74,7 @@ class GamesApi {
   ) async {
     try {
       var gameData = await _games.doc(gameId).get();
-      getIt<CurrentGameCubit>()
-          .set(GameModel.fromJson(jsonEncode(gameData.data()).toString()));
+      getIt<CurrentGameCubit>().set(GameModel.fromJson(jsonEncode(gameData.data()).toString()));
       getIt<CurrentGameId>().set(gameId);
     } catch (e) {
       debugPrint(e.toString());
@@ -90,9 +88,7 @@ class GamesApi {
   ) async {
     try {
       var gameDataInJson = await _games.doc(gameId).get();
-      var charactersInGame =
-          GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString())
-              .charactersId;
+      var charactersInGame = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).charactersId;
       if (!charactersInGame!.contains(newCharacterId)) {
         charactersInGame.add(newCharacterId);
         await _games.doc(gameId).update(
@@ -115,9 +111,7 @@ class GamesApi {
   ) async {
     try {
       var gameDataInJson = await _games.doc(gameId).get();
-      var diceHistory =
-          GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString())
-              .diceHistory;
+      var diceHistory = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).diceHistory;
       diceHistory![diceHistory.length.toString()] = [characterName, roll];
       await _games.doc(gameId).update(
         {
@@ -143,12 +137,12 @@ class GamesApi {
     bool isMap,
     int mapWidthGrid,
     int mapHeightGrid,
+    List<String> listOfTokensInJson,
   ) async {
     if (hasPictureChanged && gamePicture != null) {}
     if (gameName != '') {
       try {
-        currentCharacters
-            .removeWhere((item) => charactersToRemove.contains(item));
+        currentCharacters.removeWhere((item) => charactersToRemove.contains(item));
 
         await _games.doc(gameId).update(
           {
@@ -158,6 +152,7 @@ class GamesApi {
             'is_map': isMap,
             'map_width_grid': mapWidthGrid,
             'map_height_grid': mapHeightGrid,
+            'tokens_on_map': listOfTokensInJson,
           },
         );
 

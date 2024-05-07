@@ -55,7 +55,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    print(tokensList);
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Center(
@@ -75,6 +74,9 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         isMap = snapshot.data?['is_map'] ?? false;
                         mapWidthGrid.text = snapshot.data?['map_width_grid'].toString() ?? "2";
                         mapHeightGrid.text = snapshot.data?['map_height_grid'].toString() ?? "2";
+                        for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
+                          tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
+                        }
                       }
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
@@ -108,6 +110,10 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                         color: AppColors.white,
                                       ),
                                       onPressed: () {
+                                        List<String> listOfTokensInJson = [];
+                                        for (var token in tokensList) {
+                                          listOfTokensInJson.add(token.toJson());
+                                        }
                                         getIt<GamesApi>().editGame(
                                           getIt<CurrentGameId>().state!,
                                           pictureValue,
@@ -119,6 +125,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           isMap,
                                           int.parse(mapWidthGrid.text),
                                           int.parse(mapHeightGrid.text),
+                                          listOfTokensInJson,
                                         );
                                         getIt<AppRouter>().maybePop();
                                       },
@@ -261,8 +268,15 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         physics: const NeverScrollableScrollPhysics(),
                                                         padding: EdgeInsets.zero,
                                                         itemBuilder: (context, heightIndex) {
+                                                          int? indexOnLocalTokensList;
+                                                          for (var i = 0; i < tokensList.length; i++) {
+                                                            if (tokensList[i].width == widthIndex && tokensList[i].height == heightIndex) {
+                                                              indexOnLocalTokensList = i;
+                                                            }
+                                                          }
                                                           return InkWell(
                                                             onTap: () {
+                                                              indexOnLocalTokensList != null ? tokensList.removeAt(indexOnLocalTokensList!) : null;
                                                               if (currCharacterToken?.characterId != null) {
                                                                 currCharacterToken = CharacterToken(
                                                                   width: widthIndex,
@@ -272,6 +286,8 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                                 );
                                                                 tokensList.add(currCharacterToken!);
                                                               }
+                                                              currCharacterToken = null;
+                                                              indexOnLocalTokensList = null;
                                                               setState(() {});
                                                             },
                                                             child: Container(
@@ -283,16 +299,13 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                                   color: AppColors.white.withOpacity(0.5),
                                                                 ),
                                                               ),
-                                                              // child: tokensOnMap.containsKey(CoordinatesOnMap(width: widthIndex, height: heightIndex))
-                                                              //     ? SizedBox(
-                                                              //         width: ((screenWidth - 32) / int.parse(mapWidthGrid.text) / 2),
-                                                              //         child: CharacterPicture(
-                                                              //           pathToPicture:
-                                                              //               tokensOnMap[CoordinatesOnMap(width: widthIndex, height: heightIndex)]!
-                                                              //                   .pathToPicture,
-                                                              //         ),
-                                                              //       )
-                                                              //     : const SizedBox(),
+                                                              child: indexOnLocalTokensList != null
+                                                                  ? SizedBox(
+                                                                      width: ((screenWidth - 32) / int.parse(mapWidthGrid.text) / 2),
+                                                                      child: CharacterPicture(
+                                                                          pathToPicture: tokensList[indexOnLocalTokensList].characterPicture),
+                                                                    )
+                                                                  : const SizedBox(),
                                                             ),
                                                           );
                                                         },
