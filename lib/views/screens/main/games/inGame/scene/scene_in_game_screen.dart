@@ -9,6 +9,7 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../models/character_token/character_token.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
@@ -27,8 +28,15 @@ class SceneInGameScreen extends StatefulWidget {
 class _SceneInGameScreenState extends State<SceneInGameScreen> {
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
+  bool initBuild = true;
+  bool isMap = false;
+  int mapWidthGrid = 2;
+  int mapHeightGrid = 2;
+  List<CharacterToken> tokensList = [];
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: AuthBackgroundContainer(
         child: Center(
@@ -43,6 +51,14 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
+                      isMap = snapshot.data?['is_map'] ?? false;
+                      mapWidthGrid = snapshot.data?['map_width_grid'] ?? 2;
+                      mapHeightGrid = snapshot.data?['map_height_grid'] ?? 2;
+                      tokensList = [];
+                      for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
+                        tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
+                      }
+
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
@@ -53,11 +69,12 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                             )
                             .snapshots();
                       }
+
                       return SingleChildScrollView(
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
                               child: Column(
                                 children: [
                                   GoBackTitleRow(
@@ -87,10 +104,67 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                   ),
                                   const DefaultDivider(),
                                   const SizedBox(height: 12),
-                                  ScenePictureInGame(
-                                    pathToPicture: snapshot.data?['game_path_to_picture'],
-                                    width: MediaQuery.of(context).size.width - 32,
-                                    height: MediaQuery.of(context).size.width - 32,
+                                  SizedBox(
+                                    width: screenWidth - 32,
+                                    height: screenWidth - 32,
+                                    child: Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth - 32,
+                                          height: screenWidth - 32,
+                                          child: ScenePictureInGame(
+                                            pathToPicture: snapshot.data?['game_path_to_picture'],
+                                            width: screenWidth - 32,
+                                            height: screenWidth - 32,
+                                          ),
+                                        ),
+                                        isMap
+                                            ? ListView.builder(
+                                                itemCount: mapHeightGrid,
+                                                scrollDirection: Axis.vertical,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                padding: EdgeInsets.zero,
+                                                itemBuilder: (context, widthIndex) {
+                                                  return SizedBox(
+                                                    height: (screenWidth - 32) / mapHeightGrid,
+                                                    child: ListView.builder(
+                                                      itemCount: mapWidthGrid,
+                                                      scrollDirection: Axis.horizontal,
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      padding: EdgeInsets.zero,
+                                                      itemBuilder: (context, heightIndex) {
+                                                        int? indexOnLocalTokensList;
+                                                        for (var i = 0; i < tokensList.length; i++) {
+                                                          if (tokensList[i].width == widthIndex && tokensList[i].height == heightIndex) {
+                                                            indexOnLocalTokensList = i;
+                                                          }
+                                                        }
+                                                        return Container(
+                                                          width: (screenWidth - 32) / mapWidthGrid,
+                                                          height: (screenWidth - 32) / mapHeightGrid,
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.transparent,
+                                                            border: Border.all(
+                                                              color: AppColors.white.withOpacity(0.5),
+                                                            ),
+                                                          ),
+                                                          child: indexOnLocalTokensList != null
+                                                              ? SizedBox(
+                                                                  width: (screenWidth - 32) / mapWidthGrid / 2,
+                                                                  child: CharacterPicture(
+                                                                    pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
+                                                                  ),
+                                                                )
+                                                              : const SizedBox(),
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : const SizedBox(),
+                                      ],
+                                    ),
                                   ),
                                   const SizedBox(height: 20),
                                   Align(

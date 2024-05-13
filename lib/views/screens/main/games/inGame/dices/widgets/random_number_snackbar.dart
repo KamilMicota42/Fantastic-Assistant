@@ -7,16 +7,10 @@ import '../../../../../../../utils/const/app_colors.dart';
 import '../../../../../../../widgets/buttons/default_button.dart';
 
 void showRandomNumberRoll(BuildContext context, List<AnimatedText> randoms, String diceName) async {
-  context.mounted
-      ? showDialog(
-          context: context,
-          builder: (BuildContext context) => _randomNumberRollPopup(
-            context,
-            randoms,
-            diceName,
-          ),
-        )
-      : null;
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => _randomNumberRollPopup(context, randoms, diceName),
+  );
 }
 
 Widget _randomNumberRollPopup(BuildContext context, final List<AnimatedText> randoms, String diceName) {

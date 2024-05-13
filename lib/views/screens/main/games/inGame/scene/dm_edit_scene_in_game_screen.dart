@@ -44,6 +44,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
         'friends',
         arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
       );
+
   List<dynamic> listOfPlayersId = [];
   bool initBuild = true;
   bool isMap = false;
@@ -51,6 +52,11 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   TextEditingController mapHeightGrid = TextEditingController(text: "2");
   CharacterToken? currCharacterToken;
   List<CharacterToken> tokensList = [];
+
+  final dmCharacters = FirebaseFirestore.instance
+      .collection('characters')
+      .where('account_id', isEqualTo: getIt<CurrentUserAdditionalData>().state?.accountId)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -89,15 +95,15 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                             .snapshots();
                         if (snapshot.data?['players_id'].isNotEmpty && initBuild) {
                           listOfPlayersId = snapshot.data?['players_id'];
-                          initBuild = false;
                         }
                       }
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: Column(
+                      initBuild = false;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Column(
                                 children: [
                                   GoBackTitleRow(
                                     screenTitle: "SCENE",
@@ -303,7 +309,8 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                                   ? SizedBox(
                                                                       width: ((screenWidth - 32) / int.parse(mapWidthGrid.text) / 2),
                                                                       child: CharacterPicture(
-                                                                          pathToPicture: tokensList[indexOnLocalTokensList].characterPicture),
+                                                                        pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
+                                                                      ),
                                                                     )
                                                                   : const SizedBox(),
                                                             ),
@@ -318,22 +325,19 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
-                                  const TitleLeft(text: 'Characters'),
-                                  const DefaultDivider(),
-                                  const SizedBox(height: 6),
                                 ],
                               ),
-                            ),
-                            (snapshot.data?['characters_id'].isNotEmpty)
-                                ? StreamBuilder(
-                                    stream: characters,
-                                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshotCharacters) {
-                                      if (streamSnapshotCharacters.hasData) {
-                                        if (streamSnapshotCharacters.data!.docs.isNotEmpty) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                                            child: ListView.builder(
+                              const SizedBox(height: 20),
+                              const TitleLeft(text: 'Characters'),
+                              const DefaultDivider(),
+                              const SizedBox(height: 6),
+                              (snapshot.data?['characters_id'].isNotEmpty)
+                                  ? StreamBuilder(
+                                      stream: characters,
+                                      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshotCharacters) {
+                                        if (streamSnapshotCharacters.hasData) {
+                                          if (streamSnapshotCharacters.data!.docs.isNotEmpty) {
+                                            return ListView.builder(
                                               itemCount: streamSnapshotCharacters.data!.docs.length,
                                               shrinkWrap: true,
                                               padding: EdgeInsets.zero,
@@ -412,127 +416,185 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                   ),
                                                 );
                                               },
-                                            ),
-                                          );
+                                            );
+                                          }
                                         }
-                                      }
-                                      return const SizedBox();
-                                    },
-                                  )
-                                : Center(
-                                    child: Text(
-                                      "No characters yet",
-                                      style: DefaultTextTheme.titilliumWebRegular16(context),
+                                        return const SizedBox();
+                                      },
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        "No characters yet",
+                                        style: DefaultTextTheme.titilliumWebRegular16(context),
+                                      ),
                                     ),
-                                  ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 20),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 17),
-                                    child: TitleLeft(text: 'Invite friends'),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 17),
-                                    child: DefaultDivider(),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
-                                    bloc: getIt<CurrentUserAdditionalData>(),
-                                    builder: (context, state) {
-                                      return StreamBuilder(
-                                        stream: friends.snapshots(),
-                                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                                          if (streamSnapshot.hasData) {
-                                            if (streamSnapshot.data!.docs.isEmpty || streamSnapshot.data?.docs.length == null) {
-                                              return Center(
-                                                child: Text(
-                                                  "No friends yet",
-                                                  style: DefaultTextTheme.titilliumWebRegular16(context),
-                                                ),
-                                              );
-                                            }
-                                            return ListView.builder(
-                                              padding: const EdgeInsets.only(bottom: 200),
-                                              shrinkWrap: true,
-                                              itemCount: streamSnapshot.data!.docs.length,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                                                return Card(
-                                                  elevation: 5,
-                                                  color: AppColors.darkerGrey.withOpacity(0.5),
-                                                  child: SizedBox(
-                                                    height: 100,
-                                                    child: Row(
-                                                      children: [
-                                                        const Padding(
-                                                          padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                              const SizedBox(height: 20),
+                              const TitleLeft(text: 'Your characters'),
+                              const DefaultDivider(),
+                              const SizedBox(height: 6),
+                              StreamBuilder(
+                                stream: dmCharacters,
+                                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshotCharacters) {
+                                  if (streamSnapshotCharacters.hasData) {
+                                    if (streamSnapshotCharacters.data!.docs.isNotEmpty) {
+                                      return ListView.builder(
+                                        itemCount: streamSnapshotCharacters.data!.docs.length,
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.zero,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final DocumentSnapshot documentSnapshotCharacter = streamSnapshotCharacters.data!.docs[index];
+                                          return SizedBox(
+                                            height: 100,
+                                            child: Card(
+                                              elevation: 5,
+                                              color: AppColors.darkerGrey.withOpacity(0.5),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: InkWell(
+                                                      customBorder: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(6),
+                                                      ),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(6),
                                                           child: SizedBox(
                                                             height: 100,
                                                             child: CharacterPicture(
-                                                              pathToPicture: null,
+                                                              pathToPicture: documentSnapshotCharacter['character_path_to_picture'],
                                                             ),
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              Text(
-                                                                documentSnapshot['account_display_name'],
-                                                                style: DefaultTextTheme.titilliumWebBold16(context),
-                                                              ),
-                                                              Text(
-                                                                documentSnapshot['account_email'],
-                                                                style: DefaultTextTheme.titilliumWebRegular13(context),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(right: 6, top: 6, bottom: 6),
-                                                          child: !listOfPlayersId.contains(documentSnapshot.id)
-                                                              ? IconButton(
-                                                                  onPressed: () {
-                                                                    listOfPlayersId.add(documentSnapshot.id);
-                                                                    setState(() {});
-                                                                  },
-                                                                  icon: const Icon(
-                                                                    Icons.add_sharp,
-                                                                    color: AppColors.semiWhite,
-                                                                  ),
-                                                                )
-                                                              : IconButton(
-                                                                  onPressed: () {
-                                                                    listOfPlayersId.remove(documentSnapshot.id);
-                                                                    setState(() {});
-                                                                  },
-                                                                  icon: const Icon(
-                                                                    Icons.remove_sharp,
-                                                                    color: AppColors.semiWhite,
-                                                                  ),
-                                                                ),
-                                                        ),
-                                                      ],
+                                                      ),
+                                                      onTap: () {
+                                                        currCharacterToken = CharacterToken(
+                                                          characterId: documentSnapshotCharacter.id,
+                                                          characterPicture: documentSnapshotCharacter['character_path_to_picture'],
+                                                        );
+                                                      },
                                                     ),
                                                   ),
-                                                );
-                                              },
-                                            );
-                                          }
-                                          return const CircularProgressIndicator();
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      documentSnapshotCharacter['character_name'],
+                                                      textAlign: TextAlign.center,
+                                                      style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
+                                                        color: AppColors.semiWhite,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Expanded(flex: 1, child: SizedBox()),
+                                                ],
+                                              ),
+                                            ),
+                                          );
                                         },
                                       );
-                                    },
-                                  ),
-                                ],
+                                    }
+                                  }
+                                  return const SizedBox();
+                                },
                               ),
-                            ),
-                            const SizedBox(height: 120),
-                          ],
+                              const SizedBox(height: 20),
+                              const TitleLeft(text: 'Invite friends'),
+                              const DefaultDivider(),
+                              const SizedBox(height: 6),
+                              BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
+                                bloc: getIt<CurrentUserAdditionalData>(),
+                                builder: (context, state) {
+                                  return StreamBuilder(
+                                    stream: friends.snapshots(),
+                                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                                      if (streamSnapshot.hasData) {
+                                        if (streamSnapshot.data!.docs.isEmpty || streamSnapshot.data?.docs.length == null) {
+                                          return Center(
+                                            child: Text(
+                                              "No friends yet",
+                                              style: DefaultTextTheme.titilliumWebRegular16(context),
+                                            ),
+                                          );
+                                        }
+                                        return ListView.builder(
+                                          padding: const EdgeInsets.only(bottom: 200),
+                                          shrinkWrap: true,
+                                          itemCount: streamSnapshot.data!.docs.length,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                            final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                                            return Card(
+                                              elevation: 5,
+                                              color: AppColors.darkerGrey.withOpacity(0.5),
+                                              child: SizedBox(
+                                                height: 100,
+                                                child: Row(
+                                                  children: [
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                                                      child: SizedBox(
+                                                        height: 100,
+                                                        child: CharacterPicture(
+                                                          pathToPicture: null,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            documentSnapshot['account_display_name'],
+                                                            style: DefaultTextTheme.titilliumWebBold16(context),
+                                                          ),
+                                                          Text(
+                                                            documentSnapshot['account_email'],
+                                                            style: DefaultTextTheme.titilliumWebRegular13(context),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(right: 6, top: 6, bottom: 6),
+                                                      child: !listOfPlayersId.contains(documentSnapshot.id)
+                                                          ? IconButton(
+                                                              onPressed: () {
+                                                                listOfPlayersId.add(documentSnapshot.id);
+                                                                setState(() {});
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.add_sharp,
+                                                                color: AppColors.semiWhite,
+                                                              ),
+                                                            )
+                                                          : IconButton(
+                                                              onPressed: () {
+                                                                listOfPlayersId.remove(documentSnapshot.id);
+                                                                setState(() {});
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.remove_sharp,
+                                                                color: AppColors.semiWhite,
+                                                              ),
+                                                            ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                      return const CircularProgressIndicator();
+                                    },
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 120),
+                            ],
+                          ),
                         ),
                       );
                     }
