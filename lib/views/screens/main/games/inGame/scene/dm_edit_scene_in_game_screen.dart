@@ -354,6 +354,12 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         Expanded(
                                                           flex: 1,
                                                           child: InkWell(
+                                                            onTap: () {
+                                                              currCharacterToken = CharacterToken(
+                                                                characterId: documentSnapshotCharacter.id,
+                                                                characterPicture: documentSnapshotCharacter['character_path_to_picture'],
+                                                              );
+                                                            },
                                                             customBorder: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius.circular(6),
                                                             ),
@@ -369,12 +375,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                                 ),
                                                               ),
                                                             ),
-                                                            onTap: () {
-                                                              currCharacterToken = CharacterToken(
-                                                                characterId: documentSnapshotCharacter.id,
-                                                                characterPicture: documentSnapshotCharacter['character_path_to_picture'],
-                                                              );
-                                                            },
                                                           ),
                                                         ),
                                                         Expanded(

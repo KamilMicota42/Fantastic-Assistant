@@ -172,4 +172,22 @@ class GamesApi {
       showSnackBar('Game name can not be empty');
     }
   }
+
+  Future<void> editTokensOnBoard(
+    String gameId,
+    List<String> listOfTokensInJson,
+  ) async {
+    try {
+      await _games.doc(gameId).update(
+        {
+          'tokens_on_map': listOfTokensInJson,
+        },
+      );
+
+      showSnackBar('Successfully updated game');
+    } catch (e) {
+      debugPrint(e.toString());
+      showSnackBar(e.toString());
+    }
+  }
 }
