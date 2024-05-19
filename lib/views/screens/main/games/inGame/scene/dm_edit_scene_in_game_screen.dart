@@ -328,7 +328,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              const TitleLeft(text: 'Characters'),
+                              const TitleLeft(text: 'Players characters'),
                               const DefaultDivider(),
                               const SizedBox(height: 6),
                               (snapshot.data?['characters_id'].isNotEmpty)
