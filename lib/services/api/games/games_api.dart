@@ -34,6 +34,10 @@ class GamesApi {
             'players_id': otherPlayers,
             'characters_id': [],
             'dice_history': {},
+            'is_map': false,
+            'map_width_grid': 2,
+            'map_height_grid': 2,
+            'tokens_on_map': [],
           },
         );
         if (gamePicture != null) {
@@ -133,7 +137,7 @@ class GamesApi {
     String gameName,
     List<dynamic> charactersToRemove,
     List<dynamic> currentCharacters,
-    List<dynamic> currentPlayes,
+    List<dynamic> currentPlayers,
     bool isMap,
     int mapWidthGrid,
     int mapHeightGrid,
@@ -148,7 +152,7 @@ class GamesApi {
           {
             'game_name': gameName,
             'characters_id': currentCharacters,
-            'players_id': currentPlayes,
+            'players_id': currentPlayers,
             'is_map': isMap,
             'map_width_grid': mapWidthGrid,
             'map_height_grid': mapHeightGrid,

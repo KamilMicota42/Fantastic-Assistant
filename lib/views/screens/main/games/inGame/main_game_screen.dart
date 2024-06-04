@@ -21,8 +21,7 @@ class _MainGameScreenState extends State<MainGameScreen> {
     return AutoTabsRouter(
       routes: [
         const SceneInGameRoute(),
-        getIt<CurrentUserAdditionalData>().state?.accountId ==
-                getIt<CurrentGameCubit>().state?.dmId
+        getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId
             ? const DmCharactersRoute()
             : const CharacterInGameRoute(),
         const DicesInGameRoute(),
@@ -48,10 +47,7 @@ class _MainGameScreenState extends State<MainGameScreen> {
               ),
               BottomNavigationBarItem(
                 icon: const Icon(Icons.account_circle_sharp),
-                label: getIt<CurrentUserAdditionalData>().state?.accountId ==
-                        getIt<CurrentGameCubit>().state?.dmId
-                    ? 'Characters'
-                    : 'Character',
+                label: getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId ? 'Characters' : 'Character',
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.casino_sharp),

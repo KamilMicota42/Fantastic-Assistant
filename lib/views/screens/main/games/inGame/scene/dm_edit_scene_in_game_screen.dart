@@ -93,10 +93,8 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                               whereIn: snapshot.data?['characters_id'],
                             )
                             .snapshots();
-                        if (snapshot.data?['players_id'].isNotEmpty && initBuild) {
-                          listOfPlayersId = snapshot.data?['players_id'];
-                        }
                       }
+                      listOfPlayersId = snapshot.data?['players_id'];
                       initBuild = false;
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -196,7 +194,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         throw Exception();
                                                       }
                                                       mapWidthGrid.text = int.parse(mapWidth).toString();
-                                                      listOfPlayersId = [];
+                                                      tokensList = [];
                                                       setState(() {});
                                                     } catch (e) {
                                                       showSnackBar("Value invalid");
@@ -223,7 +221,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         throw Exception();
                                                       }
                                                       mapHeightGrid.text = int.parse(mapHeight).toString();
-                                                      listOfPlayersId = [];
+                                                      tokensList = [];
                                                       setState(() {});
                                                     } catch (e) {
                                                       showSnackBar("Value invalid");

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
+import 'package:fantastic_assistant/views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
@@ -19,7 +20,9 @@ import '../../../../../../widgets/buttons/go_back_title_row.dart';
 
 @RoutePage()
 class SceneInGameScreen extends StatefulWidget {
-  const SceneInGameScreen({super.key});
+  const SceneInGameScreen({
+    super.key,
+  });
 
   @override
   State<SceneInGameScreen> createState() => _SceneInGameScreenState();
@@ -28,7 +31,6 @@ class SceneInGameScreen extends StatefulWidget {
 class _SceneInGameScreenState extends State<SceneInGameScreen> {
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
-  bool isDm = false;
   bool initBuild = true;
   bool isMap = false;
   int mapWidthGrid = 2;
@@ -54,15 +56,13 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      if (initBuild) {
-                        isMap = snapshot.data?['is_map'] ?? false;
-                        mapWidthGrid = snapshot.data?['map_width_grid'] ?? 2;
-                        mapHeightGrid = snapshot.data?['map_height_grid'] ?? 2;
-                        for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
-                          tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
-                        }
+                      isMap = snapshot.data?['is_map'] ?? false;
+                      mapWidthGrid = snapshot.data?['map_width_grid'] ?? 2;
+                      mapHeightGrid = snapshot.data?['map_height_grid'] ?? 2;
+                      tokensList = [];
+                      for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
+                        tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
                       }
-
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
@@ -73,7 +73,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                             )
                             .snapshots();
                       }
-
                       return SingleChildScrollView(
                         child: Column(
                           children: [
@@ -87,7 +86,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                     popFunction: () {
                                       getIt<AppRouter>().maybePop();
                                     },
-                                    rightSideWidget: isDm
+                                    rightSideWidget: snapshot.data['dm_id'] == getIt<CurrentUserAdditionalData>().state?.accountId
                                         ? IconButton(
                                             onPressed: () {
                                               getIt<AppRouter>().navigate(const DmEditSceneInGameRoute());

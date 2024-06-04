@@ -33,11 +33,10 @@ class _EditGameScreenState extends State<EditGameScreen> {
   File? pictureValue;
   TextEditingController gametableNameController = TextEditingController();
 
-  final friends =
-      FirebaseFirestore.instance.collection('userAdditionalData').where(
-            'friends',
-            arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
-          );
+  final friends = FirebaseFirestore.instance.collection('userAdditionalData').where(
+        'friends',
+        arrayContains: getIt<CurrentUserAdditionalData>().state?.accountId,
+      );
 
   List<String> listOfInvitedFriends = [];
 
@@ -62,10 +61,7 @@ class _EditGameScreenState extends State<EditGameScreen> {
                         },
                         rightSideWidget: IconButton(
                           onPressed: () {
-                            getIt<GamesApi>().createGame(
-                                pictureValue,
-                                gametableNameController.text,
-                                listOfInvitedFriends);
+                            getIt<GamesApi>().createGame(pictureValue, gametableNameController.text, listOfInvitedFriends);
                             getIt<AppRouter>().navigate(const GamesRoute());
                           },
                           icon: const Icon(
@@ -103,48 +99,39 @@ class _EditGameScreenState extends State<EditGameScreen> {
                       const TitleLeft(text: 'Invite friends'),
                       const DefaultDivider(),
                       const SizedBox(height: 12),
-                      BlocBuilder<CurrentUserAdditionalData,
-                          UserAdditionalData?>(
+                      BlocBuilder<CurrentUserAdditionalData, UserAdditionalData?>(
                         bloc: getIt<CurrentUserAdditionalData>(),
                         builder: (context, state) {
                           return StreamBuilder(
                             stream: friends.snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                               if (streamSnapshot.hasData) {
-                                if (streamSnapshot.data!.docs.isEmpty ||
-                                    streamSnapshot.data?.docs.length == null) {
+                                if (streamSnapshot.data!.docs.isEmpty || streamSnapshot.data?.docs.length == null) {
                                   return Center(
                                     child: Text(
                                       "No friends yet",
-                                      style: DefaultTextTheme
-                                          .titilliumWebRegular16(context),
+                                      style: DefaultTextTheme.titilliumWebRegular16(context),
                                     ),
                                   );
                                 }
                                 return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 0),
                                   child: ListView.builder(
                                     padding: const EdgeInsets.only(bottom: 200),
                                     shrinkWrap: true,
                                     itemCount: streamSnapshot.data!.docs.length,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      final DocumentSnapshot documentSnapshot =
-                                          streamSnapshot.data!.docs[index];
+                                      final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                       return Card(
                                         elevation: 5,
-                                        color: AppColors.darkerGrey
-                                            .withOpacity(0.5),
+                                        color: AppColors.darkerGrey.withOpacity(0.5),
                                         child: SizedBox(
                                           height: 100,
                                           child: Row(
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 6, top: 6, bottom: 6),
+                                                padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
                                                 child: SizedBox(
                                                   height: 100,
                                                   child: CharacterPicture(
@@ -154,60 +141,40 @@ class _EditGameScreenState extends State<EditGameScreen> {
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      documentSnapshot[
-                                                          'account_display_name'],
-                                                      style: DefaultTextTheme
-                                                          .titilliumWebBold16(
-                                                              context),
+                                                      documentSnapshot['account_display_name'],
+                                                      style: DefaultTextTheme.titilliumWebBold16(context),
                                                     ),
                                                     Text(
-                                                      documentSnapshot[
-                                                          'account_email'],
-                                                      style: DefaultTextTheme
-                                                          .titilliumWebRegular13(
-                                                              context),
+                                                      documentSnapshot['account_email'],
+                                                      style: DefaultTextTheme.titilliumWebRegular13(context),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 6,
-                                                    top: 6,
-                                                    bottom: 6),
-                                                child: !listOfInvitedFriends
-                                                        .contains(
-                                                            documentSnapshot.id)
+                                                padding: const EdgeInsets.only(right: 6, top: 6, bottom: 6),
+                                                child: !listOfInvitedFriends.contains(documentSnapshot.id)
                                                     ? IconButton(
                                                         onPressed: () {
-                                                          listOfInvitedFriends
-                                                              .add(
-                                                                  documentSnapshot
-                                                                      .id);
+                                                          listOfInvitedFriends.add(documentSnapshot.id);
                                                           setState(() {});
                                                         },
                                                         icon: const Icon(
                                                           Icons.add_sharp,
-                                                          color: AppColors
-                                                              .semiWhite,
+                                                          color: AppColors.semiWhite,
                                                         ),
                                                       )
                                                     : IconButton(
                                                         onPressed: () {
-                                                          listOfInvitedFriends
-                                                              .remove(
-                                                                  documentSnapshot
-                                                                      .id);
+                                                          listOfInvitedFriends.remove(documentSnapshot.id);
                                                           setState(() {});
                                                         },
                                                         icon: const Icon(
                                                           Icons.remove_sharp,
-                                                          color: AppColors
-                                                              .semiWhite,
+                                                          color: AppColors.semiWhite,
                                                         ),
                                                       ),
                                               ),

@@ -435,7 +435,7 @@ class _CharacterInGameScreenState extends State<CharacterInGameScreen> {
                                                   mainIndex = index;
                                                   setState(() {});
                                                 },
-                                                style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+                                                style: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                                                 child: Text(
                                                   mainTabs[index],
                                                   style: mainIndex == index

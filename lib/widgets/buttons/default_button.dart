@@ -42,12 +42,10 @@ class _DefaultButtonState extends State<DefaultButton> {
       ),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: const MaterialStatePropertyAll(AppColors.black),
-          shadowColor: const MaterialStatePropertyAll(AppColors.greenNeonLight),
-          surfaceTintColor:
-              const MaterialStatePropertyAll(AppColors.greenNeonLight),
-          overlayColor:
-              MaterialStatePropertyAll(AppColors.greenNeon.withOpacity(0.5)),
+          backgroundColor: const WidgetStatePropertyAll(AppColors.black),
+          shadowColor: const WidgetStatePropertyAll(AppColors.greenNeonLight),
+          surfaceTintColor: const WidgetStatePropertyAll(AppColors.greenNeonLight),
+          overlayColor: WidgetStatePropertyAll(AppColors.greenNeon.withOpacity(0.5)),
         ),
         onPressed: () {
           widget.function();
@@ -57,9 +55,7 @@ class _DefaultButtonState extends State<DefaultButton> {
           children: [
             Text(
               widget.text,
-              style: widget.textStyle ??
-                  DefaultTextTheme.titilliumWebBold16(context)!
-                      .copyWith(color: AppColors.white),
+              style: widget.textStyle ?? DefaultTextTheme.titilliumWebBold16(context)!.copyWith(color: AppColors.white),
             ),
             widget.icon != null
                 ? Icon(

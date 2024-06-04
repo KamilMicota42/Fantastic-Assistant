@@ -23,15 +23,15 @@ class SettingRowWithCounter extends StatelessWidget {
         onPressed: () {
           onTap();
         },
-        style: ButtonStyle(
-          padding: const MaterialStatePropertyAll(
+        style: const ButtonStyle(
+          padding: WidgetStatePropertyAll(
             EdgeInsets.zero,
           ),
-          overlayColor: const MaterialStatePropertyAll(
+          overlayColor: WidgetStatePropertyAll(
             AppColors.semiWhite,
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            const RoundedRectangleBorder(
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),

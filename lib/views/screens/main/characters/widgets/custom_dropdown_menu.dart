@@ -42,13 +42,12 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
                 },
               );
             },
-            dropdownMenuEntries:
-                widget.listItem.map<DropdownMenuEntry<String>>((String value) {
+            dropdownMenuEntries: widget.listItem.map<DropdownMenuEntry<String>>((String value) {
               return DropdownMenuEntry<String>(
                 value: value,
                 label: value,
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(AppColors.white),
+                  backgroundColor: WidgetStatePropertyAll(AppColors.white),
                 ),
               );
             }).toList(),

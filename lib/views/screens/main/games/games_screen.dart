@@ -44,23 +44,20 @@ class _GamesScreenState extends State<GamesScreen> {
                     const TitleRow(screenTitle: 'GAMES'),
                     StreamBuilder(
                       stream: _games.snapshots(),
-                      builder: (context,
-                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
                           return Expanded(
                             child: ListView.builder(
                               padding: const EdgeInsets.only(bottom: 200),
                               itemCount: streamSnapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                final DocumentSnapshot documentSnapshot =
-                                    streamSnapshot.data!.docs[index];
+                                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                                 return InkWell(
                                   child: SizedBox(
                                     height: 100,
                                     child: Card(
                                       elevation: 5,
-                                      color:
-                                          AppColors.darkerGrey.withOpacity(0.5),
+                                      color: AppColors.darkerGrey.withOpacity(0.5),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -70,8 +67,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                               child: SizedBox(
                                                 height: 100,
                                                 child: ScenePicture(
-                                                  pathToPicture: documentSnapshot[
-                                                      'game_path_to_picture'],
+                                                  pathToPicture: documentSnapshot['game_path_to_picture'],
                                                 ),
                                               ),
                                             ),
@@ -81,29 +77,20 @@ class _GamesScreenState extends State<GamesScreen> {
                                             child: Text(
                                               documentSnapshot['game_name'],
                                               textAlign: TextAlign.center,
-                                              style: DefaultTextTheme
-                                                      .titilliumWebBold20(
-                                                          context)!
-                                                  .copyWith(
+                                              style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(
                                                 color: AppColors.semiWhite,
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
-                                              flex: 1, child: SizedBox()),
+                                          const Expanded(flex: 1, child: SizedBox()),
                                         ],
                                       ),
                                     ),
                                   ),
                                   onTap: () async {
-                                    await getIt<GamesApi>()
-                                        .setGameIntoCubits(documentSnapshot.id);
+                                    await getIt<GamesApi>().setGameIntoCubits(documentSnapshot.id);
                                     getIt<AppRouter>().navigate(
-                                      JoinGameRoute(
-                                          isUserDm: documentSnapshot['dm_id'] ==
-                                              getIt<CurrentUserAdditionalData>()
-                                                  .state
-                                                  ?.accountId),
+                                      JoinGameRoute(isUserDm: documentSnapshot['dm_id'] == getIt<CurrentUserAdditionalData>().state?.accountId),
                                     );
                                   },
                                 );
