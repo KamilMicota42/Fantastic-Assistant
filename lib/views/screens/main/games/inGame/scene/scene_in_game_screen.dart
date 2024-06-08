@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/settings/routes/app_router.gr.dart';
 import 'package:fantastic_assistant/views/screens/inital_loading/cubits/firebase_auth_current_user_uid.dart';
-import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character_id.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/inGame/scene/widgets/scene_picture_in_game.dart';
@@ -20,9 +19,7 @@ import '../../../../../../widgets/buttons/go_back_title_row.dart';
 
 @RoutePage()
 class SceneInGameScreen extends StatefulWidget {
-  const SceneInGameScreen({
-    super.key,
-  });
+  const SceneInGameScreen({super.key});
 
   @override
   State<SceneInGameScreen> createState() => _SceneInGameScreenState();
@@ -67,10 +64,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
                             .collection('characters')
-                            .where(
-                              FieldPath.documentId,
-                              whereIn: snapshot.data?['characters_id'],
-                            )
+                            .where(FieldPath.documentId, whereIn: snapshot.data?['characters_id'])
                             .snapshots();
                       }
                       return SingleChildScrollView(
@@ -162,42 +156,23 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                               indexOnLocalTokensList = i;
                                                             }
                                                           }
-                                                          return InkWell(
-                                                            onTap: () {
-                                                              if (indexOnLocalTokensList != null) {
-                                                                tokensList.removeAt(indexOnLocalTokensList!);
-                                                              }
-                                                              if (currCharacterToken?.characterId != null) {
-                                                                currCharacterToken = CharacterToken(
-                                                                  width: widthIndex,
-                                                                  height: heightIndex,
-                                                                  characterId: currCharacterToken!.characterId,
-                                                                  characterPicture: currCharacterToken!.characterPicture,
-                                                                );
-                                                                tokensList.add(currCharacterToken!);
-                                                              }
-                                                              currCharacterToken = null;
-                                                              indexOnLocalTokensList = null;
-                                                              setState(() {});
-                                                            },
-                                                            child: Container(
-                                                              width: (screenWidth - 32) / mapWidthGrid,
-                                                              height: (screenWidth - 32) / mapHeightGrid,
-                                                              decoration: BoxDecoration(
-                                                                color: Colors.transparent,
-                                                                border: Border.all(
-                                                                  color: AppColors.white.withOpacity(0.5),
-                                                                ),
+                                                          return Container(
+                                                            width: (screenWidth - 32) / mapWidthGrid,
+                                                            height: (screenWidth - 32) / mapHeightGrid,
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.transparent,
+                                                              border: Border.all(
+                                                                color: AppColors.white.withOpacity(0.5),
                                                               ),
-                                                              child: indexOnLocalTokensList != null
-                                                                  ? SizedBox(
-                                                                      width: ((screenWidth - 32) / mapWidthGrid / 2),
-                                                                      child: CharacterPicture(
-                                                                        pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
-                                                                      ),
-                                                                    )
-                                                                  : const SizedBox(),
                                                             ),
+                                                            child: indexOnLocalTokensList != null
+                                                                ? SizedBox(
+                                                                    width: ((screenWidth - 32) / mapWidthGrid / 2),
+                                                                    child: CharacterPicture(
+                                                                      pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
+                                                                    ),
+                                                                  )
+                                                                : const SizedBox(),
                                                           );
                                                         },
                                                       ),
@@ -245,38 +220,16 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                     color: AppColors.darkerGrey.withOpacity(0.5),
                                                     child: Row(
                                                       children: [
-                                                        documentSnapshotCharacters.id == getIt<CurrentCharacterId>().state
-                                                            ? InkWell(
-                                                                onTap: () {
-                                                                  currCharacterToken = CharacterToken(
-                                                                    characterId: documentSnapshotCharacters.id,
-                                                                    characterPicture: documentSnapshotCharacters['character_path_to_picture'],
-                                                                  );
-                                                                },
-                                                                customBorder: RoundedRectangleBorder(
-                                                                  borderRadius: BorderRadius.circular(6),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.all(6),
-                                                                  child: SizedBox(
-                                                                    height: 100,
-                                                                    width: 100,
-                                                                    child: CharacterPicture(
-                                                                      pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            : Padding(
-                                                                padding: const EdgeInsets.all(6),
-                                                                child: SizedBox(
-                                                                  height: 100,
-                                                                  width: 100,
-                                                                  child: CharacterPicture(
-                                                                    pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
-                                                                  ),
-                                                                ),
-                                                              ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(6),
+                                                          child: SizedBox(
+                                                            height: 100,
+                                                            width: 100,
+                                                            child: CharacterPicture(
+                                                              pathToPicture: documentSnapshotCharacters['character_path_to_picture'],
+                                                            ),
+                                                          ),
+                                                        ),
                                                         Expanded(
                                                           flex: 1,
                                                           child: Text(

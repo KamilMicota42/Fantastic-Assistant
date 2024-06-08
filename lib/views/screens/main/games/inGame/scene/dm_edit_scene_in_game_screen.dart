@@ -75,6 +75,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
+                      Stream<QuerySnapshot<Object?>>? characters;
                       if (initBuild) {
                         gameNameController.text = snapshot.data?['game_name'] ?? '';
                         isMap = snapshot.data?['is_map'] ?? false;
@@ -83,18 +84,18 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
                           tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
                         }
+                        listOfPlayersId = snapshot.data?['players_id'];
+                        if (snapshot.data?['characters_id'].isNotEmpty) {
+                          characters = FirebaseFirestore.instance
+                              .collection('characters')
+                              .where(
+                                FieldPath.documentId,
+                                whereIn: snapshot.data?['characters_id'],
+                              )
+                              .snapshots();
+                        }
                       }
-                      Stream<QuerySnapshot<Object?>>? characters;
-                      if (snapshot.data?['characters_id'].isNotEmpty) {
-                        characters = FirebaseFirestore.instance
-                            .collection('characters')
-                            .where(
-                              FieldPath.documentId,
-                              whereIn: snapshot.data?['characters_id'],
-                            )
-                            .snapshots();
-                      }
-                      listOfPlayersId = snapshot.data?['players_id'];
+
                       initBuild = false;
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),

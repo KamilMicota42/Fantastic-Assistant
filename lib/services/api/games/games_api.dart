@@ -111,12 +111,13 @@ class GamesApi {
   Future<void> addRollToHistoryRoll(
     String gameId,
     String characterName,
+    String diceName,
     int roll,
   ) async {
     try {
       var gameDataInJson = await _games.doc(gameId).get();
       var diceHistory = GameModel.fromJson(jsonEncode(gameDataInJson.data()).toString()).diceHistory;
-      diceHistory![diceHistory.length.toString()] = [characterName, roll];
+      diceHistory![diceHistory.length.toString()] = [characterName, roll, diceName];
       await _games.doc(gameId).update(
         {
           'dice_history': diceHistory,

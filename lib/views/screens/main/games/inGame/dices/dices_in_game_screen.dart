@@ -5,7 +5,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantastic_assistant/services/api/games/games_api.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/cubits/current_character.dart';
-import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
 import 'package:fantastic_assistant/views/screens/main/games/inGame/dices/widgets/random_number_snackbar.dart';
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
@@ -17,7 +16,6 @@ import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
 import '../../../../../../utils/global_var/default_text_theme.dart';
 import '../../../../../../widgets/buttons/go_back_title_row.dart';
-import '../../../../inital_loading/cubits/firebase_auth_current_user_uid.dart';
 import 'widgets/dice_button.dart';
 
 @RoutePage()
@@ -208,10 +206,14 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                                                           overflow: TextOverflow.ellipsis,
                                                         ),
                                                       ),
-                                                      Text("${snapshot.data['dice_history']['$index'][1]}",
-                                                          style: DefaultTextTheme.titilliumWebBold16(
-                                                            context,
-                                                          )),
+                                                      Text(
+                                                        "${snapshot.data['dice_history']['$index'][2]}: ",
+                                                        style: DefaultTextTheme.titilliumWebRegular16(context),
+                                                      ),
+                                                      Text(
+                                                        "${snapshot.data['dice_history']['$index'][1]}",
+                                                        style: DefaultTextTheme.titilliumWebBold16(context),
+                                                      ),
                                                     ],
                                                   ),
                                                   const Divider()
@@ -251,9 +253,8 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
       await Future.delayed(const Duration(seconds: 2));
       await getIt<GamesApi>().addRollToHistoryRoll(
         getIt<CurrentGameId>().state!,
-        getIt<CurrentUserAdditionalData>().state?.accountId == getIt<CurrentGameCubit>().state?.dmId
-            ? 'DM'
-            : getIt<CurrentCharacterCubit>().state!.characterName!,
+        getIt<CurrentCharacterCubit>().state == null ? 'DM' : getIt<CurrentCharacterCubit>().state!.characterName!,
+        'D$dice',
         int.parse(randoms.last.text),
       );
       setState(() {});
