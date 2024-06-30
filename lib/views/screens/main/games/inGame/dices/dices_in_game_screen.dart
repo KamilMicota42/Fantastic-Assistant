@@ -186,7 +186,7 @@ class _DicesInGameScreenState extends State<DicesInGameScreen> {
                                       child: CircularProgressIndicator(),
                                     );
                                   } else {
-                                    return snapshot.data['dice_history'].length > 0
+                                    return snapshot.data['dice_history'].isNotEmpty
                                         ? ListView.builder(
                                             shrinkWrap: true,
                                             reverse: true,

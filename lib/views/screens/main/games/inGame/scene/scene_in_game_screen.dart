@@ -31,7 +31,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
   bool initBuild = true;
   bool isMap = false;
   int mapWidthGrid = 2;
-  int mapHeightGrid = 2;
 
   CharacterToken? currCharacterToken;
   List<CharacterToken> tokensList = [];
@@ -55,7 +54,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                     } else {
                       isMap = snapshot.data?['is_map'] ?? false;
                       mapWidthGrid = snapshot.data?['map_width_grid'] ?? 2;
-                      mapHeightGrid = snapshot.data?['map_height_grid'] ?? 2;
                       tokensList = [];
                       for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
                         tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
@@ -137,13 +135,13 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                           ),
                                           isMap
                                               ? ListView.builder(
-                                                  itemCount: mapHeightGrid,
+                                                  itemCount: mapWidthGrid,
                                                   scrollDirection: Axis.vertical,
                                                   physics: const NeverScrollableScrollPhysics(),
                                                   padding: EdgeInsets.zero,
                                                   itemBuilder: (context, widthIndex) {
                                                     return SizedBox(
-                                                      height: (screenWidth - 32) / mapHeightGrid,
+                                                      height: (screenWidth - 32) / mapWidthGrid,
                                                       child: ListView.builder(
                                                         itemCount: mapWidthGrid,
                                                         scrollDirection: Axis.horizontal,
@@ -158,7 +156,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                                           }
                                                           return Container(
                                                             width: (screenWidth - 32) / mapWidthGrid,
-                                                            height: (screenWidth - 32) / mapHeightGrid,
+                                                            height: (screenWidth - 32) / mapWidthGrid,
                                                             decoration: BoxDecoration(
                                                               color: Colors.transparent,
                                                               border: Border.all(

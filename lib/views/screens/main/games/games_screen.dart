@@ -73,7 +73,7 @@ class _GamesScreenState extends State<GamesScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               documentSnapshot['game_name'],
                                               textAlign: TextAlign.center,
@@ -82,7 +82,6 @@ class _GamesScreenState extends State<GamesScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(flex: 1, child: SizedBox()),
                                         ],
                                       ),
                                     ),

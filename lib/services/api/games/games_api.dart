@@ -36,7 +36,6 @@ class GamesApi {
             'dice_history': {},
             'is_map': false,
             'map_width_grid': 2,
-            'map_height_grid': 2,
             'tokens_on_map': [],
           },
         );
@@ -141,7 +140,6 @@ class GamesApi {
     List<dynamic> currentPlayers,
     bool isMap,
     int mapWidthGrid,
-    int mapHeightGrid,
     List<String> listOfTokensInJson,
   ) async {
     if (hasPictureChanged && gamePicture != null) {}
@@ -156,7 +154,6 @@ class GamesApi {
             'players_id': currentPlayers,
             'is_map': isMap,
             'map_width_grid': mapWidthGrid,
-            'map_height_grid': mapHeightGrid,
             'tokens_on_map': listOfTokensInJson,
           },
         );

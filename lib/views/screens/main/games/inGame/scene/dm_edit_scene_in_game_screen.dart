@@ -49,7 +49,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
   bool initBuild = true;
   bool isMap = false;
   TextEditingController mapWidthGrid = TextEditingController(text: "2");
-  TextEditingController mapHeightGrid = TextEditingController(text: "2");
   CharacterToken? currCharacterToken;
   List<CharacterToken> tokensList = [];
 
@@ -80,7 +79,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                         gameNameController.text = snapshot.data?['game_name'] ?? '';
                         isMap = snapshot.data?['is_map'] ?? false;
                         mapWidthGrid.text = snapshot.data?['map_width_grid'].toString() ?? "2";
-                        mapHeightGrid.text = snapshot.data?['map_height_grid'].toString() ?? "2";
                         for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
                           tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
                         }
@@ -129,7 +127,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           listOfPlayersId,
                                           isMap,
                                           int.parse(mapWidthGrid.text),
-                                          int.parse(mapHeightGrid.text),
                                           listOfTokensInJson,
                                         );
                                         getIt<AppRouter>().maybePop();
@@ -174,64 +171,35 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                     ),
                                   ),
                                   isMap
-                                      ? Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 24),
-                                              child: SizedBox(
-                                                width: 100,
-                                                child: DefaultTextFieldWLabel(
-                                                  labelText: "width",
-                                                  labelColor: AppColors.white,
-                                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
-                                                  keyboardType: TextInputType.number,
-                                                  textController: mapWidthGrid,
-                                                  onChanged: (mapWidth) {
-                                                    try {
-                                                      if (mapWidth.toString() == "" ||
-                                                          int.parse(mapWidth.toString()) > 32 ||
-                                                          int.parse(mapWidth.toString()) < 1) {
-                                                        throw Exception();
-                                                      }
-                                                      mapWidthGrid.text = int.parse(mapWidth).toString();
-                                                      tokensList = [];
-                                                      setState(() {});
-                                                    } catch (e) {
-                                                      showSnackBar("Value invalid");
+                                      ? Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 24),
+                                            child: SizedBox(
+                                              width: 100,
+                                              child: DefaultTextFieldWLabel(
+                                                labelText: "grid",
+                                                labelColor: AppColors.white,
+                                                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
+                                                keyboardType: TextInputType.number,
+                                                textController: mapWidthGrid,
+                                                onChanged: (mapWidth) {
+                                                  try {
+                                                    if (mapWidth.toString() == "" ||
+                                                        int.parse(mapWidth.toString()) > 32 ||
+                                                        int.parse(mapWidth.toString()) < 1) {
+                                                      throw Exception();
                                                     }
-                                                  },
-                                                ),
+                                                    mapWidthGrid.text = int.parse(mapWidth).toString();
+                                                    tokensList = [];
+                                                    setState(() {});
+                                                  } catch (e) {
+                                                    showSnackBar("Value invalid");
+                                                  }
+                                                },
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 12),
-                                              child: SizedBox(
-                                                width: 100,
-                                                child: DefaultTextFieldWLabel(
-                                                  labelText: "height",
-                                                  labelColor: AppColors.white,
-                                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
-                                                  keyboardType: TextInputType.number,
-                                                  textController: mapHeightGrid,
-                                                  onChanged: (mapHeight) {
-                                                    try {
-                                                      if (mapHeight.toString() == "" ||
-                                                          int.parse(mapHeight.toString()) > 32 ||
-                                                          int.parse(mapHeight.toString()) < 1) {
-                                                        throw Exception();
-                                                      }
-                                                      mapHeightGrid.text = int.parse(mapHeight).toString();
-                                                      tokensList = [];
-                                                      setState(() {});
-                                                    } catch (e) {
-                                                      showSnackBar("Value invalid");
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         )
                                       : const SizedBox(),
                                   const SizedBox(height: 12),
@@ -260,13 +228,13 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           ),
                                           isMap
                                               ? ListView.builder(
-                                                  itemCount: int.parse(mapHeightGrid.text),
+                                                  itemCount: int.parse(mapWidthGrid.text),
                                                   scrollDirection: Axis.vertical,
                                                   physics: const NeverScrollableScrollPhysics(),
                                                   padding: EdgeInsets.zero,
                                                   itemBuilder: (context, widthIndex) {
                                                     return SizedBox(
-                                                      height: (screenWidth - 32) / int.parse(mapHeightGrid.text),
+                                                      height: (screenWidth - 32) / int.parse(mapWidthGrid.text),
                                                       child: ListView.builder(
                                                         itemCount: int.parse(mapWidthGrid.text),
                                                         scrollDirection: Axis.horizontal,
@@ -297,7 +265,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                             },
                                                             child: Container(
                                                               width: (screenWidth - 32) / int.parse(mapWidthGrid.text),
-                                                              height: (screenWidth - 32) / int.parse(mapHeightGrid.text),
+                                                              height: (screenWidth - 32) / int.parse(mapWidthGrid.text),
                                                               decoration: BoxDecoration(
                                                                 color: Colors.transparent,
                                                                 border: Border.all(
