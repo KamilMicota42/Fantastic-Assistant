@@ -8,9 +8,6 @@ import 'package:fantastic_assistant/views/screens/main/games/inGame/scene/widget
 import 'package:fantastic_assistant/widgets/background/auth_background_container.dart';
 import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../models/character_token/character_token.dart';
-import '../../../../../../services/api/games/games_api.dart';
 import '../../../../../../settings/injection.dart';
 import '../../../../../../settings/routes/app_router.dart';
 import '../../../../../../utils/const/app_colors.dart';
@@ -29,11 +26,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
   var game = FirebaseFirestore.instance.collection('games').doc(getIt<CurrentGameId>().state).snapshots();
 
   bool initBuild = true;
-  bool isMap = false;
-  int mapWidthGrid = 2;
-
-  CharacterToken? currCharacterToken;
-  List<CharacterToken> tokensList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +44,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      isMap = snapshot.data?['is_map'] ?? false;
-                      mapWidthGrid = snapshot.data?['map_width_grid'] ?? 2;
-                      tokensList = [];
-                      for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
-                        tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
-                      }
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (snapshot.data?['characters_id'].isNotEmpty) {
                         characters = FirebaseFirestore.instance
@@ -93,16 +79,7 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                               Icons.save_sharp,
                                               color: AppColors.white,
                                             ),
-                                            onPressed: () {
-                                              List<String> listOfTokensInJson = [];
-                                              for (var token in tokensList) {
-                                                listOfTokensInJson.add(token.toJson());
-                                              }
-                                              getIt<GamesApi>().editTokensOnBoard(
-                                                getIt<CurrentGameId>().state!,
-                                                listOfTokensInJson,
-                                              );
-                                            },
+                                            onPressed: () {},
                                           ),
                                   ),
                                   Align(
@@ -133,51 +110,6 @@ class _SceneInGameScreenState extends State<SceneInGameScreen> {
                                               height: screenWidth - 32,
                                             ),
                                           ),
-                                          isMap
-                                              ? ListView.builder(
-                                                  itemCount: mapWidthGrid,
-                                                  scrollDirection: Axis.vertical,
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  padding: EdgeInsets.zero,
-                                                  itemBuilder: (context, widthIndex) {
-                                                    return SizedBox(
-                                                      height: (screenWidth - 32) / mapWidthGrid,
-                                                      child: ListView.builder(
-                                                        itemCount: mapWidthGrid,
-                                                        scrollDirection: Axis.horizontal,
-                                                        physics: const NeverScrollableScrollPhysics(),
-                                                        padding: EdgeInsets.zero,
-                                                        itemBuilder: (context, heightIndex) {
-                                                          int? indexOnLocalTokensList;
-                                                          for (var i = 0; i < tokensList.length; i++) {
-                                                            if (tokensList[i].width == widthIndex && tokensList[i].height == heightIndex) {
-                                                              indexOnLocalTokensList = i;
-                                                            }
-                                                          }
-                                                          return Container(
-                                                            width: (screenWidth - 32) / mapWidthGrid,
-                                                            height: (screenWidth - 32) / mapWidthGrid,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.transparent,
-                                                              border: Border.all(
-                                                                color: AppColors.white.withOpacity(0.5),
-                                                              ),
-                                                            ),
-                                                            child: indexOnLocalTokensList != null
-                                                                ? SizedBox(
-                                                                    width: ((screenWidth - 32) / mapWidthGrid / 2),
-                                                                    child: CharacterPicture(
-                                                                      pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
-                                                                    ),
-                                                                  )
-                                                                : const SizedBox(),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                              : const SizedBox(),
                                         ],
                                       ),
                                     ),

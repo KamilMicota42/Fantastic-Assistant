@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantastic_assistant/models/character_token/character_token.dart';
-import 'package:fantastic_assistant/utils/methods/show_snack_bar.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/character_picture.dart';
 import 'package:fantastic_assistant/views/screens/main/characters/widgets/title_left.dart';
 import 'package:fantastic_assistant/views/screens/main/games/cubits/current_game_id.dart';
@@ -11,7 +9,6 @@ import 'package:fantastic_assistant/widgets/background/auth_background_container
 import 'package:fantastic_assistant/widgets/input/default_text_field_w_label.dart';
 import 'package:fantastic_assistant/widgets/others/default_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../models/user/user_additional_data.dart';
@@ -47,10 +44,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
 
   List<dynamic> listOfPlayersId = [];
   bool initBuild = true;
-  bool isMap = false;
-  TextEditingController mapWidthGrid = TextEditingController(text: "2");
-  CharacterToken? currCharacterToken;
-  List<CharacterToken> tokensList = [];
 
   final dmCharacters = FirebaseFirestore.instance
       .collection('characters')
@@ -77,11 +70,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                       Stream<QuerySnapshot<Object?>>? characters;
                       if (initBuild) {
                         gameNameController.text = snapshot.data?['game_name'] ?? '';
-                        isMap = snapshot.data?['is_map'] ?? false;
-                        mapWidthGrid.text = snapshot.data?['map_width_grid'].toString() ?? "2";
-                        for (var i = 0; i < snapshot.data?['tokens_on_map'].length; i++) {
-                          tokensList.add(CharacterToken.fromJson(snapshot.data?['tokens_on_map'][i]));
-                        }
                         listOfPlayersId = snapshot.data?['players_id'];
                         if (snapshot.data?['characters_id'].isNotEmpty) {
                           characters = FirebaseFirestore.instance
@@ -113,10 +101,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                         color: AppColors.white,
                                       ),
                                       onPressed: () {
-                                        List<String> listOfTokensInJson = [];
-                                        for (var token in tokensList) {
-                                          listOfTokensInJson.add(token.toJson());
-                                        }
                                         getIt<GamesApi>().editGame(
                                           getIt<CurrentGameId>().state!,
                                           pictureValue,
@@ -125,9 +109,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           charactersToRemove,
                                           snapshot.data?['characters_id'],
                                           listOfPlayersId,
-                                          isMap,
-                                          int.parse(mapWidthGrid.text),
-                                          listOfTokensInJson,
                                         );
                                         getIt<AppRouter>().maybePop();
                                       },
@@ -150,58 +131,9 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                           'Board',
                                           style: DefaultTextTheme.titilliumWebBold20(context)!.copyWith(color: AppColors.greenWhite),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              isMap ? 'map' : 'image',
-                                              style: DefaultTextTheme.titilliumWebRegular16(context)!.copyWith(color: AppColors.white),
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Switch(
-                                              value: isMap,
-                                              onChanged: (value) {
-                                                isMap = value;
-                                                setState(() {});
-                                              },
-                                              activeColor: AppColors.greenWhite,
-                                            ),
-                                          ],
-                                        ),
                                       ],
                                     ),
                                   ),
-                                  isMap
-                                      ? Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 24),
-                                            child: SizedBox(
-                                              width: 100,
-                                              child: DefaultTextFieldWLabel(
-                                                labelText: "grid",
-                                                labelColor: AppColors.white,
-                                                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*'))],
-                                                keyboardType: TextInputType.number,
-                                                textController: mapWidthGrid,
-                                                onChanged: (mapWidth) {
-                                                  try {
-                                                    if (mapWidth.toString() == "" ||
-                                                        int.parse(mapWidth.toString()) > 32 ||
-                                                        int.parse(mapWidth.toString()) < 1) {
-                                                      throw Exception();
-                                                    }
-                                                    mapWidthGrid.text = int.parse(mapWidth).toString();
-                                                    tokensList = [];
-                                                    setState(() {});
-                                                  } catch (e) {
-                                                    showSnackBar("Value invalid");
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : const SizedBox(),
                                   const SizedBox(height: 12),
                                   InteractiveViewer(
                                     panEnabled: false,
@@ -226,68 +158,6 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                               initialImageUrl: snapshot.data?['game_path_to_picture'],
                                             ),
                                           ),
-                                          isMap
-                                              ? ListView.builder(
-                                                  itemCount: int.parse(mapWidthGrid.text),
-                                                  scrollDirection: Axis.vertical,
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  padding: EdgeInsets.zero,
-                                                  itemBuilder: (context, widthIndex) {
-                                                    return SizedBox(
-                                                      height: (screenWidth - 32) / int.parse(mapWidthGrid.text),
-                                                      child: ListView.builder(
-                                                        itemCount: int.parse(mapWidthGrid.text),
-                                                        scrollDirection: Axis.horizontal,
-                                                        physics: const NeverScrollableScrollPhysics(),
-                                                        padding: EdgeInsets.zero,
-                                                        itemBuilder: (context, heightIndex) {
-                                                          int? indexOnLocalTokensList;
-                                                          for (var i = 0; i < tokensList.length; i++) {
-                                                            if (tokensList[i].width == widthIndex && tokensList[i].height == heightIndex) {
-                                                              indexOnLocalTokensList = i;
-                                                            }
-                                                          }
-                                                          return InkWell(
-                                                            onTap: () {
-                                                              indexOnLocalTokensList != null ? tokensList.removeAt(indexOnLocalTokensList!) : null;
-                                                              if (currCharacterToken?.characterId != null) {
-                                                                currCharacterToken = CharacterToken(
-                                                                  width: widthIndex,
-                                                                  height: heightIndex,
-                                                                  characterId: currCharacterToken!.characterId,
-                                                                  characterPicture: currCharacterToken!.characterPicture,
-                                                                );
-                                                                tokensList.add(currCharacterToken!);
-                                                              }
-                                                              currCharacterToken = null;
-                                                              indexOnLocalTokensList = null;
-                                                              setState(() {});
-                                                            },
-                                                            child: Container(
-                                                              width: (screenWidth - 32) / int.parse(mapWidthGrid.text),
-                                                              height: (screenWidth - 32) / int.parse(mapWidthGrid.text),
-                                                              decoration: BoxDecoration(
-                                                                color: Colors.transparent,
-                                                                border: Border.all(
-                                                                  color: AppColors.white.withOpacity(0.5),
-                                                                ),
-                                                              ),
-                                                              child: indexOnLocalTokensList != null
-                                                                  ? SizedBox(
-                                                                      width: ((screenWidth - 32) / int.parse(mapWidthGrid.text) / 2),
-                                                                      child: CharacterPicture(
-                                                                        pathToPicture: tokensList[indexOnLocalTokensList].characterPicture,
-                                                                      ),
-                                                                    )
-                                                                  : const SizedBox(),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                              : const SizedBox(),
                                         ],
                                       ),
                                     ),
@@ -321,12 +191,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                         Expanded(
                                                           flex: 1,
                                                           child: InkWell(
-                                                            onTap: () {
-                                                              currCharacterToken = CharacterToken(
-                                                                characterId: documentSnapshotCharacter.id,
-                                                                characterPicture: documentSnapshotCharacter['character_path_to_picture'],
-                                                              );
-                                                            },
+                                                            onTap: () {},
                                                             customBorder: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius.circular(6),
                                                             ),
@@ -436,12 +301,7 @@ class _DmEditSceneInGameScreenState extends State<DmEditSceneInGameScreen> {
                                                           ),
                                                         ),
                                                       ),
-                                                      onTap: () {
-                                                        currCharacterToken = CharacterToken(
-                                                          characterId: documentSnapshotCharacter.id,
-                                                          characterPicture: documentSnapshotCharacter['character_path_to_picture'],
-                                                        );
-                                                      },
+                                                      onTap: () {},
                                                     ),
                                                   ),
                                                   Expanded(
