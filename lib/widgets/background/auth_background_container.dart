@@ -11,8 +11,7 @@ class AuthBackgroundContainer extends StatefulWidget {
   });
 
   @override
-  State<AuthBackgroundContainer> createState() =>
-      _AuthBackgroundContainerState();
+  State<AuthBackgroundContainer> createState() => _AuthBackgroundContainerState();
 }
 
 class _AuthBackgroundContainerState extends State<AuthBackgroundContainer> {
